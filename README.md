@@ -1,6 +1,6 @@
 # Skynet
 
-## Standards/Practices
+## Standards/Practices
 
 - All tickets are derived from a requirement in the product backlog
 
