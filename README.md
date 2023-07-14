@@ -4,6 +4,8 @@
 
 - All tickets are derived from a requirement in the product backlog
 
+- Tests for every ticket 
+
 - For every ticket with estimated effort >= 3 (or for a set of tickets with a combined effort >=3):
   - a new branch must be created, when done run tests, run formatter, submit a PR, one other person reviews
  
