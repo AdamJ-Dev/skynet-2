@@ -42,16 +42,15 @@ scrum master rotates every 2 days (cycle Adam, Harry, Selina, Kalyan, Ganesh)
 
 ### APIs
 
-Met Office DataPoint (Weather):
- - [register](https://register.metoffice.gov.uk/WaveRegistrationClient/public/newaccount.do?service=datapoint)
-  - [documentation](https://www.metoffice.gov.uk/services/data/datapoint/datapoint-documentation)
+Met Office DataPoint (Weather): https://www.metoffice.gov.uk/services/data/datapoint/datapoint-documentation
 
-Google Maps (Maps):
- - [documentation](https://developers.google.com/maps/documentation)
+Google Maps (Maps): https://developers.google.com/maps/documentation
 
- Textlocal (SMS):
-  - [register](https://textlocal.com/signup/)
-  - [documentation](https://api.txtlocal.com/docs/)
+Textlocal (SMS): https://api.txtlocal.com/docs/
+
+Skyscanner (Flight): https://developers.skyscanner.net/docs/intro
+
+Darwin (Rail): https://www.nationalrail.co.uk/developers/darwin-data-feeds/
 
 
 ### System Architecture
