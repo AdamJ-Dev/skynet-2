@@ -1,6 +1,7 @@
 # Skynet
 
-## Standards/Practices
+## Project
+### Standards/Practices
 
 - All tickets are derived from a requirement in the product backlog
 
@@ -11,20 +12,20 @@
 
 - Commit messages must observe the following convention: "[\<issue number\>] \<brief description of changes\>"
  
-## Scrum
+### Scrum
 
 2 sprints, Mon 3 - Tue 4, Wed 4 - Thur 5, (then presentation stuff)
 scrum master rotates every 2 days (cycle Adam, Harry, Selina, Kalyan, Ganesh)
 
 
-## Miscellanous
+### Miscellanous
 
 - Make notes (give examples) regarding how in our code we have:
   - given general consideration for OWASP.
   - "" code quality/principles/etc.
     
 
-## Meta Requirements 
+### Meta Requirements 
 - [ ] list of stakeholders 
 - [ ] formal requirements
 - [ ] design documentation (class diagrams, wire frames)
@@ -36,3 +37,18 @@ scrum master rotates every 2 days (cycle Adam, Harry, Selina, Kalyan, Ganesh)
 - [ ] future developments and extensibility of the application
 - [ ] scrum boards
 - [ ] retrospective and review boards
+
+## Documentation
+
+### APIs
+
+Met Office DataPoint (Weather):
+ - [register](https://register.metoffice.gov.uk/WaveRegistrationClient/public/newaccount.do?service=datapoint)
+  - [documentation](https://www.metoffice.gov.uk/services/data/datapoint/datapoint-documentation)
+
+Google Maps (Maps):
+ - [documentation](https://developers.google.com/maps/documentation)
+
+ Textlocal (SMS):
+  - [register](https://textlocal.com/signup/)
+  - [documentation](https://api.txtlocal.com/docs/)
