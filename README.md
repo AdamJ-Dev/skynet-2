@@ -52,3 +52,8 @@ Google Maps (Maps):
  Textlocal (SMS):
   - [register](https://textlocal.com/signup/)
   - [documentation](https://api.txtlocal.com/docs/)
+
+
+### System Architecture
+
+![System Architecture](images/system-architecture.png)
