@@ -59,4 +59,4 @@ Darwin (Rail): https://www.nationalrail.co.uk/developers/darwin-data-feeds/
 
 ### System Architecture
 
-![System Architecture](images/system-architecture.png)
+![System Architecture](docs/system-architecture.png)
