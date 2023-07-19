@@ -52,6 +52,8 @@ Textlocal (SMS): https://api.txtlocal.com/docs/
 
 Skyscanner (Flight): https://developers.skyscanner.net/docs/intro
 
+Aviationstack (Flight): https://aviationstack.com/documentation
+
 Darwin (Rail): https://www.nationalrail.co.uk/developers/darwin-data-feeds/
 
 
