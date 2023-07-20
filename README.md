@@ -60,3 +60,35 @@ Darwin (Rail): https://www.nationalrail.co.uk/developers/darwin-data-feeds/
 ### System Architecture
 
 ![System Architecture](docs/system-architecture.png)
+
+
+### MVP
+
+Home:
+![System Architecture](docs/home.png)
+
+Home:
+- Static EPG of channels
+  - Hyperlink to related programme page
+    - On hover "See programme information" (or similar)
+    - Add button on each programme
+- Search bar
+  - List of options
+- GetYourWay.com logo
+
+User:
+- Display User Profile
+  - Display user's profile information.
+  - Display saved flights/programme
+  - (stretch) Allow users to update account info.
+- log in/sign up
+
+Programme:
+- Programme details
+- Location selector
+  - Interactive Map: Display map with pins at source and target
+- Date selector
+- Display Flight information from the Api 
+- Weather Information: forecast for source and target destination
+
+
