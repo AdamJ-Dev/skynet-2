@@ -65,9 +65,6 @@ Darwin (Rail): https://www.nationalrail.co.uk/developers/darwin-data-feeds/
 ### MVP
 
 Home:
-![System Architecture](docs/home.png)
-
-Home:
 - Static EPG of channels
   - Hyperlink to related programme page
     - On hover "See programme information" (or similar)
@@ -75,6 +72,8 @@ Home:
 - Search bar
   - List of options
 - GetYourWay.com logo
+
+![System Architecture](docs/home.png)
 
 User:
 - Display User Profile
