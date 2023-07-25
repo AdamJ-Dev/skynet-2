@@ -4,5 +4,8 @@ import lombok.Data;
 
 @Data
 public class WeatherDTO {
-    private Double[] temps;
+    private String time;
+    private Double temp;
+    private int code;
+    private String desc;
 }
