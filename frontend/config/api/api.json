@@ -1,0 +1,7 @@
+{
+  "baseDevUrl": "https://localhost:8080/",
+  "baseProdUrl": "",
+  "flights": {},
+  "weather": {},
+  "map": {}
+}
