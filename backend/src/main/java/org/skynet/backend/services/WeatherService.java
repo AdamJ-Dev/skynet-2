@@ -6,7 +6,6 @@ import org.skynet.backend.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class WeatherService {
             Map.entry(99, "Thunderstorm with slight and heavy hail")
     );
 
-    private String getURL(String lat, String lon, int days) {
+    private String getApiUrl(String lat, String lon, int days) {
         String baseUrl = "https://api.open-meteo.com/v1/forecast";
         String query = "daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe/London&forecast_days=" + days;
         return String.format("%s?latitude=%s&longitude=%s&%s",baseUrl, lat, lon, query);
@@ -56,30 +55,24 @@ public class WeatherService {
 
     public List<WeatherDTO> getWeatherDTOs(String lat, String lon) {
         int days = 16;
-        JsonNode response = Utils.getJson(getURL(lat, lon, days));
+        JsonNode response = Utils.getJson(getApiUrl(lat, lon, days));
 
 
-        JsonNode daily = response.get("daily");
-        JsonNode timeJson = daily.get("time");
-        JsonNode maxTempJson = daily.get("temperature_2m_max");
-        JsonNode minTempJson = daily.get("temperature_2m_min");
-        JsonNode codeJson = daily.get("weathercode");
+        JsonNode dailyJson = response.get("daily");
+        JsonNode timeJson = dailyJson.get("time");
+        JsonNode maxTempJson = dailyJson.get("temperature_2m_max");
+        JsonNode minTempJson = dailyJson.get("temperature_2m_min");
+        JsonNode codeJson = dailyJson.get("weathercode");
 
         List<WeatherDTO> weatherDTOs = new ArrayList<>();
 
         for(int i = 0; i < days; i++) {
-            WeatherDTO weatherDTO = new WeatherDTO();
-
             String time = timeJson.get(i).asText();
             Double temp = (maxTempJson.get(i).asDouble() + minTempJson.get(i).asDouble()) / 2;
             int code = codeJson.get(i).asInt();
             String desc = DESC_MAP.get(code);
 
-            weatherDTO.setTime(time);
-            weatherDTO.setTemp(temp);
-            weatherDTO.setCode(code);
-            weatherDTO.setDesc(desc);
-            weatherDTOs.add(weatherDTO);
+            weatherDTOs.add(new WeatherDTO(time, temp, code, desc));
         }
 
         return weatherDTOs;
