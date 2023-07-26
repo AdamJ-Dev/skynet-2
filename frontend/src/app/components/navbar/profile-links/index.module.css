@@ -1,0 +1,27 @@
+@import '../../../styles/theme.css';
+
+.authButton {
+  font-size: 1rem;
+  font-weight: 150;
+  border-radius: 10%;
+  background: var(--main-colour);
+  color: white;
+  margin: 0 0.25rem;
+}
+
+.authButton:hover {
+  cursor: pointer;
+}
+
+
+.initialsIcon {
+  font-size: 1.25rem;
+  background: var(--main-colour);
+  color: white;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+}
+
+.initialsIcon:hover {
+  cursor: pointer;
+}
