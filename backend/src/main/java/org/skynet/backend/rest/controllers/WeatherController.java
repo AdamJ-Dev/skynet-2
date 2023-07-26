@@ -6,6 +6,7 @@ import org.skynet.backend.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public List<WeatherDTO> getWeather(@PathParam("lat") String lat, @PathParam("lon") String lon) {
+    public Mono<List<WeatherDTO>> getWeather(@PathParam("lat") String lat, @PathParam("lon") String lon) {
         return weatherService.getWeatherDTOs(lat, lon);
     }
 }

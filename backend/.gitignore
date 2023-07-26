@@ -34,3 +34,4 @@ build/
 
 ### log file ###
 spring.log
+spring.log.*

@@ -2,10 +2,12 @@ package org.skynet.backend.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.skynet.backend.rest.dtos.WeatherDTO;
-import org.skynet.backend.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,34 +49,42 @@ public class WeatherService {
             Map.entry(99, "Thunderstorm with slight and heavy hail")
     );
 
+    @Autowired
+    private WebClient.Builder builder;
+
     private String getApiUrl(String lat, String lon, int days) {
         String baseUrl = "https://api.open-meteo.com/v1/forecast";
         String query = "daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe/London&forecast_days=" + days;
         return String.format("%s?latitude=%s&longitude=%s&%s",baseUrl, lat, lon, query);
     }
 
-    public List<WeatherDTO> getWeatherDTOs(String lat, String lon) {
+    public Mono<List<WeatherDTO>> getWeatherDTOs(String lat, String lon) {
         int days = 16;
-        JsonNode response = Utils.getJson(getApiUrl(lat, lon, days));
+        String url = getApiUrl(lat, lon, days);
+        return builder.build()
+                .get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(JsonNode.class)
+                .map(response -> {
+                    JsonNode dailyJson = response.get("daily");
+                    JsonNode timeJson = dailyJson.get("time");
+                    JsonNode maxTempJson = dailyJson.get("temperature_2m_max");
+                    JsonNode minTempJson = dailyJson.get("temperature_2m_min");
+                    JsonNode codeJson = dailyJson.get("weathercode");
 
+                    List<WeatherDTO> weatherDTOs = new ArrayList<>();
 
-        JsonNode dailyJson = response.get("daily");
-        JsonNode timeJson = dailyJson.get("time");
-        JsonNode maxTempJson = dailyJson.get("temperature_2m_max");
-        JsonNode minTempJson = dailyJson.get("temperature_2m_min");
-        JsonNode codeJson = dailyJson.get("weathercode");
+                    for(int i = 0; i < days; i++) {
+                        String time = timeJson.get(i).asText();
+                        Double temp = (maxTempJson.get(i).asDouble() + minTempJson.get(i).asDouble()) / 2;
+                        int code = codeJson.get(i).asInt();
+                        String desc = DESC_MAP.get(code);
 
-        List<WeatherDTO> weatherDTOs = new ArrayList<>();
+                        weatherDTOs.add(new WeatherDTO(time, temp, code, desc));
+                    }
 
-        for(int i = 0; i < days; i++) {
-            String time = timeJson.get(i).asText();
-            Double temp = (maxTempJson.get(i).asDouble() + minTempJson.get(i).asDouble()) / 2;
-            int code = codeJson.get(i).asInt();
-            String desc = DESC_MAP.get(code);
-
-            weatherDTOs.add(new WeatherDTO(time, temp, code, desc));
-        }
-
-        return weatherDTOs;
+                    return weatherDTOs;
+                });
     }
 }

@@ -32,6 +32,12 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+<!--		fixes error: Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider-->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
