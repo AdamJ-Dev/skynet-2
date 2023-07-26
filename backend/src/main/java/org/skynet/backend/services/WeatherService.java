@@ -5,8 +5,10 @@ import org.skynet.backend.rest.dtos.WeatherDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -65,6 +67,13 @@ public class WeatherService {
                 .get()
                 .uri(url)
                 .retrieve()
+                .onStatus(status -> status.isError(), response -> {
+                    HttpStatusCode code = response.statusCode();
+                    return response.bodyToMono(JsonNode.class).map(body -> {
+                        String reason = body.get("reason").asText();
+                        return new ResponseStatusException(code, reason);
+                    });
+                })
                 .bodyToMono(JsonNode.class)
                 .map(response -> {
                     JsonNode dailyJson = response.get("daily");
