@@ -46,6 +46,8 @@ scrum master rotates every 2 days (cycle Adam, Harry, Selina, Kalyan, Ganesh)
 
 Met Office DataPoint (Weather): https://www.metoffice.gov.uk/services/data/datapoint/datapoint-documentation
 
+Open-Meteo (Weather): https://open-meteo.com/en/docs
+
 Google Maps (Maps): https://developers.google.com/maps/documentation
 
 Textlocal (SMS): https://api.txtlocal.com/docs/
