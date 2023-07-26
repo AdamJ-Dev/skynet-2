@@ -51,8 +51,13 @@ public class WeatherService {
             Map.entry(99, "Thunderstorm with slight and heavy hail")
     );
 
-    @Autowired
     private WebClient.Builder builder;
+
+    @Autowired
+    public WeatherService(WebClient.Builder builder) {
+        super();
+        this.builder = builder;
+    }
 
     private String getApiUrl(String lat, String lon, int days) {
         String baseUrl = "https://api.open-meteo.com/v1/forecast";
@@ -60,12 +65,10 @@ public class WeatherService {
         return String.format("%s?latitude=%s&longitude=%s&%s",baseUrl, lat, lon, query);
     }
 
-    public Mono<List<WeatherDTO>> getWeatherDTOs(String lat, String lon) {
-        int days = 16;
-        String url = getApiUrl(lat, lon, days);
+    public Mono<List<WeatherDTO>> getWeatherDTOs(String lat, String lon, int days) {
         return builder.build()
                 .get()
-                .uri(url)
+                .uri(getApiUrl(lat, lon, days))
                 .retrieve()
                 .onStatus(status -> status.isError(), response -> {
                     HttpStatusCode code = response.statusCode();

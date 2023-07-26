@@ -1,10 +1,10 @@
 package org.skynet.backend.rest.controllers;
 
-import jakarta.websocket.server.PathParam;
 import org.skynet.backend.rest.dtos.WeatherDTO;
 import org.skynet.backend.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -22,7 +22,7 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public Mono<List<WeatherDTO>> getWeather(@PathParam("lat") String lat, @PathParam("lon") String lon) {
-        return weatherService.getWeatherDTOs(lat, lon);
+    public Mono<List<WeatherDTO>> getWeather(@RequestParam String lat, @RequestParam String lon, @RequestParam(required = false) Integer days) {
+        return weatherService.getWeatherDTOs(lat, lon, days == null ? 16 : days);
     }
 }
