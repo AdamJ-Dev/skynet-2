@@ -1,6 +1,18 @@
+import api from './api.json';
+import { insertQueryParams } from '../../lib/insertQueryParams';
+
 const getApiBaseUrl = () => {
-  // if env is dev, return the dev url, else the prod url
+  if (process.env.REACT_APP_API_ENV == 'dev') {
+    return api.baseDevUrl;
+  } else {
+    return api.baseProdUrl;
+  }
 };
 
-getGetWeatherUrl = (lat, lon) => {
-} 
+const getGetWeatherPath = () => {
+  return api.weather.get.path;
+};
+
+export const getGetWeatherUrl = (paramsMap) => {
+  return getApiBaseUrl() + insertQueryParams(getGetWeatherPath(), paramsMap);
+};
