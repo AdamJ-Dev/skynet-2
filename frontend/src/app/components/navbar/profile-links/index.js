@@ -1,11 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import {
-  getLoginPath,
-  getProfilePath,
-  getSignupPath,
-} from "../../../../config/pages/selectors";
+import { useNavigate } from 'react-router-dom';
+import { getLoginPath, getProfilePath, getSignupPath } from '../../../../config/pages/selectors';
 
-import styles from "./index.module.css";
+import styles from './index.module.css';
 
 // temp for testing:
 const user = null;
@@ -20,24 +16,15 @@ const ProfileLinks = () => {
   return (
     <span>
       {user ? (
-        <span
-          onClick={() => navigate(getProfilePath(user.id))}
-          className={styles.initialsIcon}
-        >
+        <span onClick={() => navigate(getProfilePath(user.id))} className={styles.initialsIcon}>
           <span>{user.username.charAt(0).toUpperCase()}</span>
         </span>
       ) : (
         <>
-          <button
-            onClick={() => navigate(getSignupPath())}
-            className={styles.authButton}
-          >
+          <button onClick={() => navigate(getSignupPath())} className={styles.authButton}>
             Sign up
           </button>
-          <button
-            onClick={() => navigate(getLoginPath())}
-            className={styles.authButton}
-          >
+          <button onClick={() => navigate(getLoginPath())} className={styles.authButton}>
             Log in
           </button>
         </>

@@ -14,15 +14,18 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_API_ENV=dev react-scripts start",
+    "start-with-prod-api": "REACT_APP_API_ENV=prod react-scripts start",
+    "build": "REACT_APP_API_ENV=prod react-scripts build",
     "test": "react-scripts test",
+    "format": "prettier --write 'src/**/*.js'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "prettier"
     ]
   },
   "browserslist": {
@@ -36,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.9.0",
+    "prettier": "^3.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import { getProgrammePath } from "../../../config/pages/selectors";
+import { getProgrammePath } from '../../../config/pages/selectors';
 
 const HomePage = () => {
   return (

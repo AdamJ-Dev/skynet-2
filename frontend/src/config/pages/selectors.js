@@ -1,4 +1,4 @@
-import pages from "./pages.json";
+import pages from './pages.json';
 
 export const getHomePath = () => {
   return pages.home.path;
@@ -11,7 +11,6 @@ export const getLoginPath = () => {
 export const getSignupPath = () => {
   return pages.signup.path;
 };
-
 
 export const getProfileBasePath = () => {
   return pages.profile.basePath;
