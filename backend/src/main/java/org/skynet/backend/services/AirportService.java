@@ -15,8 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AirportService {
-    private static String key = "";
-    private static String secret = "";
+    private static String key = System.getenv("key");
+    private static String secret = System.getenv("secret");
     static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();

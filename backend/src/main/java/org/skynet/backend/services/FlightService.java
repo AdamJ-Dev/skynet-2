@@ -19,9 +19,9 @@ import java.util.List;
 @Service
 public class FlightService {
 
-    private static String key = "";
+    private static String key = System.getenv("key");
 
-    private static String secret = "";
+    private static String secret = System.getenv("secret");
     static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();
@@ -61,7 +61,6 @@ public class FlightService {
     public FlightDTO getFlightDTO(FlightOfferSearch flightOffersSearches) throws JsonProcessingException {
 
         String result = flightOffersSearches.getResponse().getBody();
-        FlightDTO flightDTO = null;
         JsonNode resultJson = objectMapper.readTree(result);
         JsonNode journey1 = resultJson.get("data").get(0);
         JsonNode outboundJourney = journey1.get("itineraries").get(0);
@@ -97,7 +96,7 @@ public class FlightService {
             dtoInboundJourney.add(inboundLeg);
         }
 
-        flightDTO = new FlightDTO(dtoPrice, dtoInboundJourney, dtoOutboundJourney, dtoInboundDuration, dtoOutboundDuration);
+        FlightDTO flightDTO = new FlightDTO(dtoPrice, dtoInboundJourney, dtoOutboundJourney, dtoInboundDuration, dtoOutboundDuration);
 
         return flightDTO;
 
