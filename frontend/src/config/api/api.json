@@ -1,0 +1,13 @@
+{
+  "baseDevUrl": "https://localhost:8080",
+  "baseProdUrl": "",
+  "flights": {},
+  "weather": {
+    "get": {
+      "path": "/weather",
+      "queryParams": ["lat", "lon", "days"]
+    }
+  },
+  "map": {},
+  "user": {}
+}
