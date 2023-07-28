@@ -1,0 +1,10 @@
+:root {
+    --num-epg-channels: 7;
+    --num-programme-slots: 48;
+}
+
+.epg {
+  display: grid;
+  grid-template-rows: repeat(var(--num-epg-channels), 1fr);
+  grid-template-columns: repeat(var(--num-programme-slots), 1fr);
+}
