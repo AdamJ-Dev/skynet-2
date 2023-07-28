@@ -14,5 +14,6 @@ const getGetWeatherPath = () => {
 };
 
 export const getGetWeatherUrl = (paramsMap) => {
-  return getApiBaseUrl() + insertQueryParams(getGetWeatherPath(), paramsMap);
+  const url = `${getApiBaseUrl()}/${getGetWeatherPath()}`
+  return insertQueryParams(url, paramsMap);
 };
