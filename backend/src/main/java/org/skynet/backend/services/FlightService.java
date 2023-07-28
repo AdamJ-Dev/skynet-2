@@ -22,11 +22,7 @@ public class FlightService {
     private static String key = "";
 
     private static String secret = "";
-    static Amadeus amadeus = Amadeus
-
-            .builder(key,secret)
-
-            .build();
+    static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -46,22 +42,25 @@ public class FlightService {
             var response = e.getResponse();
             HttpStatus statusCode = HttpStatus.valueOf(response.getStatusCode());
             JsonNode body = objectMapper.readTree(response.getBody());
-            String errMsg = body.get("errors").get(0).get("detail").asText();
+            String errMsg = "";
+            for(JsonNode error : body.get("errors")) {
+                errMsg += error.get("detail").asText() + ". ";
+            }
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
         List<FlightDTO> flightDTOS = new ArrayList<>();
         for(int i = 0; i < numberOfResults; i++) {
-            flightDTOS.add(getFlightDTO(flightOffersSearches, i));
+            flightDTOS.add(getFlightDTO(flightOffersSearches[i]));
         }
 
         return flightDTOS;
     }
 
 
-    public FlightDTO getFlightDTO(FlightOfferSearch[] flightOffersSearches, int listIndex) throws JsonProcessingException {
+    public FlightDTO getFlightDTO(FlightOfferSearch flightOffersSearches) throws JsonProcessingException {
 
-        String result = flightOffersSearches[listIndex].getResponse().getBody();
+        String result = flightOffersSearches.getResponse().getBody();
         FlightDTO flightDTO = null;
         JsonNode resultJson = objectMapper.readTree(result);
         JsonNode journey1 = resultJson.get("data").get(0);
