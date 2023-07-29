@@ -16,26 +16,22 @@ const getGetWeatherPath = () => {
 };
 
 export const getGetWeatherUrl = (paramsMap) => {
-  const url = `${getApiBaseUrl()}/${getGetWeatherPath()}`
+  const url = `${getApiBaseUrl()}/${getGetWeatherPath()}`;
   return insertQueryParams(url, paramsMap);
 };
 
-
 // EPG:
 
-
 // temp, then switch to apiBaseUrl:
-const jsonWebServerBaseUrl = 'http://localhost:4000'
-
+const jsonWebServerBaseUrl = 'http://localhost:4000';
 
 const getGetEpgProgrammesPath = () => {
   return api.epg.programmes.get.path;
 };
 
-
 export const getGetEpgProgrammesUrl = () => {
   return `${jsonWebServerBaseUrl}${getGetEpgProgrammesPath()}`;
-}
+};
 
 const getGetEpgChannelsPath = () => {
   return api.epg.channels.get.path;
@@ -43,4 +39,4 @@ const getGetEpgChannelsPath = () => {
 
 export const getGetEpgChannelsUrl = () => {
   return `${jsonWebServerBaseUrl}${getGetEpgChannelsPath()}`;
-}
+};
