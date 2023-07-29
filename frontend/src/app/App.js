@@ -13,11 +13,13 @@ import SignupPage from './pages/signup';
 import ProfilePage from './pages/profile';
 import ProgrammePage from './pages/programme';
 
+import styles from './App.module.css';
+
 function App() {
   return (
     <>
       <NavBar />
-      <div>
+      <div className={styles.pageContainer}>
         <Routes>
           <Route path={getHomePath()} element={<HomePage />} />
           <Route path={getLoginPath()} element={<LoginPage />} />
