@@ -14,7 +14,7 @@ const getNumCols = (programmes) => {
   const epgStartTime = getMinStartTime(programmes);
   const epgEndTime = getMaxEndTime(programmes);
   const epgDurationInMinutes = calculateDurationInMinutes(epgStartTime, epgEndTime);
-  return epgDurationInMinutes;
+  return 60 + epgDurationInMinutes; // channels grid track, programme times columns
 };
 
 const getMinStartTime = (programmes) => {
