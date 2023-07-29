@@ -3,6 +3,7 @@
 .epg {
   border: 3px solid var(--main-colour);
   padding: 1rem;
+  overflow: auto;
 }
 
 .searchBarRow {
