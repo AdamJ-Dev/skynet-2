@@ -5,8 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.25rem 0.5rem;
-  border: 1.5px solid var(--main-colour);
+  padding: 0.5rem 1rem;
 }
 
 .navHeadline:hover {
@@ -17,7 +16,6 @@
 .navTitle {
   display: inline;
   font-size: 2.5rem;
-  font-weight: 150;
   color: var(--main-colour);
   margin-right: .5rem;
 }
