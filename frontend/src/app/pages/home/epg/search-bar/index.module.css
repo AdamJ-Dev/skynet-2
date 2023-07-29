@@ -1,11 +1,15 @@
 @import "../../../../styles/theme.css";
 
 .searchBar {
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--main-colour);
+  height: 100%;
+  padding: 0 0.25rem;
+  display: flex;
+  align-items: center;
 }
 
-/* need media queries to control the width of search container */
+.searchLabel {
+  font-weight: bold;
+}
 
 .searchContainer {
   position: relative;

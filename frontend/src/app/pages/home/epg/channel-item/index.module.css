@@ -1,0 +1,15 @@
+@import "../../../../styles/theme.css";
+
+.channelSlot {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--main-colour);
+}
+
+.channelSlot:hover {
+  cursor: pointer;
+}
+
+.channelInfo {
+  padding: 0 0.25rem;
+}

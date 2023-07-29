@@ -3,37 +3,44 @@
     {
       "id": "1",
       "name": "Skynet News",
-      "description": "The Skynet News channel provides the latest news, reports, and analysis from around the world."
+      "description": "The Skynet News channel provides the latest news, reports, and analysis from around the world.",
+      "colour": "#1841E7"
     },
     {
       "id": "2",
       "name": "Skynet Drama",
-      "description": "The Skynet Drama channel showcases a range of classic and contemporary drama series and movies."
+      "description": "The Skynet Drama channel showcases a range of classic and contemporary drama series and movies.",
+      "colour": "#1DBC09"
     },
     {
       "id": "3",
       "name": "Skynet Comedy",
-      "description": "The Skynet Comedy channel features hilarious sitcoms, stand-up comedy, and comedic movies."
+      "description": "The Skynet Comedy channel features hilarious sitcoms, stand-up comedy, and comedic movies.",
+      "colour": "#F4511E"
     },
     {
       "id": "4",
       "name": "Skynet Cinema",
-      "description": "The Skynet Cinema channel offers a selection of acclaimed films from various genres."
+      "description": "The Skynet Cinema channel offers a selection of acclaimed films from various genres.",
+      "colour": "#642424"
     },
     {
       "id": "5",
       "name": "Skynet Thriller",
-      "description": "The Skynet Thriller channel broadcasts suspenseful and exciting thriller films."
+      "description": "The Skynet Thriller channel broadcasts suspenseful and exciting thriller films.",
+      "colour": "#62639D"
     },
     {
       "id": "6",
       "name": "Skynet Reality",
-      "description": "The Skynet Reality channel airs popular reality TV shows, ranging from cooking competitions to talent hunts."
+      "description": "The Skynet Reality channel airs popular reality TV shows, ranging from cooking competitions to talent hunts.",
+      "colour": "#B44BA0"
     },
     {
       "id": "7",
       "name": "Skynet Sports",
-      "description": "The Skynet Sports channel covers a variety of sports events, news, and documentaries."
+      "description": "The Skynet Sports channel covers a variety of sports events, news, and documentaries.",
+      "colour": "#0C4F07"
     }
   ],
   "programmes": [

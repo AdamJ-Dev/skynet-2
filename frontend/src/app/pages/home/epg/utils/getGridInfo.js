@@ -2,7 +2,7 @@ import { calculateDurationInMinutes } from '../../../../../lib/calculateDuration
 
 export const numHeaderRows = 1;
 export const channelsColumnTrack = 60;
-export const minColumnWidth = "2px";
+export const minColumnWidth = "2.25px";
 
 export const getGridInfo = (channels, programmes) => {
   const numRows = getNumRows(channels);

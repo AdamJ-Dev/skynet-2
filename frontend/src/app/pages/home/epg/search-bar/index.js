@@ -16,7 +16,7 @@ function SearchBar({ programmes }) {
 
   return (
     <div className={styles.searchBar}>
-      <label htmlFor="epg-search">Search: &nbsp;</label>
+      <label className={styles.searchLabel} htmlFor="epg-search">Search: &nbsp;</label>
       <div className={styles.searchContainer}>
         <input
           type="text"

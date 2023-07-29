@@ -5,6 +5,6 @@ export const initialiseCssGrid = (channels, programmes) => {
   return {
     display: 'grid',
     gridTemplateColumns: `repeat(${gridInfo.numColumms}, minmax(${minColumnWidth}, 1fr)`,
-    gridTemplateRows: `repeat(${gridInfo.numRows}, 1fr)`,
+    gridTemplateRows: `5rem repeat(${gridInfo.numRows - 1}, 1fr)`,
   };
 };
