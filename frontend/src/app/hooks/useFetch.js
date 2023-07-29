@@ -8,7 +8,6 @@ const useFetch = (url, fetchOptions = {}, deps = []) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(url);
       const res = await fetch(url, fetchOptions);
       if (!res.ok) {
         setLoading(false);
