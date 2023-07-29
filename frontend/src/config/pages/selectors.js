@@ -4,6 +4,22 @@ export const getHomePath = () => {
   return pages.home.path;
 };
 
+export const getHomeContentHeadline = () => {
+  return pages.home.content.headline;
+}
+
+export const getHomeContentDescription = () => {
+  return pages.home.content.description;
+}
+
+export const getEpgSearchPlaceholder = () => {
+  return pages.home.epg.searchPlaceholder;
+};
+
+export const getEpgSearchLimit = () => {
+  return pages.home.epg.searchLimit;
+}
+
 export const getLoginPath = () => {
   return pages.login.path;
 };

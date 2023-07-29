@@ -1,6 +1,14 @@
 {
   "home": {
-    "path": "/"
+    "path": "/",
+    "epg": {
+      "searchPlaceholder": "Find a programme ...",
+      "searchLimit": 5
+    },
+    "content": {
+      "headline": "What's on",
+      "description": "Today's programme guide. Click on a highlighted programme to pursue travel to a choice, related location."
+    }
   },
   "login": {
     "path": "/login"

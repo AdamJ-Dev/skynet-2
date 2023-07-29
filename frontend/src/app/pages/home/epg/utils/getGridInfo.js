@@ -1,5 +1,8 @@
 import { calculateDurationInMinutes } from '../../../../../lib/calculateDuration';
 
+export const numHeaderRows = 1;
+export const channelsColumnTrack = 60;
+
 export const getGridInfo = (channels, programmes) => {
   const numRows = getNumRows(channels);
   const numColumms = getNumCols(programmes);
@@ -7,14 +10,14 @@ export const getGridInfo = (channels, programmes) => {
 };
 
 const getNumRows = (channels) => {
-  return 2 + channels.length; // search bar, headings row, channels rows
+  return numHeaderRows + channels.length; // search bar, channels rows
 };
 
 const getNumCols = (programmes) => {
   const epgStartTime = getMinStartTime(programmes);
   const epgEndTime = getMaxEndTime(programmes);
   const epgDurationInMinutes = calculateDurationInMinutes(epgStartTime, epgEndTime);
-  return 60 + epgDurationInMinutes; // channels grid track, programme times columns
+  return channelsColumnTrack + epgDurationInMinutes; // channels grid track, programme times columns
 };
 
 const getMinStartTime = (programmes) => {
