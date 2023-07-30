@@ -33,6 +33,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(
+                                new AntPathRequestMatcher("/h2-console/**"), // TODO h2 dev
+                                new AntPathRequestMatcher("/error"), // allow error responses
                                 new AntPathRequestMatcher("/weather/**"),
                                 new AntPathRequestMatcher("/flights/**"),
                                 new AntPathRequestMatcher("/register/**"),
@@ -45,6 +47,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // TODO h2 dev
                 .build();
     }
 

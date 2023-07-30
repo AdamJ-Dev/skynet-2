@@ -21,7 +21,7 @@ public class AppConfig {
     private final UserRepo userRepo;
 
     @Bean
-    public WebClient.Builder getWebClientBuilder() {
+    public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
 
