@@ -42,7 +42,7 @@ const Epg = () => {
 
       const channelProgrammes = programmes.filter((programme) => programme.channelId == channelNo);
       const orderedChannelProgrammes = channelProgrammes.sort(
-        (programmeA, programmeB) => programmeA.since - programmeB.since
+        (programmeA, programmeB) => new Date(programmeA.since) - new Date(programmeB.since)
       );
 
       for (const programme of orderedChannelProgrammes) {
