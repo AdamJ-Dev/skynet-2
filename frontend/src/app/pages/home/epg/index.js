@@ -7,14 +7,32 @@ import ProgrammeItem from './programme-item';
 
 import styles from './index.module.css';
 import ChannelItem from './channel-item';
+import { useEpgContext } from '../../../context/epg/hook';
+import { useEffect } from 'react';
+import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
 
 const Epg = () => {
-  const { loading: channelsLoading, data: channels, error: channelsError } = useFetch(getGetEpgChannelsUrl());
+  const { loading: channelsLoading, data: channelsData, error: channelsError } = useFetch(getGetEpgChannelsUrl());
   const {
     loading: programmesLoading,
-    data: programmes,
+    data: programmesData,
     erro: programmesError,
   } = useFetch(getGetEpgProgrammesUrl());
+  const { dispatch, programmes, channels } = useEpgContext();
+
+
+  useEffect(() => {
+    if (programmesData) {
+      dispatch({ type: SET_PROGRAMMES, payload: programmesData });
+    }
+  }, [programmesData])
+
+  useEffect(() => {
+    if (channelsData) {
+      dispatch({ type: SET_CHANNELS, payload: channelsData });
+    }
+  }, [channelsData])
+
 
   const getGridItems = (channels, programmes) => {
     const gridItems = [];
@@ -38,10 +56,10 @@ const Epg = () => {
     <>
       {(channelsLoading || programmesLoading) && <p>{getLoadingMessage()}</p>}
       {(channelsError || programmesError) && <p>{channelsError || programmesError}</p>}
-      {!!channels && !!programmes && (
+      {!!channels.length && !!programmes.length && (
         <div className={styles.epg} style={initialiseCssGrid(channels, programmes)}>
           <div className={styles.searchBarRow}>
-            <SearchBar programmes={programmes} />
+            <SearchBar programmes={programmes}/>
           </div>
           {getGridItems(channels, programmes)}
         </div>
