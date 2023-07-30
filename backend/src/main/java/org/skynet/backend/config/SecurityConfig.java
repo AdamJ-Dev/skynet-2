@@ -1,7 +1,7 @@
 package org.skynet.backend.config;
 
 import lombok.RequiredArgsConstructor;
-import org.skynet.backend.filters.JwtAuthenticationFilter;
+import org.skynet.backend.filters.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
