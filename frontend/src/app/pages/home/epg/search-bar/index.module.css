@@ -18,7 +18,7 @@
 
 
 .searchInput {
-  width: 100%;
+  width: 15rem;
   box-sizing: border-box;
   overflow: scroll;
 }

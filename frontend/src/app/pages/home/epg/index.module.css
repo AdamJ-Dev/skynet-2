@@ -8,4 +8,5 @@
 .searchBarRow {
   grid-column: 1/ -1;
   grid-row: 1;
+  border-bottom: 1px solid var(--main-colour);
 }

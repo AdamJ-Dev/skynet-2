@@ -1,9 +1,11 @@
 @import "../../../../styles/theme.css";
 
 .channelSlot {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   border: 1px solid var(--main-colour);
+  overflow: auto;
 }
 
 .channelSlot:hover {
