@@ -1,6 +1,7 @@
 {
   "error": {
-    "generic": "Oops. Something went wrong."
+    "generic": "Oops. Something went wrong.",
+    "location": "It seems we couldn't get your location."
   },
   "loading": "Loading..."
 }

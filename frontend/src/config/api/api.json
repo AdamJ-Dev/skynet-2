@@ -18,7 +18,12 @@
     },
     "programmes": {
       "get": {
-        "path": "/epg/programmes"
+        "all": {
+          "path": "/epg/programmes"
+        },
+        "one": {
+          "basePath": "/epg/programmes"
+        }
       }
     }
   }
