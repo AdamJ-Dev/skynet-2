@@ -1,3 +1,5 @@
+import { sortByAirTime } from "./sortByAirTime";
+
 export const getAiringInfo = (title, programmes) => {
   const airingInfo = [];
   for (const programme of programmes) {
@@ -6,5 +8,5 @@ export const getAiringInfo = (title, programmes) => {
       airingInfo.push({ since, till, channelId });
     }
   }
-  return airingInfo;
+  return sortByAirTime(airingInfo);
 };

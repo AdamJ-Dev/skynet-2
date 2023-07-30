@@ -10,6 +10,7 @@ import ChannelItem from './channel-item';
 import { useEpgContext } from '../../../context/epg/hook';
 import { useEffect } from 'react';
 import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
+import { sortByAirTime } from './utils/sortByAirTime';
 
 const Epg = () => {
   const { loading: channelsLoading, data: channelsData, error: channelsError } = useFetch(getGetEpgChannelsUrl());
@@ -41,9 +42,7 @@ const Epg = () => {
       gridItems.push(<ChannelItem channel={channel} />);
 
       const channelProgrammes = programmes.filter((programme) => programme.channelId == channelNo);
-      const orderedChannelProgrammes = channelProgrammes.sort(
-        (programmeA, programmeB) => new Date(programmeA.since) - new Date(programmeB.since)
-      );
+      const orderedChannelProgrammes = sortByAirTime(channelProgrammes);
 
       for (const programme of orderedChannelProgrammes) {
         gridItems.push(<ProgrammeItem programme={programme} />);

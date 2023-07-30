@@ -16,17 +16,17 @@ const ProgrammeInfo = ({ programme, airingInfo }) => {
       </p>
       <p>
         <strong>Air times:</strong>{' '}
-        <ul>
-          {airingInfo.map(({ since, till, channelId }) => {
-            const channel = channels.find((channel) => channel.id == channelId);
-            return (
-              <li>
-                <span style={{ color: channel.colour }}>{channel.name}</span>: {formatAirTime(since, till)}
-              </li>
-            );
-          })}
-        </ul>
       </p>
+      <ul>
+        {airingInfo.map(({ since, till, channelId }) => {
+          const channel = channels.find((channel) => channel.id == channelId);
+          return (
+            <li>
+              <span style={{ color: channel.colour }}>{channel.name}</span>: {formatAirTime(since, till)}
+            </li>
+          );
+        })}
+      </ul>
       <p>
         <strong>Related Location:</strong>{' '}
         {!!programme.location ? (
