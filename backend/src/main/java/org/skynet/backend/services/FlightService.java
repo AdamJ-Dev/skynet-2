@@ -19,9 +19,9 @@ import java.util.List;
 @Service
 public class FlightService {
 
-    private static String key = System.getenv("key");
+    private static String key = System.getenv("AMADEUS_KEY");
 
-    private static String secret = System.getenv("secret");
+    private static String secret = System.getenv("AMADEUS_SECRET");
     static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();
