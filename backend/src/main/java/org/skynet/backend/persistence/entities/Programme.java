@@ -18,7 +18,7 @@ public class Programme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column
     private String title;
     @Column
@@ -27,11 +27,18 @@ public class Programme {
     private String since;
     @Column
     private String till;
-//    @JoinColumn(name = "locations")
-//    @OneToMany
+//    @Column
 //    private List<Location> locations;
     @JoinColumn(nullable = false, name = "channelId", referencedColumnName = "id")
     @ManyToOne
     private Channel channel;
+    @Column
+    private String locationName;
+    @Column
+    private String locationRelationship;
+    @Column
+    private double locationLat;
+    @Column
+    private double locationLon;
 
 }

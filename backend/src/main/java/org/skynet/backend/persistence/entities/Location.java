@@ -14,12 +14,12 @@ import java.util.List;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long LocationId;
     private String name;
     private String relationship;
     private double lat;
     private double lon;
-    @JoinColumn(name = "programmeID", referencedColumnName = "id")
-    @ManyToOne
-    private Programme programme;
+//    @JoinColumn(name = "programmeID", nullable = true)
+//    @ManyToOne
+//    private Programme programme;
 }
