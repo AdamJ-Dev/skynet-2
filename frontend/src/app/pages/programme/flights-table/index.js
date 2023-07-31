@@ -12,7 +12,13 @@ const FlightsTable = ({ destination }) => {
     loading: weatherLoading,
     data: weatherData,
     error: weatherError,
+    get: getWeather,
   } = useFetch(getGetWeatherUrl({ lat: destination.latitude, lon: destination.longitude, days: 1 }));
+
+  useEffect(() => {
+    getWeather();
+  }, [])
+
 
   return (
     <table className={styles.flightsTable}>

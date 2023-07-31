@@ -4,7 +4,7 @@ import { getGetEpgProgrammeUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
 
 import styles from './index.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GeolocationContextProvider } from '../../context/geolocation/provider';
 import FlightsTable from './flights-table';
 
@@ -14,15 +14,19 @@ const ProgrammePage = () => {
     loading: programmeLoading,
     data: programme,
     error: programmeError,
+    get: getProgramme,
   } = useFetch(getGetEpgProgrammeUrl(id));
   const [seekLocation, setSeekLocation] = useState(false);
 
+  useEffect(() => {
+    getProgramme();
+  }, [])
 
   return (
     <>
       {programmeLoading && <p>{getLoadingMessage()}</p>}
       {programmeError && <p>{programmeError}</p>}
-      {programme && (
+      {programme?.location && (
         <>
           <h1>{programme.title}</h1>
           <p>{programme.description}</p>

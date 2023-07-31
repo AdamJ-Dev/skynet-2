@@ -13,27 +13,36 @@ import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
 import { sortByAirTime } from './utils/sortByAirTime';
 
 const Epg = () => {
-  const { loading: channelsLoading, data: channelsData, error: channelsError } = useFetch(getGetEpgChannelsUrl());
+  const {
+    loading: channelsLoading,
+    data: channelsData,
+    error: channelsError,
+    get: getChannels,
+  } = useFetch(getGetEpgChannelsUrl());
   const {
     loading: programmesLoading,
     data: programmesData,
-    erro: programmesError,
+    error: programmesError,
+    get: getProgrammes,
   } = useFetch(getGetEpgProgrammesUrl());
   const { dispatch, programmes, channels } = useEpgContext();
 
+  useEffect(() => {
+    getProgrammes();
+    getChannels();
+  }, []);
 
   useEffect(() => {
     if (programmesData) {
       dispatch({ type: SET_PROGRAMMES, payload: programmesData });
     }
-  }, [programmesData])
+  }, [programmesData]);
 
   useEffect(() => {
     if (channelsData) {
       dispatch({ type: SET_CHANNELS, payload: channelsData });
     }
-  }, [channelsData])
-
+  }, [channelsData]);
 
   const getGridItems = (channels, programmes) => {
     const gridItems = [];
@@ -58,7 +67,7 @@ const Epg = () => {
       {!!channels.length && !!programmes.length && (
         <div className={styles.epg} style={initialiseCssGrid(channels, programmes)}>
           <div className={styles.searchBarRow}>
-            <SearchBar programmes={programmes}/>
+            <SearchBar programmes={programmes} />
           </div>
           {getGridItems(channels, programmes)}
         </div>
