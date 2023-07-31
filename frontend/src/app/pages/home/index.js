@@ -1,10 +1,17 @@
-import { getProgrammePath } from '../../../config/pages/selectors';
+import { getHomeContentDescription, getHomeContentHeadline } from '../../../config/pages/selectors';
+import { EpgContextProvider } from '../../context/epg/provider';
+import Epg from './epg';
+
+import styles from './index.module.css';
 
 const HomePage = () => {
   return (
     <>
-      <h1>Home Page</h1>
-      <a href={getProgrammePath(1)}>Click on me to see a programme</a>
+      <h1 className={styles.homeHeadline}>{getHomeContentHeadline()}</h1>
+      <p>{getHomeContentDescription()}</p>
+      <EpgContextProvider>
+        <Epg />
+      </EpgContextProvider>
     </>
   );
 };

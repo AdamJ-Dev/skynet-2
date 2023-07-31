@@ -9,5 +9,22 @@
     }
   },
   "map": {},
-  "user": {}
+  "user": {},
+  "epg": {
+    "channels": {
+      "get": {
+        "path": "/epg/channels"
+      }
+    },
+    "programmes": {
+      "get": {
+        "all": {
+          "path": "/epg/programmes"
+        },
+        "one": {
+          "basePath": "/epg/programmes"
+        }
+      }
+    }
+  }
 }

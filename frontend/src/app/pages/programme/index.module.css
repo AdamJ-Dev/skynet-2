@@ -1,0 +1,10 @@
+.locationInfo {
+  display: flex;
+  justify-content: space-between
+}
+
+.map {
+  min-width: 45%;
+  text-align: center;
+}
+

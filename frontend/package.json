@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "REACT_APP_API_ENV=dev react-scripts start",
+    "dev-epg-api": "json-server --watch src/assets/data/epg/db.json -p 4000 --routes src/assets/data/epg/routes.json",
     "start-with-prod-api": "REACT_APP_API_ENV=prod react-scripts start",
     "build": "REACT_APP_API_ENV=prod react-scripts build",
     "test": "react-scripts test",

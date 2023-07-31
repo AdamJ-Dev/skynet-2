@@ -1,0 +1,5 @@
+{
+  "/epg/channels": "/channels",
+  "/epg/programmes": "/programmes",
+  "/epg/programmes/:id": "/programmes/:id"
+}

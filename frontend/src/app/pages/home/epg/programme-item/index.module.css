@@ -1,0 +1,30 @@
+@import "../../../../styles/theme.css";
+
+.programmeSlot {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: var(--light-colour);
+  border: 1px solid var(--main-colour);
+  overflow: auto;
+}
+
+.programmeSlot:hover {
+  cursor: pointer;
+}
+
+.specialProgrammeSlot {
+  background: linear-gradient(90deg, #4ca5ff, #a1cdf9, #4ca5ff);
+}
+
+.programmeInfo {
+  padding: 0 0.25rem;
+  position: relative;
+}
+
+.speechBubble {
+  height: 100%;
+  width: 100%;
+  top: -5%;
+  right: 0%;
+}

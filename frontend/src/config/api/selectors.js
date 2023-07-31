@@ -9,10 +9,45 @@ const getApiBaseUrl = () => {
   }
 };
 
+// Weather:
+
 const getGetWeatherPath = () => {
   return api.weather.get.path;
 };
 
 export const getGetWeatherUrl = (paramsMap) => {
-  return getApiBaseUrl() + insertQueryParams(getGetWeatherPath(), paramsMap);
+  const url = `${getApiBaseUrl()}${getGetWeatherPath()}`;
+  return insertQueryParams(url, paramsMap);
+};
+
+// EPG:
+// temp, ultimately want to switch to apiBaseUrl:
+const jsonWebServerBaseUrl = 'http://localhost:4000';
+
+const getGetEpgProgrammesPath = () => {
+  return api.epg.programmes.get.all.path;
+};
+
+export const getGetEpgProgrammesUrl = () => {
+  return `${jsonWebServerBaseUrl}${getGetEpgProgrammesPath()}`;
+};
+
+const getGetEpgProgrammeBasePath = () => {
+  return api.epg.programmes.get.one.basePath;
+}
+
+const getGetEpgProgrammeBaseUrl = () => {
+  return `${jsonWebServerBaseUrl}${getGetEpgProgrammeBasePath()}`;
+};
+
+export const getGetEpgProgrammeUrl = (id) => {
+  return `${getGetEpgProgrammeBaseUrl()}/${id}`;
+};
+
+const getGetEpgChannelsPath = () => {
+  return api.epg.channels.get.path;
+};
+
+export const getGetEpgChannelsUrl = () => {
+  return `${jsonWebServerBaseUrl}${getGetEpgChannelsPath()}`;
 };

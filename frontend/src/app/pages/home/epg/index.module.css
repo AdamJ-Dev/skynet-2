@@ -1,0 +1,12 @@
+@import "../../../styles/theme.css";
+
+.epg {
+  border: 3px solid var(--main-colour);
+  overflow: auto;
+}
+
+.searchBarRow {
+  grid-column: 1/ -1;
+  grid-row: 1;
+  border-bottom: 1px solid var(--main-colour);
+}
