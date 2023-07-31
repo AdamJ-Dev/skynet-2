@@ -33,7 +33,7 @@ const ProgrammePage = () => {
           </div>
           <h3>Flights:</h3>
           <div>Click <button onClick={() => setSeekLocation(true)}>here</button> to find your nearest airport, and upcoming connecting flights to <em>{programme.location.name}'s</em> nearest airport.</div>
-          {seekLocation && <GeolocationContextProvider><FlightsTable destination={{ latitude: programme.lat, longitude: programme.lon }}/></GeolocationContextProvider>}
+          {seekLocation && <GeolocationContextProvider><FlightsTable destination={{ latitude: programme.location.coordinates.lat, longitude: programme.location.coordinates.lon }}/></GeolocationContextProvider>}
         </>
       )}
     </>
