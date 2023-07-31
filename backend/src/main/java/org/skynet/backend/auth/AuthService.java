@@ -26,9 +26,10 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userRole(UserRole.USER)
                 .build();
-        userRepo.save(user);
+        User savedUser = userRepo.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
+                .id(savedUser.getId())
                 .token(jwtToken)
                 .build();
     }
@@ -40,10 +41,11 @@ public class AuthService {
                         request.getPassword()
                 )
         );
-        var user = userRepo.findByEmail(request.getEmail())
+        var savedUser = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(); // todo handle exception here
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(savedUser);
         return AuthResponse.builder()
+                .id(savedUser.getId())
                 .token(jwtToken)
                 .build();
     }
