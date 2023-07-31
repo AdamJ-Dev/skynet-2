@@ -26,13 +26,13 @@ public class WeatherServiceTest {
             "{\"daily\":{\"time\":[\"%s\"],\"weathercode\":[%s],\"temperature_2m_max\":[%s],\"temperature_2m_min\":[%s]}}",
             TEST_TIME, TEST_CODE, TEST_MAX_TEMP, TEST_MIN_TEMP);
 
-    public WebClient.Builder builder = WebClient.builder()
+    private final WebClient.Builder builder = WebClient.builder()
             .exchangeFunction(clientRequest -> Mono.just(ClientResponse.create(HttpStatus.OK)
                     .header("content-type", "application/json")
                     .body(TEST_BODY)
                     .build()));
 
-    private WeatherService weatherService = new WeatherService(builder);
+    private final WeatherService weatherService = new WeatherService(builder);
 
     @Test
     public void testGetWeatherDTOs() {

@@ -5,6 +5,7 @@ import org.skynet.backend.rest.dtos.WeatherDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -97,6 +98,12 @@ public class WeatherService {
                     }
 
                     return weatherDTOs;
+                })
+                .doOnError(throwable -> {
+                    if (!(throwable instanceof ResponseStatusException)) {
+                        logger.error(throwable.getMessage());
+                        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
                 });
     }
 }
