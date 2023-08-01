@@ -1,6 +1,6 @@
 {
   "baseDevUrl": "http://localhost:8080",
-  "baseProdUrl": "",
+  "baseProdUrl": "http://52.56.81.13:8080",
   "flights": {},
   "weather": {
     "get": {
@@ -8,8 +8,20 @@
       "queryParams": ["lat", "lon", "days"]
     }
   },
-  "map": {},
-  "user": {},
+  "map": {
+    "get": {
+      "path": "/map",
+      "queryParams": ["lat", "lon"]
+    }
+  },
+  "user": {
+    "login": {
+      "path": "/authenticate"
+    },
+    "signup": {
+      "path": "/register"
+    }
+  },
   "epg": {
     "channels": {
       "get": {

@@ -56,7 +56,7 @@ const useFetch = (url) => {
   };
 
   const del = async (errorParser = defaultErrorParser, extraHeaders = {}) => {
-    executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }));
+    executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }), errorParser);
   };
 
   return { data, error, loading, get, post, put, del };

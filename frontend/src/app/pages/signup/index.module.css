@@ -1,0 +1,37 @@
+@import "../../styles//theme.css";
+
+.authPageContainer {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.formContainer {
+  display: inline-block;
+  box-sizing: border-box;
+  border: solid 2px var(--main-colour);
+  padding: 1rem 5rem;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.formInput {
+  display: block;
+}
+
+.formButton {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  background: var(--light-colour);
+}
+
+.errorBorder {
+  border: 2px solid var(--error-colour); 
+}
+
+.error {
+  text-decoration: underline;
+}

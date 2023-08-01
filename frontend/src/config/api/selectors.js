@@ -20,6 +20,33 @@ export const getGetWeatherUrl = (paramsMap) => {
   return insertQueryParams(url, paramsMap);
 };
 
+// User:
+const getSignupApiPath = () => {
+  return api.user.signup.path;
+};
+
+export const getSignupApiUrl = () => {
+  return `${getApiBaseUrl()}${getSignupApiPath()}`;
+};
+
+const getLoginApiPath = () => {
+  return api.user.login.path;
+};
+
+export const getLoginApiUrl = () => {
+  return `${getApiBaseUrl()}${getLoginApiPath()}`;
+};
+
+// Map:
+const getGetMapPath = () => {
+  return api.map.get.path;
+};
+
+export const getGetMapUrl = (lat, lon) => {
+  const url = `${getApiBaseUrl()}${getGetMapPath()}`;
+  return insertQueryParams(url, { lat, lon });
+};
+
 // EPG:
 // temp, ultimately want to switch to apiBaseUrl:
 const jsonWebServerBaseUrl = 'http://localhost:4000';
@@ -34,7 +61,7 @@ export const getGetEpgProgrammesUrl = () => {
 
 const getGetEpgProgrammeBasePath = () => {
   return api.epg.programmes.get.one.basePath;
-}
+};
 
 const getGetEpgProgrammeBaseUrl = () => {
   return `${jsonWebServerBaseUrl}${getGetEpgProgrammeBasePath()}`;

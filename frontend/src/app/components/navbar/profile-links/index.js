@@ -1,23 +1,34 @@
 import { useNavigate } from 'react-router-dom';
-import { getLoginPath, getProfilePath, getSignupPath } from '../../../../config/pages/selectors';
+import { getHomePath, getLoginPath, getProfilePath, getSignupPath } from '../../../../config/pages/selectors';
 
 import styles from './index.module.css';
+import { useAuthContext } from '../../../context/auth/hook';
+import { deleteUserCookie } from '../../../utility/user/userCookie';
+import { LOGOUT } from '../../../context/auth/provider';
 
-// temp for testing:
-// const user = null;
-const user = {
-  id: 1,
-};
 
 const ProfileLinks = () => {
+  const { user, dispatch } = useAuthContext();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    deleteUserCookie();
+    dispatch({ type: LOGOUT });
+    navigate(getHomePath());
+  };
 
   return (
     <span>
       {user ? (
+        <>
         <button onClick={() => navigate(getProfilePath(user.id))} className={styles.authButton}>
-          Your Profile
+          Profile
         </button>
+        &nbsp;
+         <button onClick={() => handleLogout()} className={styles.authButton}>
+          Log out 
+       </button>
+       </>
       ) : (
         <>
           <button onClick={() => navigate(getSignupPath())} className={styles.authButton}>

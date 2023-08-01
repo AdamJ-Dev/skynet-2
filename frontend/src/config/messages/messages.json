@@ -1,7 +1,13 @@
 {
   "error": {
     "generic": "Oops. Something went wrong.",
-    "location": "It seems we couldn't get your location."
+    "location": "It seems we couldn't get your location.",
+    "user": {
+      "login": {},
+      "signup": {
+        "confirmPassword": "Those passwords don't match."
+      }
+    }
   },
   "loading": "Loading..."
 }

@@ -1,5 +1,5 @@
 :root {
   --main-colour: navy;
   --light-colour: #F8F8F8;
-  --font: "Arial"
+  --error-colour: rgb(177, 11, 11);
 }

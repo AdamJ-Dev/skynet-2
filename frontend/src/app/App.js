@@ -14,10 +14,11 @@ import ProfilePage from './pages/profile';
 import ProgrammePage from './pages/programme';
 
 import styles from './App.module.css';
+import { AuthContextProvider } from './context/auth/provider';
 
 function App() {
   return (
-    <>
+    <AuthContextProvider>
       <NavBar />
       <div className={styles.pageContainer}>
         <Routes>
@@ -28,7 +29,7 @@ function App() {
           <Route path={`${getProgrammeBasePath()}/:id`} element={<ProgrammePage />} />
         </Routes>
       </div>
-    </>
+    </AuthContextProvider>
   );
 }
 
