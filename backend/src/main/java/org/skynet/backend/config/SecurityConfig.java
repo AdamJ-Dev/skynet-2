@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/error"), // allow error responses
                                 new AntPathRequestMatcher("/weather/**"),
                                 new AntPathRequestMatcher("/flights/**"),
+                                new AntPathRequestMatcher("/airport/**"),
                                 new AntPathRequestMatcher("/register/**"),
                                 new AntPathRequestMatcher("/channels/**"),
                                 new AntPathRequestMatcher("/programmes/**"),

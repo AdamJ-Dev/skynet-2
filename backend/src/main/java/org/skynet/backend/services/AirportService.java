@@ -15,8 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AirportService {
-    private static String key = System.getenv("key");
-    private static String secret = System.getenv("secret");
+    private static String key = System.getenv("AMADEUS_KEY");
+    private static String secret = System.getenv("AMADEUS_SECRET");
     static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();
@@ -38,14 +38,7 @@ public class AirportService {
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
-        String result = locations[0].getResponse().getBody();
-        JsonNode resultJson = objectMapper.readTree(result);
-        JsonNode airport = resultJson.get("data").get(0);
-        String airportName = airport.get("name").asText();
-        String airportCode = airport.get("iataCode").asText();
-
-        return new AirportDTO(airportName, airportCode);
+        Location location = locations[0];
+        return new AirportDTO(location.getName(), location.getIataCode());
     }
-
-
 }
