@@ -92,4 +92,16 @@ Programme:
 - Display Flight information from the Api 
 - Weather Information: forecast for source and target destination
 
+### Production
+
+Commands:
+- Connect to instance `ssh -i skynet.pem ec2-user@<ip>`
+- Build backend `mvn clean install [-DskipTests]`
+- build frontend `npm run build`
+- Copy backend: `scp -i ~/path/to/skynet.pem backend.jar ec2-user@52.56.81.13:~/`
+- Copy Frontend: `scp -i ~/path/to/skynet.pem -r build ec2-user@52.56.81.13:~/`
+- Start backend as background process: `java -jar backend.jar &`
+- Start frontend as background process: `serve -sn build &`
+- See jobs: `jobs`
+- Kill jobs: `kill %<jobId>`
 
