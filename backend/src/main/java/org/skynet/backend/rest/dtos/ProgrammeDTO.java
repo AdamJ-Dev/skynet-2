@@ -18,6 +18,6 @@ public class ProgrammeDTO {
     private String since;
     private String till;
     private List<LocationDTO> locations;
-    private Long channelID;
+    private Long channelId;
 
 }

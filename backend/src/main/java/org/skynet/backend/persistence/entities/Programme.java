@@ -39,13 +39,4 @@ public class Programme {
     @OneToMany
     private List<Location> locations ;
 
-//    @Column
-//    private String locationName;
-//    @Column
-//    private String locationRelationship;
-//    @Column
-//    private double locationLat;
-//    @Column
-//    private double locationLon;
-
 }

@@ -25,9 +25,6 @@ public class Location {
     @Column
     private double lon;
 
-//    @JoinColumn(name = "programmeID", nullable = true)
-//    @ManyToOne
-
     @Column
     private Long programmeId;
 }
