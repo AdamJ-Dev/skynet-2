@@ -38,14 +38,7 @@ public class AirportService {
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
-        String result = locations[0].getResponse().getBody();
-        JsonNode resultJson = objectMapper.readTree(result);
-        JsonNode airport = resultJson.get("data").get(0);
-        String airportName = airport.get("name").asText();
-        String airportCode = airport.get("iataCode").asText();
-
-        return new AirportDTO(airportName, airportCode);
+        Location location = locations[0];
+        return new AirportDTO(location.getName(), location.getIataCode());
     }
-
-
 }
