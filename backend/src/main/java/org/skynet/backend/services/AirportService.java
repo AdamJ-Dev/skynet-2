@@ -38,6 +38,11 @@ public class AirportService {
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
+
+        return airportLocationToDTO(locations);
+    }
+
+    public AirportDTO airportLocationToDTO(Location[] locations) {
         Location location = locations[0];
         return new AirportDTO(location.getName(), location.getIataCode());
     }
