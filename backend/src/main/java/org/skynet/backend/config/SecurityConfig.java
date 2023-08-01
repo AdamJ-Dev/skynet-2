@@ -44,6 +44,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/channels/**"),
                                 new AntPathRequestMatcher("/programmes/**"),
                                 new AntPathRequestMatcher("/authenticate/**")
+                                new AntPathRequestMatcher("/authenticate/**"),
+                                new AntPathRequestMatcher("/map/**")
                         )
                         .permitAll()
                         .anyRequest()
