@@ -99,8 +99,9 @@ Commands:
 - Set `spring.profiles.active` to `prod`
 - Build backend: `mvn clean install [-DskipTests]`
 - Copy backend: `scp -i ~/path/to/skynet.pem backend-0.0.1-SNAPSHOT.jar ec2-user@<ip>:~/`
-- build frontend: `npm run build`
-- Copy Frontend: `scp -i ~/path/to/skynet.pem -r build ec2-user@<ip>:~/`
+- Build frontend: `npm run build`
+- Copy frontend: `scp -i ~/path/to/skynet.pem -r build ec2-user@<ip>:~/`
+- Start MySQL: `docker start prod-mysql`
 - Start backend as background process: `java -jar backend.jar &`
 - Start frontend as background process: `serve -sn build &`
 - See jobs: `jobs`

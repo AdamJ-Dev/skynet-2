@@ -43,7 +43,6 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/register/**"),
                                 new AntPathRequestMatcher("/channels/**"),
                                 new AntPathRequestMatcher("/programmes/**"),
-                                new AntPathRequestMatcher("/authenticate/**")
                                 new AntPathRequestMatcher("/authenticate/**"),
                                 new AntPathRequestMatcher("/map/**")
                         )
