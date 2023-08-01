@@ -17,8 +17,8 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String PRIVATE_ENCRYPTION_KEY = System.getenv("private_encryption_key");
-    private static final Long TOKEN_EXPIRATION = 1000 * 60 * 24L;
+    private static final String PRIVATE_ENCRYPTION_KEY = System.getenv("PRIVATE_ENCRYPTION_KEY");
+    private static final Long TOKEN_EXPIRATION = 1000 * 60 * 60 * 24L;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
