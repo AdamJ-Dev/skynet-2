@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.skynet.backend.persistence.entities.User;
 import org.skynet.backend.persistence.repos.UserRepo;
 import org.skynet.backend.persistence.roles.UserRole;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +21,9 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(RegisterRequest request) {
+        if (userRepo.existsByEmail(request.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
+        }
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -26,9 +31,10 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userRole(UserRole.USER)
                 .build();
-        userRepo.save(user);
+        User savedUser = userRepo.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
+                .id(savedUser.getId())
                 .token(jwtToken)
                 .build();
     }
@@ -40,10 +46,11 @@ public class AuthService {
                         request.getPassword()
                 )
         );
-        var user = userRepo.findByEmail(request.getEmail())
+        var savedUser = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(); // todo handle exception here
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(savedUser);
         return AuthResponse.builder()
+                .id(savedUser.getId())
                 .token(jwtToken)
                 .build();
     }

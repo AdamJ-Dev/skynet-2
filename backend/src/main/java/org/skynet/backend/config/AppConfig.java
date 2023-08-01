@@ -27,6 +27,11 @@ public class AppConfig {
     }
 
     @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepo.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
