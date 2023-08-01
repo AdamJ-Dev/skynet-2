@@ -28,20 +28,15 @@ public class MapService {
         this.builder = builder;
     }
 
-    @GetMapping("/map/{latitude},{longitude}")
-    public Mono<MapDTO> getMap(@PathVariable String lat, @PathVariable String lon) {
+    public Mono<MapDTO> getMap(String lat, String lon) {
         String url = String.format("https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zoom=10&size=320x320&key=%s", lat, lon, GOOGLE_MAPS_API_KEY);
-
         return builder.build()
                 .get()
                 .uri(url)
                 .retrieve()
                 .onStatus(status -> status.isError(), response -> {
                     HttpStatusCode code = response.statusCode();
-                    return response.bodyToMono(JsonNode.class).map(body -> {
-                        String reason = body.get("reason").asText();
-                        return new ResponseStatusException(code, reason);
-                    });
+                    return response.bodyToMono(String.class).map(body -> new ResponseStatusException(code, body));
                 })
                 .bodyToMono(byte[].class)
                 .map(Base64.getEncoder()::encodeToString)
