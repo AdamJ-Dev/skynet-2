@@ -7,6 +7,7 @@ import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import { GeolocationContextProvider } from '../../context/geolocation/provider';
 import FlightsTable from './flights-table';
+import LocationInfo from './location-info';
 
 const ProgrammePage = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const ProgrammePage = () => {
 
   useEffect(() => {
     getProgramme();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -30,14 +31,22 @@ const ProgrammePage = () => {
         <>
           <h1>{programme.title}</h1>
           <p>{programme.description}</p>
-          <h2>Highlighted Location: {programme.location.name}</h2>
-          <div className={styles.locationInfo}>
-            <div>{programme.location.relationship}</div>
-            <div className={styles.map}>!!Map goes here!!</div>
-          </div>
+          <LocationInfo location={programme.location} />
           <h3>Flights:</h3>
-          <div>Click <button onClick={() => setSeekLocation(true)}>here</button> to find your nearest airport, and upcoming connecting flights to <em>{programme.location.name}'s</em> nearest airport.</div>
-          {seekLocation && <GeolocationContextProvider><FlightsTable destination={{ latitude: programme.location.coordinates.lat, longitude: programme.location.coordinates.lon }}/></GeolocationContextProvider>}
+          <div>
+            Click <button onClick={() => setSeekLocation(true)}>here</button> to find your nearest airport,
+            and upcoming connecting flights to <em>{programme.location.name}'s</em> nearest airport.
+          </div>
+          {seekLocation && (
+            <GeolocationContextProvider>
+              <FlightsTable
+                destination={{
+                  latitude: programme.location.coordinates.lat,
+                  longitude: programme.location.coordinates.lon,
+                }}
+              />
+            </GeolocationContextProvider>
+          )}
         </>
       )}
     </>
