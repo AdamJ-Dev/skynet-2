@@ -4,6 +4,7 @@ import org.skynet.backend.rest.dtos.ProgrammeDTO;
 import org.skynet.backend.services.ProgrammeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class ProgrammeController {
         return this.service.getAllProgrammes();
     }
 
-//    @GetMapping("/programmes/{id}")
-//    public ProgrammeDTO getAllProgrammes(@PathVariable Long id){
-//        return this.service.getAllProgrammesById(id);
-//    }
+    @GetMapping("/programmes/{id}")
+    public ProgrammeDTO getProgrammeById(@PathVariable Long id){
+        return this.service.getProgrammeById(id);
+    }
 }
