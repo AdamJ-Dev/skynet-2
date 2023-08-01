@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class Programme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
     @Column
     private String title;
@@ -27,18 +30,22 @@ public class Programme {
     private String since;
     @Column
     private String till;
-//    @Column
-//    private List<Location> locations;
+
     @JoinColumn(nullable = false, name = "channelId", referencedColumnName = "id")
     @ManyToOne
     private Channel channel;
-    @Column
-    private String locationName;
-    @Column
-    private String locationRelationship;
-    @Column
-    private double locationLat;
-    @Column
-    private double locationLon;
+
+    @JoinColumn(name = "programmeId", referencedColumnName = "id")
+    @OneToMany
+    private List<Location> locations ;
+
+//    @Column
+//    private String locationName;
+//    @Column
+//    private String locationRelationship;
+//    @Column
+//    private double locationLat;
+//    @Column
+//    private double locationLon;
 
 }

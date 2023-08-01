@@ -14,12 +14,20 @@ import java.util.List;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long LocationId;
+    @Column
+    private Long locationId;
+    @Column
     private String name;
+    @Column
     private String relationship;
+    @Column
     private double lat;
+    @Column
     private double lon;
+
 //    @JoinColumn(name = "programmeID", nullable = true)
 //    @ManyToOne
-//    private Programme programme;
+
+    @Column
+    private Long programmeId;
 }

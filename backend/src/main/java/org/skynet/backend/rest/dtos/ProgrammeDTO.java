@@ -17,10 +17,7 @@ public class ProgrammeDTO {
     private String description;
     private String since;
     private String till;
-//    private List<Location> locations;
+    private List<LocationDTO> locations;
     private Long channelID;
-    private String locationName;
-    private String locationRelationship;
-    private double locationLat;
-    private double locationLon;
+
 }
