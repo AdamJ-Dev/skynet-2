@@ -95,11 +95,12 @@ Programme:
 ### Production
 
 Commands:
-- Connect to instance `ssh -i skynet.pem ec2-user@<ip>`
-- Build backend `mvn clean install [-DskipTests]`
-- build frontend `npm run build`
-- Copy backend: `scp -i ~/path/to/skynet.pem backend.jar ec2-user@52.56.81.13:~/`
-- Copy Frontend: `scp -i ~/path/to/skynet.pem -r build ec2-user@52.56.81.13:~/`
+- Connect to instance: `ssh -i skynet.pem ec2-user@<ip>`
+- Set `spring.profiles.active` to `prod`
+- Build backend: `mvn clean install [-DskipTests]`
+- Copy backend: `scp -i ~/path/to/skynet.pem backend-0.0.1-SNAPSHOT.jar ec2-user@<ip>:~/`
+- build frontend: `npm run build`
+- Copy Frontend: `scp -i ~/path/to/skynet.pem -r build ec2-user@<ip>:~/`
 - Start backend as background process: `java -jar backend.jar &`
 - Start frontend as background process: `serve -sn build &`
 - See jobs: `jobs`
