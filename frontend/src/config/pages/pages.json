@@ -23,12 +23,16 @@
   "programme": {
     "basePath": "/programme",
     "flights": {
-      "airportsSearchLimit": 5
+      "airportsSearchLimit": 5,
+      "defaultNumFlightsResults": 5
     },
     "content": {
-      "flightsInfoDescription": "Search for a departure airport or let us look for an airport near you. We'll then look for an upcoming, connecting flight to an airport near {0}.",
-      "airportsSearchPlaceholder": "Find a flight ...",
-      "flightsApiDisclaimer": "This site uses a free tier of the Amadeus api. Information is available for a limited number of existing airports. We find the nearest airports to a specific location from within that subset. The airports returned, therefore, may in fact be distant from the specified locations."
+      "flightsInfoDescription": "Look for an upcoming, connecting flight to an airport near {0}.",
+      "airportsSearchPlaceholder": "Find an airport ...",
+      "flightsApiDisclaimer": "This site uses a free tier of the Amadeus api. Information is available for a limited number of existing airports. We find the nearest airport to a specific location only from within that subset. In the process, we may fail to return airports that really are nearby.",
+      "getAirportsNearMe": "Look for an airport near me.",
+      "flightsInfoMissing": "Waiting for more information ...",
+      "flightsReady": "Find flights"
     }
   }
 }

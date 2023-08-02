@@ -1,8 +1,13 @@
 {
   "error": {
     "generic": "Oops. Something went wrong.",
-    "location": "It seems we couldn't get your location.",
     "invalidSearchQuery": "Your query contains invalid characters.",
+    "location": {
+      "generic": "There was a problem getting your location.",
+      "permissionDenied": "We do not have access to your location.",
+      "positionUnavailable": "Location information is unavailable at this time.",
+      "timeout": "The request to get your location timed out."
+    },
     "user": {
       "login": {},
       "signup": {

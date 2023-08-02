@@ -1,6 +1,7 @@
 :root {
   --main-colour: navy;
   --light-colour: #F8F8F8;
-  --backup-colour: #6670ff;
+  --backup-colour: #6670FF;
+  --main-colour-light: #bacffe;
   --error-colour: rgb(177, 11, 11);
 }

@@ -13,7 +13,7 @@
     },
     "getFlights": {
       "path": "/flights",
-      "queryParams": ["originLocationCode", "destinationLocationCode", "departureDate"]
+      "queryParams": ["originLocationCode", "destinationLocationCode", "departureDate", "returnDate", "numberOfResults"]
     }
   },
   "weather": {

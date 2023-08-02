@@ -13,7 +13,6 @@
 @media (max-width: 590px) {
   .programmeLocationIntro {
     flex-direction: column-reverse;
-    align-items: start;
     gap: 1rem;
   }
 }

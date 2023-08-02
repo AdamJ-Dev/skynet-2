@@ -7,6 +7,7 @@ import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import ProgrammeLocationIntro from './programme-location-intro';
 import FlightsInfo from './flights-info';
+import { JourneyContextProvider } from '../../context/journey/provider';
 
 const ProgrammePage = () => {
   const { id } = useParams();
@@ -28,7 +29,9 @@ const ProgrammePage = () => {
       {programme?.location && (
         <>
           <ProgrammeLocationIntro programme={programme} />
-          <FlightsInfo destination={programme.location}/>
+          <JourneyContextProvider>
+            <FlightsInfo destination={programme.location} />
+          </JourneyContextProvider>
         </>
       )}
     </>

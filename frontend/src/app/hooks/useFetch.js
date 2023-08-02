@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getResponseError } from '../utility/data-fetching/getResponseError';
 import { getGenericErrorMessage } from '../../config/messages/selectors';
 
@@ -27,43 +27,51 @@ const useFetch = (initialUrl) => {
     }
   };
 
-  const get = async ({ url = initialUrl, errorParser = defaultErrorParser } = {}) => {
-    executeFetch(async () => await fetch(url), errorParser);
-  };
+  const get = useCallback(
+    async ({ url = initialUrl, errorParser = defaultErrorParser } = {}) => {
+      console.log(url)
+      executeFetch(async () => await fetch(url), errorParser);
+    },
+    [initialUrl]
+  );
 
-  const post = async (
-    json,
-    { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
-  ) => {
-    executeFetch(
-      async () =>
-        await fetch(url, {
-          method: 'POST',
-          headers: { ...defaultPostingHeaders, extraHeaders },
-          body: JSON.stringify(json),
-        }),
-      errorParser
-    );
-  };
+  const post = useCallback(
+    async (json, { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      executeFetch(
+        async () =>
+          await fetch(url, {
+            method: 'POST',
+            headers: { ...defaultPostingHeaders, extraHeaders },
+            body: JSON.stringify(json),
+          }),
+        errorParser
+      );
+    },
+    [initialUrl]
+  );
 
-  const put = async (
-    json,
-    { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
-  ) => {
-    executeFetch(
-      async () =>
-        await fetch(url, {
-          method: 'PUT',
-          headers: { ...defaultPostingHeaders, extraHeaders },
-          body: JSON.stringify(json),
-        }),
-      errorParser
-    );
-  };
+  const put = useCallback(
+    async (json, { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      executeFetch(
+        async () =>
+          await fetch(url, {
+            method: 'PUT',
+            headers: { ...defaultPostingHeaders, extraHeaders },
+            body: JSON.stringify(json),
+          }),
+        errorParser
+      );
+    },
+    [initialUrl]
+  );
 
-  const del = async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
-    executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }), errorParser);
-  };
+  const del = useCallback(
+    async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }), errorParser);
+    },
+    [initialUrl]
+  );
+
 
   return { data, error, loading, get, post, put, del };
 };

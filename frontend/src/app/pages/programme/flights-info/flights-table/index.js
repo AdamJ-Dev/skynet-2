@@ -1,23 +1,65 @@
-import { useEffect } from 'react';
-import { getGetWeatherUrl } from '../../../../../config/api/selectors';
-import { getGenericErrorMessage, getLoadingMessage } from '../../../../../config/messages/selectors';
-import { useGeolocationContext } from '../../../../context/geolocation/hook';
+import { getFlightsUrl, getGetWeatherUrl } from '../../../../../config/api/selectors';
 import useFetch from '../../../../hooks/useFetch';
 
 import styles from './index.module.css';
+import { useJourneyContext } from '../../../../context/journey/hook';
+import { useEffect, useState } from 'react';
+import { getFlightsInfoMissingMessage, getFlightsReadyMessage } from '../../../../../config/pages/selectors';
+import { getGenericErrorMessage, getLoadingMessage } from '../../../../../config/messages/selectors';
 
 const FlightsTable = ({ destination }) => {
-  // const { location: source, waiting, error } = useGeolocationContext();
-  // const {
-  //   loading: weatherLoading,
-  //   data: weatherData,
-  //   error: weatherError,
-  //   get: getWeather,
-  // } = useFetch(getGetWeatherUrl({ lat: destination.latitude, lon: destination.longitude, days: 1 }));
+  const [tableMessage, setTableMessage] = useState(getFlightsInfoMissingMessage());
+  const {
+    departureAirport,
+    arrivalAirport,
+    departureDate,
+    returnDate,
+    error: journeyContextError,
+    dispatch,
+  } = useJourneyContext();
+  const {
+    loading: weatherLoading,
+    data: weatherData,
+    error: weatherError,
+    get: getWeather,
+  } = useFetch(getGetWeatherUrl({ lat: destination.coordinates.lat, lon: destination.coordinates.lon }));
+  const { loading: flightsLoading, data: flightsData, error: flightsError, get: getFlights } = useFetch('');
 
-  // useEffect(() => {
-  //   getWeather();
-  // }, []);
+  useEffect(() => {
+    getWeather();
+  }, []);
+
+  useEffect(() => {
+    const determineTableMessage = () => {
+      if (journeyContextError) {
+        setTableMessage(getGenericErrorMessage());
+      } else {
+        const gotEnoughInfo = !!departureAirport && !!arrivalAirport && !!departureDate;
+        const waitingToGetFlights = !flightsLoading & !flightsData & !flightsError;
+        if (!gotEnoughInfo) {
+          setTableMessage(getFlightsInfoMissingMessage());
+        } else if (gotEnoughInfo && waitingToGetFlights) {
+          setTableMessage(getFlightsReadyMessage());
+        } else if (flightsLoading) {
+          setTableMessage(getLoadingMessage());
+        } else if (flightsError) {
+          setTableMessage(flightsError);
+        }
+      }
+    };
+
+    determineTableMessage();
+  }, [departureAirport, arrivalAirport, departureDate, flightsLoading, flightsData, flightsError]);
+
+  const handleGetFlights = async () => {
+    await getFlights({
+      url: getFlightsUrl(departureAirport.airportCode, arrivalAirport.airportCode, departureDate, returnDate),
+    });
+  };
+
+  useEffect(() => {
+    console.log(flightsData);
+  }, [flightsData]);
 
   return (
     <div className={styles.tableContainer}>
@@ -35,7 +77,7 @@ const FlightsTable = ({ destination }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {/* <tr>
             <td>
             </td>
             <td>Blah</td>
@@ -45,13 +87,20 @@ const FlightsTable = ({ destination }) => {
             <td>Blah</td>
             <td>Blah</td>
             <td>
-              {/* {weatherLoading && <p>{getLoadingMessage()}</p>}
-              {weatherError && <p>{getGenericErrorMessage()}</p>}
-              {weatherData && <p>{weatherData[0].desc}</p>} */}
+    
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
+      {!flightsData && (
+        <div className={styles.tableMessage}>
+          {tableMessage == getFlightsReadyMessage() ? (
+            <button onClick={() => handleGetFlights()}>{tableMessage}</button>
+          ) : (
+            tableMessage
+          )}
+        </div>
+      )}
     </div>
   );
 };

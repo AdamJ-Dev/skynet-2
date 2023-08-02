@@ -74,3 +74,19 @@ export const getAirportsSearchLimit = () => {
 export const getFlightsApiDisclaimer = () => {
   return pages.programme.content.flightsApiDisclaimer;
 };
+
+export const getGetAiportsNearMeMessage = () => {
+  return pages.programme.content.getAirportsNearMe;
+};
+
+export const getFlightsInfoMissingMessage = () => {
+  return pages.programme.content.flightsInfoMissing;
+};
+
+export const getFlightsReadyMessage = () => {
+  return pages.programme.content.flightsReady;
+};
+
+export const getDefaultNumFlightsResults = () => {
+  return pages.programme.flights.defaultNumFlightsResults;
+};

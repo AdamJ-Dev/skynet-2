@@ -9,3 +9,7 @@
 .flightsInfoContainer h2 {
   text-decoration: underline;
 }
+
+.disclaimer {
+  font-size: small;
+}

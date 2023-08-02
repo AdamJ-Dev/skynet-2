@@ -1,46 +1,42 @@
-import { useState } from 'react';
-import { GeolocationContextProvider } from '../../../context/geolocation/provider';
 import FlightsTable from './flights-table';
 import { HashLink } from 'react-router-hash-link';
 import styles from './index.module.css';
-import {
-  getFlightsApiDisclaimer,
-  getFlightsInfoDescription,
-} from '../../../../config/pages/selectors';
-import AirportsSearchBar from './search-bar';
+import { getFlightsApiDisclaimer, getFlightsInfoDescription } from '../../../../config/pages/selectors';
+import { useJourneyContext } from '../../../context/journey/hook';
+import DepartureAirportSettings from './departure-airport-settings';
+import { useEffect } from 'react';
+import { SET_DESTINATION } from '../../../context/journey/provider';
+import FlightDateSettings from './date-settings';
 
 const FlightsInfo = ({ destination }) => {
-  const [departureAirportCode, setDepartureAirportCode] = useState(null);
-  const [seekLocation, setSeekLocation] = useState(false);
+  const { dispatch } = useJourneyContext();
+
+  useEffect(() => {
+    dispatch({ type: SET_DESTINATION, payload: destination });
+  }, []);
+
   return (
-    <div className={styles.flightsInfoContainer}>
-      <h2>Flights Information</h2>
-      <div className="departureAirport">
+    <>
+      <div className={styles.flightsInfoContainer}>
+        <h2>Flights Information</h2>
         <p>
           {getFlightsInfoDescription(destination.name)}
-          <HashLink smooth to="#disclaimer">*</HashLink>
+          <HashLink smooth to="#disclaimer">
+            *
+          </HashLink>
         </p>
-        <AirportsSearchBar setDepartureAirportCode={setDepartureAirportCode} />
-        <div>Click here to find your nearest airport</div>
-        <p>Departing from ...</p>
+        <DepartureAirportSettings />
+        <FlightDateSettings />
+        <FlightsTable destination={destination} />
+        <div className={styles.disclaimer} id="disclaimer">
+          <HashLink to="#disclaimer">*</HashLink>
+          {getFlightsApiDisclaimer()}&nbsp;
+          <HashLink smooth to="#set-departure-airport">
+            Back
+          </HashLink>
+        </div>
       </div>
-      <div>Departure date: ... Return date: ...</div>
-      {seekLocation && (
-        <GeolocationContextProvider>
-          <FlightsTable
-            destination={{
-              latitude: destination.coordinates.lat,
-              longitude: destination.coordinates.lon,
-            }}
-          />
-        </GeolocationContextProvider>
-      )}
-      <div id="disclaimer">
-        <HashLink to="#disclaimer">*</HashLink>
-        {getFlightsApiDisclaimer()}
-        <HashLink smooth to="#departureAirport">Back</HashLink>
-      </div>
-    </div>
+    </>
   );
 };
 

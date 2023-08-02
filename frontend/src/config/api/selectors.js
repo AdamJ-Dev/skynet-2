@@ -1,5 +1,6 @@
 import api from './api.json';
 import { insertQueryParams } from '../../lib/insertQueryParams';
+import { getDefaultNumFlightsResults } from '../pages/selectors';
 
 const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_ENV == 'dev') {
@@ -9,6 +10,10 @@ const getApiBaseUrl = () => {
   }
 };
 
+const buildApiUrl = (path) => {
+  return `${getApiBaseUrl()}${path}`;
+};
+
 // Weather:
 
 const getGetWeatherPath = () => {
@@ -16,7 +21,7 @@ const getGetWeatherPath = () => {
 };
 
 export const getGetWeatherUrl = (paramsMap) => {
-  const url = `${getApiBaseUrl()}${getGetWeatherPath()}`;
+  const url = buildApiUrl(getGetWeatherPath());
   return insertQueryParams(url, paramsMap);
 };
 
@@ -26,7 +31,7 @@ const getSignupApiPath = () => {
 };
 
 export const getSignupApiUrl = () => {
-  return `${getApiBaseUrl()}${getSignupApiPath()}`;
+  return buildApiUrl(getSignupApiPath());
 };
 
 const getLoginApiPath = () => {
@@ -34,7 +39,7 @@ const getLoginApiPath = () => {
 };
 
 export const getLoginApiUrl = () => {
-  return `${getApiBaseUrl()}${getLoginApiPath()}`;
+  return buildApiUrl(getLoginApiPath());
 };
 
 // Map:
@@ -43,7 +48,7 @@ const getGetMapPath = () => {
 };
 
 export const getGetMapUrl = (lat, lon) => {
-  const url = `${getApiBaseUrl()}${getGetMapPath()}`;
+  const url = buildApiUrl(getGetMapPath());
   return insertQueryParams(url, { lat, lon });
 };
 
@@ -86,10 +91,40 @@ const getGetAirportsPath = () => {
 };
 
 export const getGetAirportsUrl = (search) => {
-  const url = `${getApiBaseUrl()}${getGetAirportsPath()}`;
+  const url = buildApiUrl(getGetAirportsPath());
   return insertQueryParams(url, { search });
+};
+
+export const getGetNearestAirportPath = () => {
+  return api.flights.getNearestAirport.path;
+};
+
+export const getGetNearestAirportUrl = (lat, lon) => {
+  const url = buildApiUrl(getGetNearestAirportPath());
+  return insertQueryParams(url, { lat, lon });
 };
 
 export const getGetAirportsQueryRegex = () => {
   return api.flights.getAirports.queryRegex;
+};
+
+export const getFlightsPath = () => {
+  return api.flights.getFlights.path;
+};
+
+export const getFlightsUrl = (
+  originLocationCode,
+  destinationLocationCode,
+  departureDate,
+  returnDate = null,
+  numberOfResults = getDefaultNumFlightsResults()
+) => {
+  const url = buildApiUrl(getFlightsPath());
+  return insertQueryParams(url, {
+    originLocationCode,
+    destinationLocationCode,
+    departureDate,
+    returnDate,
+    numberOfResults,
+  });
 };

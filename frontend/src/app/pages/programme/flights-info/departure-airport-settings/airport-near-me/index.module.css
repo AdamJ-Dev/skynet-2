@@ -1,0 +1,46 @@
+@import "../../../../../styles/theme.css";
+
+.airportNearMeContainer {
+  margin: 1rem 0 0 0.25rem;
+  /* height: 22.5px; */
+}
+
+.airportNearMeContainer button {
+  height: 22.5px;
+}
+
+.getAirportNearMeMsg {
+  color: rgb(132, 132, 132);
+}
+
+.nearestAirportBtn {
+  border-radius: 0;
+  border: 1px solid var(--main-colour);
+  background: white;
+}
+
+.nearestAirportBtn:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 510px) {
+  .resultContainer {
+    display: block;
+    margin: 0.25rem 0 0 6rem;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .resultContainer {
+    margin-left: 2.5rem;
+  }
+}
+
+
+@media (max-width: 335px) {
+  .resultContainer {
+    margin-left: 1rem;
+  }
+}
+

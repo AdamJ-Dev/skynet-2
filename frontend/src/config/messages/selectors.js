@@ -1,20 +1,30 @@
 import { RESPONSE_ERROR } from '../../app/utility/data-fetching/getResponseError';
 import messages from './messages.json';
 
+// errors:
+
 export const getGenericErrorMessage = () => {
   return messages.error.generic;
 };
 
-export const getLocationErrorMessage = () => {
-  return messages.error.location;
+export const getGenericLocationErrorMessage = () => {
+  return messages.error.location.generic;
+};
+
+export const getLocationDeniedErrorMessage = () => {
+  return messages.error.location.permissionDenied;
+};
+
+export const getLocationUnavailableErrorMessage = () => {
+  return messages.error.location.positionUnavailable;
+};
+
+export const getLocationTimeoutErrorMessage = () => {
+  return messages.error.location.timeout;
 };
 
 export const getInvalidSearchQueryMessage = () => {
   return messages.error.invalidSearchQuery;
-};
-
-export const getNoSearchResultsMessage = () => {
-  return messages.noSearchResults;
 };
 
 export const getLoginErrorMessage = (error) => {
@@ -49,6 +59,12 @@ export const getSignupErrorMessage = (error) => {
   }
 };
 
+// other:
+
 export const getLoadingMessage = () => {
   return messages.loading;
+};
+
+export const getNoSearchResultsMessage = () => {
+  return messages.noSearchResults;
 };
