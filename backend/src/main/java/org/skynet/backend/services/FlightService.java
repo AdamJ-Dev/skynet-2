@@ -18,14 +18,10 @@ import java.util.List;
 
 @Service
 public class FlightService {
-
     private static String key = System.getenv("AMADEUS_KEY");
-
     private static String secret = System.getenv("AMADEUS_SECRET");
-    static Amadeus amadeus = Amadeus.builder(key,secret).build();
-
+    static Amadeus amadeus = Amadeus.builder(key, secret).build();
     static ObjectMapper objectMapper = new ObjectMapper();
-
     public List<FlightDTO> getMultipleFlightDTOs(
             String originLocationCode,
             String destinationLocationCode,
@@ -35,42 +31,50 @@ public class FlightService {
     ) throws JsonProcessingException, ResponseException {
         FlightOfferSearch[] flightOfferSearches;
         try {
-            flightOfferSearches = amadeus.shopping.flightOffersSearch.get(
-                    Params.with("originLocationCode", originLocationCode)
-                            .and("destinationLocationCode", destinationLocationCode)
-                            .and("departureDate", departureDate)
-                            .and("returnDate", returnDate)
-                            .and("adults", 1)
-                            .and("currencyCode", "GBP")
-                            .and("max", numberOfResults));
+            if (returnDate != null) {
+                flightOfferSearches = amadeus.shopping.flightOffersSearch.get(
+                        Params.with("originLocationCode", originLocationCode)
+                                .and("destinationLocationCode", destinationLocationCode)
+                                .and("departureDate", departureDate)
+                                .and("returnDate", returnDate)
+                                .and("adults", 1)
+                                .and("currencyCode", "GBP")
+                                .and("max", numberOfResults));
+            } else {
+                flightOfferSearches = amadeus.shopping.flightOffersSearch.get(
+                        Params.with("originLocationCode", originLocationCode)
+                                .and("destinationLocationCode", destinationLocationCode)
+                                .and("departureDate", departureDate)
+                                .and("adults", 1)
+                                .and("currencyCode", "GBP")
+                                .and("max", numberOfResults));
+            }
         } catch (ClientException e) {
             var response = e.getResponse();
             HttpStatus statusCode = HttpStatus.valueOf(response.getStatusCode());
             JsonNode body = objectMapper.readTree(response.getBody());
             String errMsg = "";
-            for(JsonNode error : body.get("errors")) {
+            for (JsonNode error : body.get("errors")) {
                 errMsg += error.get("detail").asText() + ". ";
             }
             throw new ResponseStatusException(statusCode, errMsg);
         }
-
         List<FlightDTO> flightDTOS = new ArrayList<>();
-        for(var flightOfferSearch : flightOfferSearches) {
-            flightDTOS.add(getFlightDTO(flightOfferSearch));
+        if (returnDate != null) {
+            for (var flightOfferSearch : flightOfferSearches) {
+                flightDTOS.add(getFlightDTO(flightOfferSearch));
+            }
+        } else {
+            for (var flightOfferSearch : flightOfferSearches) {
+                flightDTOS.add(getOneWayFlightDTO(flightOfferSearch));
+            }
         }
-
         return flightDTOS;
     }
-
-
-    public FlightDTO getFlightDTO(FlightOfferSearch flightOfferSearch) {
+    public FlightDTO getOneWayFlightDTO(FlightOfferSearch flightOfferSearch) {
         FlightOfferSearch.Itinerary outboundJourney = flightOfferSearch.getItineraries()[0];
-        FlightOfferSearch.Itinerary inboundJourney = flightOfferSearch.getItineraries()[1];
-
         Double dtoPrice = Double.parseDouble(flightOfferSearch.getPrice().getTotal());
         String dtoOutboundDuration = outboundJourney.getDuration();
-        String dtoInboundDuration = inboundJourney.getDuration();
-
         List<FlightDTO.Leg> dtoOutboundJourney = new ArrayList<>();
         for (var outboundSegment : outboundJourney.getSegments()) {
             String departureTime = outboundSegment.getDeparture().getAt();
@@ -78,11 +82,29 @@ public class FlightService {
             String departureAirport = outboundSegment.getDeparture().getIataCode();
             String arrivalAirport = outboundSegment.getArrival().getIataCode();
             String duration = outboundSegment.getDuration();
-
             FlightDTO.Leg outboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
             dtoOutboundJourney.add(outboundLeg);
         }
+        FlightDTO flightDTO = new FlightDTO(dtoPrice, null, dtoOutboundJourney, null, dtoOutboundDuration);
+        return flightDTO;
+    }
 
+    public FlightDTO getFlightDTO(FlightOfferSearch flightOfferSearch) {
+        FlightOfferSearch.Itinerary outboundJourney = flightOfferSearch.getItineraries()[0];
+        FlightOfferSearch.Itinerary inboundJourney = flightOfferSearch.getItineraries()[1];
+        Double dtoPrice = Double.parseDouble(flightOfferSearch.getPrice().getTotal());
+        String dtoOutboundDuration = outboundJourney.getDuration();
+        String dtoInboundDuration = inboundJourney.getDuration();
+        List<FlightDTO.Leg> dtoOutboundJourney = new ArrayList<>();
+        for (var outboundSegment : outboundJourney.getSegments()) {
+            String departureTime = outboundSegment.getDeparture().getAt();
+            String arrivalTime = outboundSegment.getArrival().getAt();
+            String departureAirport = outboundSegment.getDeparture().getIataCode();
+            String arrivalAirport = outboundSegment.getArrival().getIataCode();
+            String duration = outboundSegment.getDuration();
+            FlightDTO.Leg outboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
+            dtoOutboundJourney.add(outboundLeg);
+        }
         List<FlightDTO.Leg> dtoInboundJourney = new ArrayList<>();
         for (var inboundSegment : inboundJourney.getSegments()) {
             String departureTime = inboundSegment.getDeparture().getAt();
@@ -90,7 +112,6 @@ public class FlightService {
             String departureAirport = inboundSegment.getDeparture().getIataCode();
             String arrivalAirport = inboundSegment.getArrival().getIataCode();
             String duration = inboundSegment.getDuration();
-
             FlightDTO.Leg inboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
             dtoInboundJourney.add(inboundLeg);
         }
