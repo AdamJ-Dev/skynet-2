@@ -3,9 +3,9 @@ import { getResponseError } from '../utility/data-fetching/getResponseError';
 import { getGenericErrorMessage } from '../../config/messages/selectors';
 
 const defaultPostingHeaders = { 'Content-Type': 'application/json' };
-const defaultErrorParser = (e) => getGenericErrorMessage(); 
+const defaultErrorParser = (e) => getGenericErrorMessage();
 
-const useFetch = (url) => {
+const useFetch = (initialUrl) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -27,11 +27,14 @@ const useFetch = (url) => {
     }
   };
 
-  const get = async (errorParser = defaultErrorParser) => {
+  const get = async ({ url = initialUrl, errorParser = defaultErrorParser } = {}) => {
     executeFetch(async () => await fetch(url), errorParser);
   };
 
-  const post = async (json, errorParser = defaultErrorParser, extraHeaders = {}) => {
+  const post = async (
+    json,
+    { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
+  ) => {
     executeFetch(
       async () =>
         await fetch(url, {
@@ -43,7 +46,10 @@ const useFetch = (url) => {
     );
   };
 
-  const put = async (json, errorParser = defaultErrorParser, extraHeaders = {}) => {
+  const put = async (
+    json,
+    { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
+  ) => {
     executeFetch(
       async () =>
         await fetch(url, {
@@ -55,7 +61,7 @@ const useFetch = (url) => {
     );
   };
 
-  const del = async (errorParser = defaultErrorParser, extraHeaders = {}) => {
+  const del = async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
     executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }), errorParser);
   };
 

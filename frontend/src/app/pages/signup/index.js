@@ -53,7 +53,7 @@ const SignupPage = () => {
       setConfirmPasswordError(getConfirmPasswordErrorMessage());
       setShouldIndicateError(true);
     } else {
-      await post({ firstName, lastName, email, password }, getSignupErrorMessage);
+      await post({ firstName, lastName, email, password }, { errorParser: getSignupErrorMessage });
     }
   };
 

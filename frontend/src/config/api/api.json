@@ -1,7 +1,21 @@
 {
-  "baseDevUrl": "http://localhost:8080",
+  "baseDevUrl": "http://localhost:8081",
   "baseProdUrl": "http://52.56.81.13:8080",
-  "flights": {},
+  "flights": {
+    "getAirports": {
+      "path": "/airports",
+      "queryParams": ["search"],
+      "queryRegex": "^[A-Za-z0-9\\./:\\-\\(\\)\"']+$"
+    },
+    "getNearestAirport": {
+      "path": "/airport",
+      "queryParams": ["lat", "lon"]
+    },
+    "getFlights": {
+      "path": "/flights",
+      "queryParams": ["originLocationCode", "destinationLocationCode", "departureDate"]
+    }
+  },
   "weather": {
     "get": {
       "path": "/weather",

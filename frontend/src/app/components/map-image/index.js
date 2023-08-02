@@ -4,14 +4,10 @@ import useFetch from '../../hooks/useFetch';
 import { getGetMapUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
 
+import styles from './index.module.css';
 
-const MapImage = ({ lat, lon, locationName} ) => {
-  const {
-    loading,
-    data: mapData,
-    error,
-    get: getMapImageData,
-  } = useFetch(getGetMapUrl(lat, lon));
+const MapImage = ({ lat, lon, locationName }) => {
+  const { loading, data: mapData, error, get: getMapImageData } = useFetch(getGetMapUrl(lat, lon));
 
   useEffect(() => {
     getMapImageData();
@@ -21,7 +17,13 @@ const MapImage = ({ lat, lon, locationName} ) => {
     <div>
       {loading && getLoadingMessage()}
       {error && <div>{error}</div>}
-      {mapData && <img src={getImageSrc(mapData.imageData)} alt={`Map of ${locationName}`} />}
+      {mapData && (
+        <img
+          className={styles.mapImage}
+          src={getImageSrc(mapData.imageData)}
+          alt={`Map of ${locationName}`}
+        />
+      )}
     </div>
   );
 };

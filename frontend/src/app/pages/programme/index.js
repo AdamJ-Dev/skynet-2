@@ -5,9 +5,8 @@ import { getLoadingMessage } from '../../../config/messages/selectors';
 
 import styles from './index.module.css';
 import { useEffect, useState } from 'react';
-import { GeolocationContextProvider } from '../../context/geolocation/provider';
-import FlightsTable from './flights-table';
-import LocationInfo from './location-info';
+import ProgrammeLocationIntro from './programme-location-intro';
+import FlightsInfo from './flights-info';
 
 const ProgrammePage = () => {
   const { id } = useParams();
@@ -17,7 +16,6 @@ const ProgrammePage = () => {
     error: programmeError,
     get: getProgramme,
   } = useFetch(getGetEpgProgrammeUrl(id));
-  const [seekLocation, setSeekLocation] = useState(false);
 
   useEffect(() => {
     getProgramme();
@@ -29,24 +27,8 @@ const ProgrammePage = () => {
       {programmeError && <p>{programmeError}</p>}
       {programme?.location && (
         <>
-          <h1>{programme.title}</h1>
-          <p>{programme.description}</p>
-          <LocationInfo location={programme.location} />
-          <h3>Flights:</h3>
-          <div>
-            Click <button onClick={() => setSeekLocation(true)}>here</button> to find your nearest airport,
-            and upcoming connecting flights to <em>{programme.location.name}'s</em> nearest airport.
-          </div>
-          {seekLocation && (
-            <GeolocationContextProvider>
-              <FlightsTable
-                destination={{
-                  latitude: programme.location.coordinates.lat,
-                  longitude: programme.location.coordinates.lon,
-                }}
-              />
-            </GeolocationContextProvider>
-          )}
+          <ProgrammeLocationIntro programme={programme} />
+          <FlightsInfo destination={programme.location}/>
         </>
       )}
     </>

@@ -1,0 +1,10 @@
+.mapImage {
+  height: auto;
+  width: 300px;
+}
+
+@media (max-width: 950px) {
+  .mapImage {
+    width: 250px;
+  }
+}

@@ -1,7 +1,12 @@
+.tableContainer {
+  overflow-x: auto;
+}
+
 .flightsTable {
   border: 1px solid black;
 }
 
 .flightsTable td {
   border: 1px solid black;
+  min-width: 100px;
 }

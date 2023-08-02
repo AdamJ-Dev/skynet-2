@@ -2,6 +2,7 @@
   "error": {
     "generic": "Oops. Something went wrong.",
     "location": "It seems we couldn't get your location.",
+    "invalidSearchQuery": "Your query contains invalid characters.",
     "user": {
       "login": {},
       "signup": {
@@ -9,5 +10,6 @@
       }
     }
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "noSearchResults": "No results were found."
 }

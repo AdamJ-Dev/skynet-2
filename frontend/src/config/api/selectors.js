@@ -78,3 +78,18 @@ const getGetEpgChannelsPath = () => {
 export const getGetEpgChannelsUrl = () => {
   return `${jsonWebServerBaseUrl}${getGetEpgChannelsPath()}`;
 };
+
+// Flights
+
+const getGetAirportsPath = () => {
+  return api.flights.getAirports.path;
+};
+
+export const getGetAirportsUrl = (search) => {
+  const url = `${getApiBaseUrl()}${getGetAirportsPath()}`;
+  return insertQueryParams(url, { search });
+};
+
+export const getGetAirportsQueryRegex = () => {
+  return api.flights.getAirports.queryRegex;
+};

@@ -2,7 +2,7 @@ import { getGetEpgChannelsUrl, getGetEpgProgrammesUrl } from '../../../../config
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import useFetch from '../../../hooks/useFetch';
 import { initialiseCssGrid } from './utils/initialiseCssGrid';
-import SearchBar from './search-bar';
+import EpgSearchBar from './search-bar';
 import ProgrammeItem from './programme-item';
 
 import styles from './index.module.css';
@@ -67,7 +67,7 @@ const Epg = () => {
       {!!channels.length && !!programmes.length && (
         <div className={styles.epg} style={initialiseCssGrid(channels, programmes)}>
           <div className={styles.searchBarRow}>
-            <SearchBar programmes={programmes} />
+            <EpgSearchBar programmes={programmes} />
           </div>
           {getGridItems(channels, programmes)}
         </div>

@@ -1,0 +1,31 @@
+@import "../../../styles//theme.css";
+
+.programmeLocationIntro {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  border: 2px solid var(--main-colour);
+  align-items: center;
+}
+
+@media (max-width: 590px) {
+  .programmeLocationIntro {
+    flex-direction: column-reverse;
+    align-items: start;
+    gap: 1rem;
+  }
+}
+
+.programmeLocationIntro h1 {
+  text-decoration: underline;
+}
+
+.programmeLocationIntro h2 {
+  color: var(--main-colour);
+}
+
+.snippetText {
+  max-width: 450px;
+}

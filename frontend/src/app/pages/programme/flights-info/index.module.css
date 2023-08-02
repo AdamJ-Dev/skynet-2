@@ -1,0 +1,11 @@
+@import "../../../styles/theme.css";
+
+.flightsInfoContainer {
+  border: 2px solid var(--backup-colour);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.flightsInfoContainer h2 {
+  text-decoration: underline;
+}

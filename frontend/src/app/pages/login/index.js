@@ -39,7 +39,7 @@ const LoginPage = () => {
 
   const handleAuthenticate = async (e) => {
     e.preventDefault();
-    await post({ email, password }, getLoginErrorMessage);
+    await post({ email, password }, { errorParser: getLoginErrorMessage } );
   };
 
   return (

@@ -9,6 +9,14 @@ export const getLocationErrorMessage = () => {
   return messages.error.location;
 };
 
+export const getInvalidSearchQueryMessage = () => {
+  return messages.error.invalidSearchQuery;
+};
+
+export const getNoSearchResultsMessage = () => {
+  return messages.noSearchResults;
+};
+
 export const getLoginErrorMessage = (error) => {
   if (error.name == RESPONSE_ERROR) {
     // switch (error.status) {
