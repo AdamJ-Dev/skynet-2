@@ -4,37 +4,44 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.IndexColumn;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
 public class Flight {
 
-//    @Data
-//    @NoArgsConstructor
-//    @Entity
-//    public static class Leg {
-//        @Id
-//        @GeneratedValue(strategy = GenerationType.IDENTITY)
-//        private Long legId;
-//        private Long flightId;
-//        @Enumerated(EnumType.STRING)
-//        private String legType;
-//        private String departureTime;
-//        private String arrivalTime;
-//        private String departureAirport;
-//        private String arrivalAirport;
-//        private String duration;
-//
-//        private enum LegType {
-//            INBOUND,
-//            OUTBOUND
-//        }
-//    }
+    @Data
+    @NoArgsConstructor
+    @Entity
+    public static class Leg {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long legId;
+        private String departureTime;
+        private String arrivalTime;
+        private String departureAirport;
+        private String arrivalAirport;
+        private String duration;
+
+        @JsonIgnore
+        @ManyToOne
+        private Flight inboundFlight;
+
+        @JsonIgnore
+        @ManyToOne
+        private Flight outboundFlight;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightId;
+
+    private String departureDate;
+
+    private String returnDate;
 
     private Double price;
 
@@ -44,8 +51,21 @@ public class Flight {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(
+            mappedBy = "inboundFlight",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Leg> inboundLegs;
+
+    @OneToMany(
+            mappedBy = "outboundFlight",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Leg> outboundLegs;
 }
 
 
