@@ -60,10 +60,10 @@ public class FlightService {
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
-        return flightOfferToDTO(flightOfferSearches);
+        return flightOfferToDTO(flightOfferSearches, returnDate);
     }
 
-    public List<FlightDTO> flightOfferToDTO(FlightOfferSearch[] flightOfferSearches) {
+    public List<FlightDTO> flightOfferToDTO(FlightOfferSearch[] flightOfferSearches, String returnDate) {
 
         List<FlightDTO> flightDTOS = new ArrayList<>();
         if (returnDate != null) {
@@ -77,20 +77,30 @@ public class FlightService {
         }
         return flightDTOS;
     }
+
+    private List<FlightDTO.Leg> getJourneyLegs(FlightOfferSearch.Itinerary journey){
+        List<FlightDTO.Leg> journeyLegs = new ArrayList<>();
+        for (var segment : journey.getSegments()) {
+            String departureTime = segment.getDeparture().getAt();
+            String arrivalTime = segment.getArrival().getAt();
+            String departureAirport = segment.getDeparture().getIataCode();
+            String arrivalAirport = segment.getArrival().getIataCode();
+            String duration = segment.getDuration();
+            FlightDTO.Leg leg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
+            journeyLegs.add(leg);
+        }
+        return journeyLegs;
+    }
+
+    private Double getFlightPrice(FlightOfferSearch flightOfferSearch) {
+        return Double.parseDouble(flightOfferSearch.getPrice().getTotal());
+    }
+
     public FlightDTO getOneWayFlightDTO(FlightOfferSearch flightOfferSearch) {
         FlightOfferSearch.Itinerary outboundJourney = flightOfferSearch.getItineraries()[0];
-        Double dtoPrice = Double.parseDouble(flightOfferSearch.getPrice().getTotal());
+        Double dtoPrice = getFlightPrice(flightOfferSearch);
         String dtoOutboundDuration = outboundJourney.getDuration();
-        List<FlightDTO.Leg> dtoOutboundJourney = new ArrayList<>();
-        for (var outboundSegment : outboundJourney.getSegments()) {
-            String departureTime = outboundSegment.getDeparture().getAt();
-            String arrivalTime = outboundSegment.getArrival().getAt();
-            String departureAirport = outboundSegment.getDeparture().getIataCode();
-            String arrivalAirport = outboundSegment.getArrival().getIataCode();
-            String duration = outboundSegment.getDuration();
-            FlightDTO.Leg outboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
-            dtoOutboundJourney.add(outboundLeg);
-        }
+        List<FlightDTO.Leg> dtoOutboundJourney = getJourneyLegs(outboundJourney);
         FlightDTO flightDTO = new FlightDTO(dtoPrice, null, dtoOutboundJourney, null, dtoOutboundDuration);
         return flightDTO;
     }
@@ -98,30 +108,11 @@ public class FlightService {
     public FlightDTO getFlightDTO(FlightOfferSearch flightOfferSearch) {
         FlightOfferSearch.Itinerary outboundJourney = flightOfferSearch.getItineraries()[0];
         FlightOfferSearch.Itinerary inboundJourney = flightOfferSearch.getItineraries()[1];
-        Double dtoPrice = Double.parseDouble(flightOfferSearch.getPrice().getTotal());
+        Double dtoPrice = getFlightPrice(flightOfferSearch);
         String dtoOutboundDuration = outboundJourney.getDuration();
         String dtoInboundDuration = inboundJourney.getDuration();
-        List<FlightDTO.Leg> dtoOutboundJourney = new ArrayList<>();
-        for (var outboundSegment : outboundJourney.getSegments()) {
-            String departureTime = outboundSegment.getDeparture().getAt();
-            String arrivalTime = outboundSegment.getArrival().getAt();
-            String departureAirport = outboundSegment.getDeparture().getIataCode();
-            String arrivalAirport = outboundSegment.getArrival().getIataCode();
-            String duration = outboundSegment.getDuration();
-            FlightDTO.Leg outboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
-            dtoOutboundJourney.add(outboundLeg);
-        }
-        List<FlightDTO.Leg> dtoInboundJourney = new ArrayList<>();
-        for (var inboundSegment : inboundJourney.getSegments()) {
-            String departureTime = inboundSegment.getDeparture().getAt();
-            String arrivalTime = inboundSegment.getArrival().getAt();
-            String departureAirport = inboundSegment.getDeparture().getIataCode();
-            String arrivalAirport = inboundSegment.getArrival().getIataCode();
-            String duration = inboundSegment.getDuration();
-            FlightDTO.Leg inboundLeg = new FlightDTO.Leg(departureTime, arrivalTime, departureAirport, arrivalAirport, duration);
-            dtoInboundJourney.add(inboundLeg);
-        }
-
+        List<FlightDTO.Leg> dtoOutboundJourney = getJourneyLegs(outboundJourney);
+        List<FlightDTO.Leg> dtoInboundJourney = getJourneyLegs(inboundJourney);
         FlightDTO flightDTO = new FlightDTO(dtoPrice, dtoInboundJourney, dtoOutboundJourney, dtoInboundDuration, dtoOutboundDuration);
         return flightDTO;
     }
