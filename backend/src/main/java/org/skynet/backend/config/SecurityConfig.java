@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/weather/**"),
                                 new AntPathRequestMatcher("/flights/**"),
                                 new AntPathRequestMatcher("/airport/**"),
+                                new AntPathRequestMatcher("/airports/**"),
                                 new AntPathRequestMatcher("/register/**"),
                                 new AntPathRequestMatcher("/channels/**"),
                                 new AntPathRequestMatcher("/programmes/**"),
