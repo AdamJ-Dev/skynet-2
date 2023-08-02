@@ -1,6 +1,7 @@
 package org.skynet.backend.filters;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,7 +54,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
-        } catch (ExpiredJwtException | UsernameNotFoundException exception) {
+        } catch (ExpiredJwtException | UsernameNotFoundException | MalformedJwtException e) {
             response.sendError(HttpStatus.UNAUTHORIZED.value());
             return;
         }
