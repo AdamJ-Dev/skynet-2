@@ -28,4 +28,14 @@ public class UserController {
     ) {
         return userService.postUserFlight(id, flight);
     }
+
+    @PreAuthorize("@authService.authorize(#id, #bearerToken)")
+    @DeleteMapping("/user/{id}/flights/{flightId}")
+    public boolean deleteUserFlight(
+            @PathVariable Long id,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String bearerToken,
+            @PathVariable Long flightId
+    ) {
+        return userService.deleteUserFlight(flightId);
+    }
 }
