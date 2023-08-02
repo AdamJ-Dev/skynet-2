@@ -51,4 +51,11 @@ public class AuthService {
                 .token(jwtToken)
                 .build();
     }
+
+    public boolean authorize(Long id, String bearerToken) {
+        String token = bearerToken.substring(7);
+        User user = this.userRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN));
+        String email = jwtService.extractUsername(token);
+        return user.getEmail().equals(email);
+    }
 }

@@ -1,26 +1,41 @@
 package org.skynet.backend.rest.controllers;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+import org.skynet.backend.persistence.entities.Flight;
 import org.skynet.backend.rest.dtos.UserDTO;
-import org.skynet.backend.rest.dtos.WeatherDTO;
 import org.skynet.backend.services.UserService;
-import org.skynet.backend.services.WeatherService;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
+    @PreAuthorize("@authService.authorize(#id, #bearerToken)")
     @GetMapping("/user/{id}")
     public UserDTO getUser(@PathVariable Long id, @RequestHeader(HttpHeaders.AUTHORIZATION) String bearerToken) {
-        return userService.getUser(id, bearerToken.substring(7));
+        return userService.getUser(id);
     }
 
+    @PreAuthorize("@authService.authorize(#id, #bearerToken)")
+    @PostMapping("/user/{id}/flights")
+    public UserDTO postUserFlight(
+            @PathVariable Long id,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String bearerToken,
+            @RequestBody Flight flight
+    ) {
+        return userService.postUserFlight(id, flight);
+    }
+
+    @PreAuthorize("@authService.authorize(#id, #bearerToken)")
+    @DeleteMapping("/user/{id}/flights/{flightId}")
+    public boolean deleteUserFlight(
+            @PathVariable Long id,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String bearerToken,
+            @PathVariable Long flightId
+    ) {
+        return userService.deleteUserFlight(flightId);
+    }
 }
