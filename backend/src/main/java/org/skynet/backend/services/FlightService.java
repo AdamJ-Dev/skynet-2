@@ -59,6 +59,12 @@ public class FlightService {
             }
             throw new ResponseStatusException(statusCode, errMsg);
         }
+
+        return flightOfferToDTO(flightOfferSearches);
+    }
+
+    public List<FlightDTO> flightOfferToDTO(FlightOfferSearch[] flightOfferSearches) {
+
         List<FlightDTO> flightDTOS = new ArrayList<>();
         if (returnDate != null) {
             for (var flightOfferSearch : flightOfferSearches) {
