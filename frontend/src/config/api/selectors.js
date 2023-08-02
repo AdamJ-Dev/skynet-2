@@ -1,6 +1,7 @@
 import api from './api.json';
 import { insertQueryParams } from '../../lib/insertQueryParams';
 import { getDefaultNumFlightsResults } from '../pages/selectors';
+import { removeNullValues } from '../../lib/removeNullValues';
 
 const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_ENV == 'dev') {
@@ -120,11 +121,14 @@ export const getFlightsUrl = (
   numberOfResults = getDefaultNumFlightsResults()
 ) => {
   const url = buildApiUrl(getFlightsPath());
-  return insertQueryParams(url, {
-    originLocationCode,
-    destinationLocationCode,
-    departureDate,
-    returnDate,
-    numberOfResults,
-  });
+  return insertQueryParams(
+    url,
+    removeNullValues({
+      originLocationCode,
+      destinationLocationCode,
+      departureDate,
+      returnDate,
+      numberOfResults,
+    })
+  );
 };

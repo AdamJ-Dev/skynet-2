@@ -53,15 +53,14 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     if (state.destination) {
       const { lat, lon } = state.destination.coordinates;
-      getNearestAirportToDestination(getGetNearestAirportUrl(lat, lon));
+      getNearestAirportToDestination({ url: getGetNearestAirportUrl(lat, lon) });
     }
   }, [state.destination]);
 
   useEffect(() => {
-    console.log({ arrivalAirportData })
     let payload = null;
     if (arrivalAirportData) {
-      payload = arrivalAirportData.airportCode;
+      payload = arrivalAirportData;
     }
     dispatch({ type: SET_ARRIVAL_AIRPORT, payload });
   }, [arrivalAirportData]);
@@ -69,6 +68,7 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     let payload = null;
     if (arrivalAirportError) {
+      console.log({ arrivalAirportError })
       payload = arrivalAirportError;
     }
     dispatch({ type: SET_ERROR, payload });
