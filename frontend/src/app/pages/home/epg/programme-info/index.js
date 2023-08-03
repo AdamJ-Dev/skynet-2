@@ -30,7 +30,7 @@ const ProgrammeInfo = ({ programme, airingInfo }) => {
       <p>
         <strong>Related Location:</strong>{' '}
         {!!programme.locations.length ? (
-          <Link to={getProgrammePath(programme.id)}>{programme.locations[0]}</Link>
+          <Link to={getProgrammePath(programme.id)}>{programme.locations[0].name}</Link>
         ) : (
           'N/A'
         )}
