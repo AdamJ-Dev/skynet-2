@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { getFlightsInfoMissingMessage, getFlightsReadyMessage } from '../../../../../config/pages/selectors';
 import { getGenericErrorMessage, getLoadingMessage } from '../../../../../config/messages/selectors';
 
-const FlightsTable = ({ flightsLoading, flightsData, flightsError, destination }) => {
+const FlightsTable = ({ destination }) => {
   const [tableMessage, setTableMessage] = useState(getFlightsInfoMissingMessage());
   const {
     departureAirport,
