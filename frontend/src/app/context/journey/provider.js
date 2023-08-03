@@ -52,7 +52,7 @@ export const JourneyContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (state.destination) {
-      const { lat, lon } = state.destination.coordinates;
+      const { lat, lon } = state.destination;
       getNearestAirportToDestination({ url: getGetNearestAirportUrl(lat, lon) });
     }
   }, [state.destination]);
@@ -68,7 +68,6 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     let payload = null;
     if (arrivalAirportError) {
-      console.log({ arrivalAirportError })
       payload = arrivalAirportError;
     }
     dispatch({ type: SET_ERROR, payload });

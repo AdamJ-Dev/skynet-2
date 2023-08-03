@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { getFlightsInfoMissingMessage, getFlightsReadyMessage } from '../../../../../config/pages/selectors';
 import { getGenericErrorMessage, getLoadingMessage } from '../../../../../config/messages/selectors';
 
-const FlightsTable = ({ destination }) => {
+const FlightsTable = ({ flightsLoading, flightsData, flightsError, destination }) => {
   const [tableMessage, setTableMessage] = useState(getFlightsInfoMissingMessage());
   const {
     departureAirport,
@@ -22,7 +22,7 @@ const FlightsTable = ({ destination }) => {
     data: weatherData,
     error: weatherError,
     get: getWeather,
-  } = useFetch(getGetWeatherUrl({ lat: destination.coordinates.lat, lon: destination.coordinates.lon }));
+  } = useFetch(getGetWeatherUrl({ lat: destination.lat, lon: destination.lon }));
   const { loading: flightsLoading, data: flightsData, error: flightsError, get: getFlights } = useFetch('');
 
   useEffect(() => {
@@ -87,7 +87,6 @@ const FlightsTable = ({ destination }) => {
             <td>Blah</td>
             <td>Blah</td>
             <td>
-    
             </td>
           </tr> */}
         </tbody>
