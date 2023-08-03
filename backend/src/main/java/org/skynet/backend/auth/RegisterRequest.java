@@ -22,6 +22,6 @@ public class RegisterRequest {
     private String email;
 
     @NotNull
-    @Pattern(message = "Passwords should be at least 8 characters long and include lowercase, uppercase, and digits", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+    @Pattern(message = "Passwords should be at least 8 characters long and include lowercase, uppercase, and digits", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$")
     private String password;
 }
