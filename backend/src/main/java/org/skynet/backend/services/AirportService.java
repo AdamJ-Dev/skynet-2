@@ -13,10 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AirportService {
-    private static String key = System.getenv("key");
-    private static String secret = System.getenv("secret");
+    private static String key = System.getenv("AMADEUS_KEY");
+    private static String secret = System.getenv("AMADEUS_SECRET");
     static Amadeus amadeus = Amadeus.builder(key,secret).build();
 
     static ObjectMapper objectMapper = new ObjectMapper();
@@ -38,14 +41,28 @@ public class AirportService {
             throw new ResponseStatusException(statusCode, errMsg);
         }
 
-        String result = locations[0].getResponse().getBody();
-        JsonNode resultJson = objectMapper.readTree(result);
-        JsonNode airport = resultJson.get("data").get(0);
-        String airportName = airport.get("name").asText();
-        String airportCode = airport.get("iataCode").asText();
 
-        return new AirportDTO(airportName, airportCode);
+        return airportLocationToDTO(locations);
     }
 
+    public AirportDTO airportLocationToDTO(Location[] locations) {
+        Location location = locations[0];
+        return new AirportDTO(location.getName(), location.getIataCode());
+    }
 
+    public List<AirportDTO> getAirportsMatchingSearch(String search) throws ResponseStatusException {
+        try {
+            Location[] airports = amadeus.referenceData.locations.get(
+                    Params.with("keyword", search).and("subType", "AIRPORT"));
+            List<AirportDTO> airportDTOs = new ArrayList<>();
+            for (Location airport : airports) {
+                AirportDTO airportDTO = new AirportDTO(airport.getName(), airport.getIataCode());
+                airportDTOs.add(airportDTO);
+            }
+            return airportDTOs;
+        } catch (ResponseException e) {
+            HttpStatus statusCode = HttpStatus.valueOf(e.getResponse().getStatusCode());
+            throw new ResponseStatusException(statusCode, e.getDescription());
+        }
+    }
 }
