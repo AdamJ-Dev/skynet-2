@@ -15,7 +15,7 @@ const ProgrammeItem = ({ programme }) => {
 
   return (
     <div
-      className={`${styles.programmeSlot} ${!!programme.location && styles.specialProgrammeSlot}`}
+      className={`${styles.programmeSlot} ${!!programme.locations.length && styles.specialProgrammeSlot}`}
       style={gridSlot}
       onClick={() => setSeeMore(!seeMore)}
     >
@@ -23,10 +23,10 @@ const ProgrammeItem = ({ programme }) => {
         {seeMore ? (
           <>
             <p>{programme.description}</p>
-            {!!programme.location && (
+            {!!programme.locations.length && (
               <p>
-                {getLocationEnticement(programme.location.name)}{' '}
-                <Link to={getProgrammePath(programme.id)}>{programme.location.name}</Link>
+                {getLocationEnticement(programme.locations[0].name)}{' '}
+                <Link to={getProgrammePath(programme.id)}>{programme.locations[0].name}</Link>
               </p>
             )}
           </>

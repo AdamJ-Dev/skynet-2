@@ -1,6 +1,6 @@
 {
   "baseDevUrl": "http://localhost:8081",
-  "baseProdUrl": "http://52.56.81.13:8080",
+  "baseProdUrl": "http://52.56.81.13:8081",
   "flights": {
     "getAirports": {
       "path": "/airports",
@@ -39,16 +39,16 @@
   "epg": {
     "channels": {
       "get": {
-        "path": "/epg/channels"
+        "path": "/channels"
       }
     },
     "programmes": {
       "get": {
         "all": {
-          "path": "/epg/programmes"
+          "path": "/programmes"
         },
         "one": {
-          "basePath": "/epg/programmes"
+          "basePath": "/programmes"
         }
       }
     }

@@ -9,6 +9,7 @@ import { useAuthContext } from '../../context/auth/hook';
 import { LOGIN } from '../../context/auth/provider';
 
 import styles from '../../styles/auth.module.css';
+import { loginErrorParser } from '../../utility/error-handling/loginErrorParser';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -39,14 +40,14 @@ const LoginPage = () => {
 
   const handleAuthenticate = async (e) => {
     e.preventDefault();
-    await post({ email, password }, { errorParser: getLoginErrorMessage } );
+    await post({ email, password }, { errorParser: loginErrorParser } );
   };
 
   return (
     <div className={styles.authPageContainer}>
       <h1>Log in</h1>
       <div className={`${styles.formContainer} ${shouldIndicateError && styles.errorBorder}`}>
-        <form onSubmit={handleAuthenticate}>
+        <form onSubmit={handleAuthenticate} noValidate>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email:</label>
             <input

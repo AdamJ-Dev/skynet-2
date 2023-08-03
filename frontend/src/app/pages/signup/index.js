@@ -14,6 +14,7 @@ import { LOGIN } from '../../context/auth/provider';
 import { Link } from 'react-router-dom';
 
 import styles from '../../styles/auth.module.css';
+import { signupErrorParser } from '../../utility/error-handling/signupErrorParser';
 
 const SignupPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -53,7 +54,7 @@ const SignupPage = () => {
       setConfirmPasswordError(getConfirmPasswordErrorMessage());
       setShouldIndicateError(true);
     } else {
-      await post({ firstName, lastName, email, password }, { errorParser: getSignupErrorMessage });
+      await post({ firstName, lastName, email, password }, { errorParser: signupErrorParser });
     }
   };
 
@@ -61,7 +62,7 @@ const SignupPage = () => {
     <div className={styles.authPageContainer}>
       <h1>Sign up</h1>
       <div className={`${styles.formContainer} ${shouldIndicateError && styles.errorBorder}`}>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignup} noValidate>
           <div className={styles.formGroup}>
             <label htmlFor="first-name">First Name:</label>
             <input

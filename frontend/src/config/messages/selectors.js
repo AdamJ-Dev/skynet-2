@@ -27,36 +27,12 @@ export const getInvalidSearchQueryMessage = () => {
   return messages.error.invalidSearchQuery;
 };
 
-export const getLoginErrorMessage = (error) => {
-  if (error.name == RESPONSE_ERROR) {
-    // switch (error.status) {
-    //   case 400:
-    //
-    //  ...
-    // }
-    //  ^^ some such in future ^^
-    return getGenericErrorMessage();
-  } else {
-    return getGenericErrorMessage();
-  }
+export const getLogin401ErrorMessage = () => {
+  return messages.error.user.login[401];
 };
 
 export const getConfirmPasswordErrorMessage = () => {
   return messages.error.user.signup.confirmPassword;
-};
-
-export const getSignupErrorMessage = (error) => {
-  if (error.name == RESPONSE_ERROR) {
-    // switch (error.status) {
-    //   case 400:
-    //     return messages.error.signup[error.message]
-    //  ...
-    // }
-    //  ^^ some such in future ^^
-    return getGenericErrorMessage();
-  } else {
-    return getGenericErrorMessage();
-  }
 };
 
 // other:

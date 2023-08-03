@@ -9,7 +9,9 @@
       "timeout": "The request to get your location timed out."
     },
     "user": {
-      "login": {},
+      "login": {
+        "401": "Invalid credentials"
+      },
       "signup": {
         "confirmPassword": "Those passwords don't match."
       }

@@ -54,15 +54,13 @@ export const getGetMapUrl = (lat, lon) => {
 };
 
 // EPG:
-// temp, ultimately want to switch to apiBaseUrl:
-const jsonWebServerBaseUrl = 'http://localhost:4000';
 
 const getGetEpgProgrammesPath = () => {
   return api.epg.programmes.get.all.path;
 };
 
 export const getGetEpgProgrammesUrl = () => {
-  return `${jsonWebServerBaseUrl}${getGetEpgProgrammesPath()}`;
+  return buildApiUrl(getGetEpgProgrammesPath());
 };
 
 const getGetEpgProgrammeBasePath = () => {
@@ -70,7 +68,7 @@ const getGetEpgProgrammeBasePath = () => {
 };
 
 const getGetEpgProgrammeBaseUrl = () => {
-  return `${jsonWebServerBaseUrl}${getGetEpgProgrammeBasePath()}`;
+  return buildApiUrl(getGetEpgProgrammeBasePath());
 };
 
 export const getGetEpgProgrammeUrl = (id) => {
@@ -82,7 +80,7 @@ const getGetEpgChannelsPath = () => {
 };
 
 export const getGetEpgChannelsUrl = () => {
-  return `${jsonWebServerBaseUrl}${getGetEpgChannelsPath()}`;
+  return buildApiUrl(getGetEpgChannelsPath());
 };
 
 // Flights

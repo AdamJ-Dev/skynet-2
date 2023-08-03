@@ -16,12 +16,12 @@ const useFetch = (initialUrl) => {
     try {
       const res = await fetchMethod();
       if (!res.ok) {
-        throw getResponseError(res);
+        throw await getResponseError(res);
       }
       const data = await res.json();
       setData(data);
     } catch (error) {
-      setError(errorParser(error));
+      setError(await errorParser(error));
     } finally {
       setLoading(false);
     }
