@@ -1,0 +1,31 @@
+@import "../../styles/theme.css";
+
+.toggleContainer {
+  display: flex;
+}
+
+.oval {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 5rem;
+  padding: 0.33rem;
+  border: 1px solid black;
+  margin: 0.5rem 0 0 0.5rem;
+  opacity: 0.5;
+}
+
+.oval:hover {
+  cursor: pointer;
+}
+
+.active {
+  background: var(--main-colour-light);
+  opacity: 1;
+  color: black;
+}
+
+
+
+

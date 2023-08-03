@@ -4,9 +4,10 @@ import { getGetEpgProgrammeUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
 
 import styles from './index.module.css';
-import { useState } from 'react';
-import { GeolocationContextProvider } from '../../context/geolocation/provider';
-import FlightsTable from './flights-table';
+import { useEffect, useState } from 'react';
+import ProgrammeLocationIntro from './programme-location-intro';
+import FlightsInfo from './flights-info';
+import { JourneyContextProvider } from '../../context/journey/provider';
 
 const ProgrammePage = () => {
   const { id } = useParams();
@@ -14,26 +15,23 @@ const ProgrammePage = () => {
     loading: programmeLoading,
     data: programme,
     error: programmeError,
+    get: getProgramme,
   } = useFetch(getGetEpgProgrammeUrl(id));
-  const [seekLocation, setSeekLocation] = useState(false);
 
+  useEffect(() => {
+    getProgramme();
+  }, []);
 
   return (
     <>
       {programmeLoading && <p>{getLoadingMessage()}</p>}
       {programmeError && <p>{programmeError}</p>}
-      {programme && (
+      {!!programme?.locations.length && (
         <>
-          <h1>{programme.title}</h1>
-          <p>{programme.description}</p>
-          <h2>Highlighted Location: {programme.location.name}</h2>
-          <div className={styles.locationInfo}>
-            <div>{programme.location.relationship}</div>
-            <div className={styles.map}>!!Map goes here!!</div>
-          </div>
-          <h3>Flights:</h3>
-          <div>Click <button onClick={() => setSeekLocation(true)}>here</button> to find your nearest airport, and upcoming connecting flights to <em>{programme.location.name}'s</em> nearest airport.</div>
-          {seekLocation && <GeolocationContextProvider><FlightsTable destination={{ latitude: programme.lat, longitude: programme.lon }}/></GeolocationContextProvider>}
+          <ProgrammeLocationIntro programme={programme} />
+          <JourneyContextProvider>
+            <FlightsInfo destination={programme.locations[0]} />
+          </JourneyContextProvider>
         </>
       )}
     </>

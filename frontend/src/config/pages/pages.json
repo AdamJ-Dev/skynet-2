@@ -2,10 +2,10 @@
   "home": {
     "path": "/",
     "epg": {
-      "searchLimit": 5
+      "programmesSearchLimit": 5
     },
     "content": {
-      "searchPlaceholder": "Find a programme ...",
+      "programmessearchPlaceholder": "Find a programme ...",
       "headline": "What's on",
       "description": "Today's programme guide. Click on a highlighted programme to pursue travel to a choice, related location; or search for your programme directly.",
       "locationEnticement": "Find out more about a related location"
@@ -20,7 +20,19 @@
   "profile": {
     "basePath": "/profile"
   },
- "programme": {
-    "basePath": "/programme"
-  } 
+  "programme": {
+    "basePath": "/programme",
+    "flights": {
+      "airportsSearchLimit": 5,
+      "defaultNumFlightsResults": 5
+    },
+    "content": {
+      "flightsInfoDescription": "Look for an upcoming, connecting flight to an airport near {0}.",
+      "airportsSearchPlaceholder": "Find an airport ...",
+      "flightsApiDisclaimer": "This site uses a free tier of the Amadeus api. Information is available for a limited number of existing airports. We find the nearest airport to a specific location only from within that subset. In the process, we may fail to return airports that really are nearby.",
+      "getAirportsNearMe": "Look for an airport near me.",
+      "flightsInfoMissing": "Waiting for more information ...",
+      "flightsReady": "Find flights"
+    }
+  }
 }

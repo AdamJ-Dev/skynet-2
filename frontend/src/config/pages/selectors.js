@@ -1,3 +1,4 @@
+import { stringFormat } from '../../lib/stringFormat';
 import pages from './pages.json';
 
 // Home:
@@ -19,11 +20,11 @@ export const getLocationEnticement = () => {
 };
 
 export const getEpgSearchPlaceholder = () => {
-  return pages.home.content.searchPlaceholder;
+  return pages.home.content.programmessearchPlaceholder;
 };
 
 export const getEpgSearchLimit = () => {
-  return pages.home.epg.searchLimit;
+  return pages.home.epg.programmesSearchLimit;
 };
 
 // Login:
@@ -56,4 +57,36 @@ export const getProgrammeBasePath = () => {
 
 export const getProgrammePath = (id) => {
   return `${getProgrammeBasePath()}/${id}`;
+};
+
+export const getFlightsInfoDescription = (location) => {
+  return stringFormat(pages.programme.content.flightsInfoDescription, location);
+};
+
+export const getAirportsSearchPlaceholder = () => {
+  return pages.programme.content.airportsSearchPlaceholder;
+};
+
+export const getAirportsSearchLimit = () => {
+  return pages.programme.flights.airportsSearchLimit;
+};
+
+export const getFlightsApiDisclaimer = () => {
+  return pages.programme.content.flightsApiDisclaimer;
+};
+
+export const getGetAiportsNearMeMessage = () => {
+  return pages.programme.content.getAirportsNearMe;
+};
+
+export const getFlightsInfoMissingMessage = () => {
+  return pages.programme.content.flightsInfoMissing;
+};
+
+export const getFlightsReadyMessage = () => {
+  return pages.programme.content.flightsReady;
+};
+
+export const getDefaultNumFlightsResults = () => {
+  return pages.programme.flights.defaultNumFlightsResults;
 };

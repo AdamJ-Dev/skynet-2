@@ -1,0 +1,28 @@
+@import "../../../../styles/theme.css";
+
+.tableContainer {
+  overflow-x: auto;
+  border: 2px solid var(--main-colour);
+}
+
+.flightsTable {
+  width: 100%;
+}
+
+.flightsTable thead {
+  font-weight: bold;
+}
+
+.flightsTable td {
+  box-sizing: border-box;
+  border: 1px solid black;
+  min-width: 100px;
+  padding: 0.25rem;
+}
+
+.tableMessage {
+  padding: 2rem 0;
+  text-align: center;
+  border-top: solid 1px black;
+  box-sizing: border-box;
+}

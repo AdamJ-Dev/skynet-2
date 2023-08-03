@@ -29,7 +29,7 @@ const SearchBar = ({ programmes }) => {
     } else setResults([]);
   };
 
-  const handleClick = (result) => {
+  const handleSelectProgramme = (result) => {
     setSelectedProgramme(result);
     setIsProgrammeDialogOpen(true);
   };
@@ -52,7 +52,7 @@ const SearchBar = ({ programmes }) => {
         {!!results.length && (
           <div className={styles.searchResults}>
             {results.map((result) => (
-              <div key={result.id} className={styles.searchResult} onClick={() => handleClick(result)}>
+              <div key={result.id} className={styles.searchResult} onClick={() => handleSelectProgramme(result)}>
                 <p>{result.title}</p>
               </div>
             ))}
