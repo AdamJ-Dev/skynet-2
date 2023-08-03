@@ -6,15 +6,17 @@ const ProgrammeLocationIntro = ({ programme }) => {
   const {
     title,
     description,
-    location: {
-      name: locationName,
-      coordinates: { lat, lon },
-      relationship: locationRelationship,
-    },
+    locations
   } = programme;
+  const {
+    name: locationName,
+    lat: locationLat,
+    lon: locationLon,
+    relationship: locationRelationship,
+  } = locations[0];
   return (
     <div className={styles.programmeLocationIntro}>
-      <MapImage lat={lat} lon={lon} locationName={locationName} />
+      <MapImage lat={locationLat} lon={locationLon} locationName={locationName} />
       <div>
         <h1>{title}</h1>
         <div className={styles.snippetText}>

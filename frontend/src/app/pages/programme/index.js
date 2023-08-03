@@ -26,11 +26,11 @@ const ProgrammePage = () => {
     <>
       {programmeLoading && <p>{getLoadingMessage()}</p>}
       {programmeError && <p>{programmeError}</p>}
-      {programme?.location && (
+      {!!programme?.locations.length && (
         <>
           <ProgrammeLocationIntro programme={programme} />
           <JourneyContextProvider>
-            <FlightsInfo destination={programme.location} />
+            <FlightsInfo destination={programme.locations[0]} />
           </JourneyContextProvider>
         </>
       )}
