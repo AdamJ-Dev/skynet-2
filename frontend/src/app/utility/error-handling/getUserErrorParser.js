@@ -1,4 +1,4 @@
-import { getGenericErrorMessage, getLogin401ErrorMessage } from '../../../config/messages/selectors';
+import { getGenericErrorMessage, getGetUser403ErrorMessage, getLogin401ErrorMessage } from '../../../config/messages/selectors';
 
 export const INAUTHED_ERROR = "INAUTHED_ERROR";
 
@@ -7,7 +7,7 @@ export const getUserErrorParser = (error) => {
     case 401:
       return INAUTHED_ERROR;
     case 403:
-      return getLogin401ErrorMessage();
+      return getGetUser403ErrorMessage();
     default:
       return getGenericErrorMessage();
   }

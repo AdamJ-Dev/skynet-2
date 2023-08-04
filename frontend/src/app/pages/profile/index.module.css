@@ -10,3 +10,7 @@
   width: 100%;
   overflow: auto;
 }
+
+.getUserMessage {
+  padding: 1.5em;
+}

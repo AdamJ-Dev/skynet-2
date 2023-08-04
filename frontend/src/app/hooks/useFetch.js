@@ -21,6 +21,7 @@ const useFetch = (initialUrl) => {
     setError(null);
     try {
       const res = await fetchMethod();
+      console.log(res)
       if (!res.ok) {
         throw await getResponseError(res);
       }
