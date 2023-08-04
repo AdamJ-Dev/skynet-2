@@ -11,8 +11,8 @@ export const getCookieValue = (cookie) => {
   return decodeURIComponent(utf8Value);
 };
 
-export const setCookie = (key, value) => {
-  const cookie = `${key}=${encodeURIComponent(value)}`;
+export const setCookie = (key, value, path="/") => {
+  const cookie = `${key}=${encodeURIComponent(value)}; path=${path}`;
   document.cookie = cookie;
 };
 

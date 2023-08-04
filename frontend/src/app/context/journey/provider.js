@@ -1,6 +1,8 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { getGetNearestAirportUrl } from '../../../config/api/selectors';
 import useFetch from '../../hooks/useFetch';
+import { nearestAiportErrorParser } from '../../utility/error-handling/nearestAirportErrorParser';
+import { getDepartureArrivalMatchMessage } from '../../../config/messages/selectors';
 
 export const JourneyContext = createContext();
 
@@ -53,7 +55,10 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     if (state.destination) {
       const { lat, lon } = state.destination;
-      getNearestAirportToDestination({ url: getGetNearestAirportUrl(lat, lon) });
+      getNearestAirportToDestination({
+        url: getGetNearestAirportUrl(lat, lon),
+        errorParser: nearestAiportErrorParser,
+      });
     }
   }, [state.destination]);
 
@@ -64,6 +69,14 @@ export const JourneyContextProvider = ({ children }) => {
     }
     dispatch({ type: SET_ARRIVAL_AIRPORT, payload });
   }, [arrivalAirportData]);
+
+  useEffect(() => {
+    const departure = state.departureAiport;
+    const arrival = state.arrivalAirport;
+    if (departure && arrival && departure.airportCode == arrival.airportCode) {
+      dispatch({ type: SET_ERROR, payload: getDepartureArrivalMatchMessage() });
+    }
+  }, [state.arrivalAirport, state.departureAirport]);
 
   useEffect(() => {
     let payload = null;

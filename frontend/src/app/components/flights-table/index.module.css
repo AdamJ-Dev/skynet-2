@@ -1,0 +1,19 @@
+.flightsTable {
+  border-collapse: collapse;
+  margin: 1rem;
+}
+
+.flightsTable thead {
+  font-weight: bold;
+}
+
+.flightsTable td {
+  box-sizing: border-box;
+  border: 1px solid black;
+  min-width: 100px;
+  padding: 0.25rem;
+}
+
+.saveBtnContainer {
+  text-align: center;
+}
