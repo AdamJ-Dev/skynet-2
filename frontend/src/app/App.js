@@ -15,6 +15,8 @@ import ProgrammePage from './pages/programme';
 
 import styles from './App.module.css';
 import { AuthContextProvider } from './context/auth/provider';
+import { ProfileContextProvider } from './context/profile/provider';
+import NotFoundPage from './pages/404';
 
 function App() {
   return (
@@ -25,8 +27,16 @@ function App() {
           <Route path={getHomePath()} element={<HomePage />} />
           <Route path={getLoginPath()} element={<LoginPage />} />
           <Route path={getSignupPath()} element={<SignupPage />} />
-          <Route path={`${getProfileBasePath()}/:id`} element={<ProfilePage />} />
+          <Route
+            path={`${getProfileBasePath()}/:id`}
+            element={
+              <ProfileContextProvider>
+                <ProfilePage />
+              </ProfileContextProvider>
+            }
+          />
           <Route path={`${getProgrammeBasePath()}/:id`} element={<ProgrammePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </AuthContextProvider>

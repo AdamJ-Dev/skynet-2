@@ -13,7 +13,13 @@
     },
     "getFlights": {
       "path": "/flights",
-      "queryParams": ["originLocationCode", "destinationLocationCode", "departureDate", "returnDate", "numberOfResults"]
+      "queryParams": [
+        "originLocationCode",
+        "destinationLocationCode",
+        "departureDate",
+        "returnDate",
+        "numberOfResults"
+      ]
     }
   },
   "weather": {
@@ -29,11 +35,25 @@
     }
   },
   "user": {
+    "get": {
+      "path": "/user/{0}",
+      "pathVariables": ["userId"]
+    },
     "login": {
       "path": "/authenticate"
     },
     "signup": {
       "path": "/register"
+    },
+    "userFlights": {
+      "post": {
+        "path": "/user/{0}/flights",
+        "pathVariables": ["userId"]
+      },
+      "delete": {
+        "path": "/user/{0}/flights/{1}",
+        "pathVariables": ["userId", "flightId"]
+      }
     }
   },
   "epg": {

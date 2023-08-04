@@ -9,6 +9,7 @@ import { getGetAiportsNearMeMessage } from '../../../../../../config/pages/selec
 import { formatAirportName } from '../utils/formatAirportName';
 import { useJourneyContext } from '../../../../../context/journey/hook';
 import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
+import { nearestAiportErrorParser } from '../../../../../utility/error-handling/nearestAirportErrorParser';
 
 const AirportNearMe = () => {
   const { location: locationData, waiting: locationWaiting, error: locationError, locate } = useLocate();
@@ -23,7 +24,7 @@ const AirportNearMe = () => {
 
   useEffect(() => {
     if (locationData) {
-      get({ url: getGetNearestAirportUrl(locationData.lat, locationData.lon) });
+      get({ url: getGetNearestAirportUrl(locationData.lat, locationData.lon), errorParser: nearestAiportErrorParser });
     }
   }, [locationData]);
 

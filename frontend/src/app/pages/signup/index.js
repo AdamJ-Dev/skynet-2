@@ -30,8 +30,7 @@ const SignupPage = () => {
 
   useEffect(() => {
     if (userData) {
-      const userCookieValue = JSON.stringify(userData);
-      setUserCookie(userCookieValue);
+      setUserCookie(userData);
       dispatch({ type: LOGIN, payload: userData });
       navigate(getProfilePath(userData.id));
     }
@@ -62,7 +61,7 @@ const SignupPage = () => {
     <div className={styles.authPageContainer}>
       <h1>Sign up</h1>
       <div className={`${styles.formContainer} ${shouldIndicateError && styles.errorBorder}`}>
-        <form onSubmit={handleSignup} noValidate>
+        <form onSubmit={handleSignup}>
           <div className={styles.formGroup}>
             <label htmlFor="first-name">First Name:</label>
             <input
@@ -89,7 +88,7 @@ const SignupPage = () => {
             <label htmlFor="email">Email:</label>
             <input
               className={styles.formInput}
-              type="email"
+              type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useJourneyContext } from '../../../../context/journey/hook';
-import { SET_DEPARTURE_DATE } from '../../../../context/journey/provider';
+import { SET_DEPARTURE_DATE, SET_RETURN_DATE } from '../../../../context/journey/provider';
 
 import styles from './index.module.css';
 
@@ -19,18 +19,21 @@ const FlightDateSettings = () => {
   const handleReturnDateChange = (e) => {
     const date = e.target.value;
     setReturnDate(date);
-    dispatch({ type: SET_DEPARTURE_DATE, payload: date || null });
+    dispatch({ type: SET_RETURN_DATE, payload: date || null });
   };
 
   const handleCheckReturn = (e) => {
     const checked = e.target.checked;
     setIsReturn(checked);
-    if (!checked) setReturnDate('');
+    if (!checked) {
+      setReturnDate('');
+      dispatch({ type: SET_RETURN_DATE, payload: null });
+    }
   };
 
   return (
     <div className={styles.dateSettingsContainer}>
-      <form  className={styles.dateSettingsForm}>
+      <form className={styles.dateSettingsForm}>
         <div className={styles.formGroup}>
           <label htmlFor="departure-date">Departure Date:&nbsp;</label>
           <input id="departure-date" type="date" value={departureDate} onChange={handleDepartureDateChange} />

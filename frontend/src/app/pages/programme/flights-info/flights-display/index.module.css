@@ -1,0 +1,15 @@
+@import "../../../../styles/theme.css";
+
+.tableContainer {
+  overflow-x: auto;
+  border: 2px solid var(--main-colour);
+}
+
+.tableBreadcrumbs {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.tableBreadcrumbs button:hover {
+  cursor: pointer;
+}

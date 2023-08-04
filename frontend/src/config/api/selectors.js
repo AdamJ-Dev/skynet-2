@@ -2,6 +2,7 @@ import api from './api.json';
 import { insertQueryParams } from '../../lib/insertQueryParams';
 import { getDefaultNumFlightsResults } from '../pages/selectors';
 import { removeNullValues } from '../../lib/removeNullValues';
+import { stringFormat } from '../../lib/stringFormat';
 
 const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_ENV == 'dev') {
@@ -41,6 +42,30 @@ const getLoginApiPath = () => {
 
 export const getLoginApiUrl = () => {
   return buildApiUrl(getLoginApiPath());
+};
+
+export const getGetUserPath = (userId) => {
+  return stringFormat(api.user.get.path, userId);
+};
+
+export const getGetUserUrl = (userId) => {
+  return buildApiUrl(getGetUserPath(userId));
+};
+
+export const getPostUserFlightPath = (userId) => {
+  return stringFormat(api.user.userFlights.post.path, userId);
+};
+
+export const getPostUserFlightUrl = (userId) => {
+  return buildApiUrl(getPostUserFlightPath(userId));
+};
+
+export const getDeleteUserFlightPath = (userId, flightId) => {
+  return stringFormat(api.user.userFlights.delete.path, userId, flightId);
+};
+
+export const getDeleteUserFlightUrl = (userId, flightId) => {
+  return buildApiUrl(getDeleteUserFlightPath(userId, flightId));
 };
 
 // Map:

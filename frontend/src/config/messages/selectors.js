@@ -7,6 +7,12 @@ export const getGenericErrorMessage = () => {
   return messages.error.generic;
 };
 
+export const getInvalidSearchQueryMessage = () => {
+  return messages.error.invalidSearchQuery;
+};
+
+// - location:
+
 export const getGenericLocationErrorMessage = () => {
   return messages.error.location.generic;
 };
@@ -23,8 +29,10 @@ export const getLocationTimeoutErrorMessage = () => {
   return messages.error.location.timeout;
 };
 
-export const getInvalidSearchQueryMessage = () => {
-  return messages.error.invalidSearchQuery;
+// - user:
+
+export const getGetUser403ErrorMessage = () => {
+  return messages.error.user.get[403];
 };
 
 export const getLogin401ErrorMessage = () => {
@@ -33,6 +41,16 @@ export const getLogin401ErrorMessage = () => {
 
 export const getConfirmPasswordErrorMessage = () => {
   return messages.error.user.signup.confirmPassword;
+};
+
+// - flights:
+
+export const getDestNearestAiportErrorMessage = () => {
+  return messages.error.flights.nearestDestAirport;
+};
+
+export const getDepartureArrivalMatchMessage = () => {
+  return messages.error.flights.matchingDepartureAndArrival;
 };
 
 // other:
@@ -44,3 +62,7 @@ export const getLoadingMessage = () => {
 export const getNoSearchResultsMessage = () => {
   return messages.noSearchResults;
 };
+
+export const getSite404Message = () => {
+  return messages.site404;
+}

@@ -1,4 +1,4 @@
-@import "../../../styles/theme.css";
+@import '../../../styles/theme.css';
 
 .flightsInfoContainer {
   border: 2px solid var(--backup-colour);
@@ -6,8 +6,22 @@
   margin-top: 1rem;
 }
 
+.flightsInfoHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flightsBtn:hover {
+  cursor: pointer;
+}
+
+
 .flightsInfoContainer h2 {
   text-decoration: underline;
+  margin-bottom: 0;
 }
 
 .disclaimer {

@@ -1,9 +1,8 @@
-import { calculateDurationInMinutes } from '../../../../../lib/calculateDuration';
+import { calculateDurationInMinutes } from '../../../../../lib/calculateDurationInMinutes';
 
 export const numHeaderRows = 1;
 export const channelsColumnTrack = 60;
 export const minColumnWidth = "2.25px";
-export const maxRowHeight = "50px"
 
 export const getGridInfo = (channels, programmes) => {
   const numRows = getNumRows(channels);

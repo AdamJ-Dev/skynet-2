@@ -49,6 +49,10 @@ export const getProfilePath = (id) => {
   return `${getProfileBasePath()}/${id}`;
 };
 
+export const getNoSavedFlightsMessage = () => {
+  return pages.profile.content.noSavedFlights;
+};
+
 // Programme:
 
 export const getProgrammeBasePath = () => {
@@ -58,6 +62,8 @@ export const getProgrammeBasePath = () => {
 export const getProgrammePath = (id) => {
   return `${getProgrammeBasePath()}/${id}`;
 };
+
+// - flights
 
 export const getFlightsInfoDescription = (location) => {
   return stringFormat(pages.programme.content.flightsInfoDescription, location);
@@ -89,4 +95,22 @@ export const getFlightsReadyMessage = () => {
 
 export const getDefaultNumFlightsResults = () => {
   return pages.programme.flights.defaultNumFlightsResults;
+};
+
+export const getFlightsTableHeaders = () => {
+  return pages.programme.flights.tableHeaders;
+};
+
+export const getGotFlightsMessage = () => {
+  return pages.programme.content.gotFlights;
+};
+
+export const getNoFlightsMessage = () => {
+  return pages.programme.content.noFlights;
+};
+
+// 404
+
+export const get404DefaultPath = () => {
+  return pages[404].defaultPath;
 };
