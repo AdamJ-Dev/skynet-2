@@ -22,21 +22,21 @@ const ProfilePage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (!initializing & !user) {
-      navigate(getLoginPath());
+    if (!initializing) {
+      if (user) {
+        getUser({
+          url: getGetUserUrl(id),
+          errorParser: getUserErrorParser,
+          extraHeaders: { Authorization: `Bearer ${user.token}` },
+        });
+      } else {
+        getUser({ url: getGetUserUrl(id), errorParser: getUserErrorParser });
+      }
     }
-    if (user) {
-      getUser({
-        url: getGetUserUrl(id),
-        errorParser: getUserErrorParser,
-        extraHeaders: { Authorization: `Bearer ${user.token}` },
-      });
-    } else {
-      getUser({ url: getGetUserUrl(id), errorParser: getUserErrorParser });
-    }
-  }, [user]);
+  }, [initializing, user]);
 
   useEffect(() => {
+    console.log(userError)
     if (userError === INAUTHED_ERROR) {
       navigate(getLoginPath());
     }
