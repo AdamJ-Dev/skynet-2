@@ -47,7 +47,7 @@ const Epg = () => {
   const getGridItems = (channels, programmes) => {
     const gridItems = [];
     for (let channelNo = 1; channelNo <= channels.length; channelNo++) {
-      const channel = channels.find((channel) => channel.id == channelNo);
+      const channel = channels.find((channel) => channel.id === channelNo);
       gridItems.push(<ChannelItem channel={channel} />);
 
       const channelProgrammes = programmes.filter((programme) => programme.channelId == channelNo);

@@ -5,7 +5,7 @@ import { removeNullValues } from '../../lib/obj/removeNullValues';
 import { stringFormat } from '../../lib/string/stringFormat';
 
 const getApiBaseUrl = () => {
-  if (process.env.REACT_APP_API_ENV == 'dev') {
+  if (process.env.REACT_APP_API_ENV === 'dev') {
     return api.baseDevUrl;
   } else {
     return api.baseProdUrl;

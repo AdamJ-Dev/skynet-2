@@ -1,4 +1,3 @@
-import { RESPONSE_ERROR } from '../../app/utility/data-fetching/getResponseError';
 import messages from './messages.json';
 
 // errors:

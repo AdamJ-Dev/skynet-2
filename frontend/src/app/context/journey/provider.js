@@ -73,7 +73,7 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     const departure = state.departureAiport;
     const arrival = state.arrivalAirport;
-    if (departure && arrival && departure.airportCode == arrival.airportCode) {
+    if (departure && arrival && departure.airportCode === arrival.airportCode) {
       dispatch({ type: SET_ERROR, payload: getDepartureArrivalMatchMessage() });
     }
   }, [state.arrivalAirport, state.departureAirport]);

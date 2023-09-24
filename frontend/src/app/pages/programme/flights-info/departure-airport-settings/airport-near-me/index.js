@@ -70,7 +70,7 @@ const AirportNearMe = () => {
       {result && (
         <span className={styles.resultContainer}>
           &nbsp;-&gt;{' '}
-          {nearestAirportData && result == formatAirportName(nearestAirportData) ? (
+          {nearestAirportData && result === formatAirportName(nearestAirportData) ? (
             <span>
               Select{' '}
               <button className={styles.nearestAirportBtn} onClick={() => handleSelectAirport(nearestAirportData)}>
