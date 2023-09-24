@@ -2,7 +2,7 @@ import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDur
 
 export const numHeaderRows = 1;
 export const channelsColumnTrack = 60;
-export const minColumnWidth = "2.25px";
+export const minColumnWidth = '2.25px';
 
 export const getGridInfo = (channels, programmes) => {
   const numRows = getNumRows(channels);
@@ -29,4 +29,12 @@ const getMinStartTime = (programmes) => {
 const getMaxEndTime = (programmes) => {
   const allEndTimes = programmes.map((programme) => new Date(programme.till));
   return Math.max(...allEndTimes);
+};
+
+export const getRow = (channelId) => {
+  return numHeaderRows + parseInt(channelId);
+};
+
+export const spanColumns = (numColumns) => {
+  return `span ${numColumns}`;
 };

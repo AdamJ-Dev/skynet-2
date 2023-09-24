@@ -1,32 +1,43 @@
 import { useState } from 'react';
-import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
-import { numHeaderRows } from '../utils/getGridInfo';
-
-import styles from './index.module.css';
-import { getLocationEnticement, getProgrammePath } from '../../../../../config/pages/selectors';
 import { Link } from 'react-router-dom';
+import { getLocationEnticement, getProgrammePath } from '../../../../../config/pages/selectors';
+import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
+import { gatherClasses, optionalClass } from '../../../../../lib/web/cssClasses';
+import { getLocation, hasLocation } from '../../../../utility/programmes/location';
+import { getRow, spanColumns } from '../utils/getGridInfo';
 import { formatAirTime } from '../utils/formatAirTime';
+import styles from './index.module.css';
 
 const ProgrammeItem = ({ programme }) => {
   const [seeMore, setSeeMore] = useState(false);
 
+  const toggleSeeMore = () => {
+    setSeeMore(!seeMore);
+  };
+
   const duration = calculateDurationInMinutes(new Date(programme.since), new Date(programme.till));
-  const gridSlot = { gridColumn: `span ${duration}`, gridRow: numHeaderRows + parseInt(programme.channelId) };
+  const gridSlot = {
+    gridColumn: spanColumns(duration),
+    gridRow: getRow(programme.channelId),
+  };
 
   return (
     <div
-      className={`${styles.programmeSlot} ${!!programme.locations.length && styles.specialProgrammeSlot}`}
+      className={gatherClasses(
+        styles.programmeSlot,
+        optionalClass(styles.specialProgrammeSlot, hasLocation(programme))
+      )}
       style={gridSlot}
-      onClick={() => setSeeMore(!seeMore)}
+      onClick={toggleSeeMore}
     >
       <div className={styles.programmeInfo}>
         {seeMore ? (
           <>
             <p>{programme.description}</p>
-            {!!programme.locations.length && (
+            {hasLocation(programme) && (
               <p>
-                {getLocationEnticement(programme.locations[0].name)}{' '}
-                <Link to={getProgrammePath(programme.id)}>{programme.locations[0].name}</Link>
+                {getLocationEnticement(getLocation(programme).name)}{' '}
+                <Link to={getProgrammePath(programme.id)}>{getLocation(programme).name}</Link>
               </p>
             )}
           </>

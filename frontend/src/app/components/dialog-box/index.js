@@ -1,17 +1,15 @@
 import styles from './index.module.css';
 
-const DialogBox = ({ content, isOpen, setIsOpen }) => {
+const DialogBox = ({ content, closer }) => {
   return (
     <div>
-      {isOpen && (
-        <>
-          <div className={styles.dialogOverlay} />
-          <div className={styles.dialogContent}>
-            {content}
-          <button className={styles.closeButton} onClick={() => setIsOpen(false)}>Close</button>
-          </div>
-        </>
-      )}
+      <div className={styles.dialogOverlay} />
+      <div className={styles.dialogContent}>
+        {content}
+        <button className={styles.closeButton} onClick={closer}>
+          Close
+        </button>
+      </div>
     </div>
   );
 };
