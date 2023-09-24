@@ -1,5 +1,5 @@
-import { addIsoDurations } from "../../../../lib/IsoDurations";
-import { extractCalendarDate } from "../../../../lib/extractCalendarDate";
+import { addIsoDurations } from "../../../../lib/date/IsoDurations";
+import { extractCalendarDate } from "../../../../lib/date/extractCalendarDate";
 
 export const getMassagedFlights = (flights, weatherForcast) => {
   return addWeatherToFlights(squashFlights(flights), weatherForcast);

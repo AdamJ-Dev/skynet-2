@@ -1,4 +1,4 @@
-import { calculateDurationInMinutes } from '../../../../../lib/calculateDurationInMinutes';
+import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
 
 export const numHeaderRows = 1;
 export const channelsColumnTrack = 60;

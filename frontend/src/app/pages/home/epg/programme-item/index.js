@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { calculateDurationInMinutes } from '../../../../../lib/calculateDurationInMinutes';
+import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
 import { numHeaderRows } from '../utils/getGridInfo';
 
 import styles from './index.module.css';

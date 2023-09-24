@@ -1,4 +1,4 @@
-import { stringFormat } from '../../lib/stringFormat';
+import { stringFormat } from '../../lib/string/stringFormat';
 import pages from './pages.json';
 
 // Home:

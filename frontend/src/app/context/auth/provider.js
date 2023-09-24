@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react';
-import { getCookieValue } from '../../../lib/cookies';
+import { getCookieValue } from '../../../lib/web/cookies';
 import { getUserCookieValue } from '../../utility/user/userCookie';
 
 export const AuthContext = createContext();

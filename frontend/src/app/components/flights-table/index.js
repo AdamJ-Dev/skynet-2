@@ -1,6 +1,6 @@
 import { getFlightsTableHeaders } from '../../../config/pages/selectors';
-import { formatDuration } from '../../../lib/IsoDurations';
-import { formatDate } from '../../../lib/formatDate';
+import { formatDuration } from '../../../lib/date/IsoDurations';
+import { formatDate } from '../../../lib/date/formatDate';
 import { useAuthContext } from '../../context/auth/hook';
 import { useWeatherContext } from '../../context/weather/hook';
 import DeleteFlightButton from './delete-button';

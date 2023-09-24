@@ -1,8 +1,8 @@
 import api from './api.json';
-import { insertQueryParams } from '../../lib/insertQueryParams';
+import { insertQueryParams } from '../../lib/web/insertQueryParams';
 import { getDefaultNumFlightsResults } from '../pages/selectors';
-import { removeNullValues } from '../../lib/removeNullValues';
-import { stringFormat } from '../../lib/stringFormat';
+import { removeNullValues } from '../../lib/obj/removeNullValues';
+import { stringFormat } from '../../lib/string/stringFormat';
 
 const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_ENV == 'dev') {
