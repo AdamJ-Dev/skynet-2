@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { extractCalendarDate } from '../../../../../lib/extractCalendarDate';
 import { useJourneyContext } from '../../../../context/journey/hook';
 import { SET_DEPARTURE_DATE, SET_RETURN_DATE } from '../../../../context/journey/provider';
-
 import styles from './index.module.css';
 
 const FlightDateSettings = () => {
@@ -9,6 +9,8 @@ const FlightDateSettings = () => {
   const [returnDate, setReturnDate] = useState('');
   const [isReturn, setIsReturn] = useState(false);
   const { dispatch } = useJourneyContext();
+
+  const TODAY = extractCalendarDate(new Date());
 
   const handleDepartureDateChange = (e) => {
     const date = e.target.value;
@@ -36,7 +38,7 @@ const FlightDateSettings = () => {
       <form className={styles.dateSettingsForm}>
         <div className={styles.formGroup}>
           <label htmlFor="departure-date">Departure Date:&nbsp;</label>
-          <input id="departure-date" type="date" value={departureDate} onChange={handleDepartureDateChange} />
+          <input id="departure-date" type="date" value={departureDate} min={TODAY} onChange={handleDepartureDateChange} />
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="is-return">Return Flight?&nbsp;</label>
@@ -45,7 +47,7 @@ const FlightDateSettings = () => {
         {isReturn && (
           <div className={styles.formGroup}>
             <label htmlFor="return-date">Return Date:&nbsp;</label>
-            <input id="return-date" type="date" value={returnDate} onChange={handleReturnDateChange} />
+            <input id="return-date" type="date" value={returnDate} min={departureDate || TODAY} onChange={handleReturnDateChange} />
           </div>
         )}
       </form>
