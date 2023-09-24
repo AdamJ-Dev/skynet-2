@@ -1,0 +1,9 @@
+@import "./theme.css";
+
+.background1 {
+  background: var(--alternate-colour-1);
+}
+
+.background2 {
+  background: var(--alternate-colour-2);
+}

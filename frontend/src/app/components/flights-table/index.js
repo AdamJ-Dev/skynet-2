@@ -1,42 +1,13 @@
 import { getFlightsTableHeaders } from '../../../config/pages/selectors';
-import { formatDuration } from '../../../lib/date/IsoDurations';
-import { formatDate } from '../../../lib/date/formatDate';
+import { formatDuration } from '../../../lib/IsoDurations';
+import { formatDate } from '../../../lib/formatDate';
 import { useAuthContext } from '../../context/auth/hook';
 import { useWeatherContext } from '../../context/weather/hook';
-import DeleteFlightButton from './delete-button';
-import styles from './index.module.css';
-import SaveFlightButton from './save-button';
 import { getMassagedFlights } from './utils/getMassagedFlights';
-
-/*
-tweaked flight data structure:
-{
-  id? // there if deletable is true
-  price,
-  isReturn,
-  outbound: {
-    departureAirport,
-    arrivalAirport,
-    initialDeparture,
-    finalArrival,
-    timeSpentFlying,
-    totalDuration,
-    numChanges,
-    weather?: {
-      time,
-      temp,
-      code,
-      desc,
-    }
-  },
-  inbound?: {
-    ...same
-  },
-  
-}
-*/
-
-const alternatingThemes = ['#c5d5f9', '#d7f9ef'];
+import DeleteFlightButton from './delete-button';
+import SaveFlightButton from './save-button';
+import styles from './index.module.css';
+import alternatingStyles from '../../styles/alternate.module.css';
 
 const FlightsTable = ({ flights, savable, deletable }) => {
   const { user } = useAuthContext();
@@ -56,9 +27,10 @@ const FlightsTable = ({ flights, savable, deletable }) => {
         </thead>
         <tbody>
           {getMassagedFlights(flights, weather).map((flight, index) => {
+            const alternatingBackgrounds = [alternatingStyles.background1, alternatingStyles.background2];
             return (
               <>
-                <tr style={{ background: alternatingThemes[index % 2] }} key={`${index}-outbound`}>
+                <tr className={alternatingBackgrounds[index % 2]} key={`${index}-outbound`}>
                   <td>{flight.outbound.departureAirport}</td>
                   <td>{flight.outbound.arrivalAirport}</td>
                   <td>{formatDate(flight.outbound.initialDeparture)}</td>
@@ -94,14 +66,14 @@ const FlightsTable = ({ flights, savable, deletable }) => {
                     ))}
                 </tr>
                 {flight.isReturn && (
-                  <tr style={{ background: alternatingThemes[index % 2] }} key={`${index}-inbound`}>
+                  <tr className={alternatingBackgrounds[index % 2]} key={`${index}-inbound`}>
                     <td>{flight.inbound.departureAirport}</td>
                     <td>{flight.inbound.arrivalAirport}</td>
                     <td>{formatDate(flight.inbound.initialDeparture)}</td>
                     <td>{formatDate(flight.inbound.finalArrival)}</td>
                     <td>{formatDuration(flight.inbound.timeSpentFlying)}</td>
                     <td>{formatDuration(flight.inbound.totalDuration)}</td>
-                    <td>{flight.outbound.numChanges}</td>
+                    <td>{flight.inbound.numChanges}</td>
                     <td>{flight.inbound.weather?.desc || 'N/A'}</td>
                   </tr>
                 )}
