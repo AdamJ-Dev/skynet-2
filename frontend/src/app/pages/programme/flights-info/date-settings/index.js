@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { extractCalendarDate } from '../../../../../lib/extractCalendarDate';
+import { extractCalendarDate } from '../../../../../lib/date/extractCalendarDate';
 import { useJourneyContext } from '../../../../context/journey/hook';
 import { SET_DEPARTURE_DATE, SET_RETURN_DATE } from '../../../../context/journey/provider';
 import styles from './index.module.css';

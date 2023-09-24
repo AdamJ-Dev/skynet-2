@@ -1,16 +1,16 @@
+import { useEffect } from 'react';
 import { getGetEpgChannelsUrl, getGetEpgProgrammesUrl } from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
-import useFetch from '../../../hooks/useFetch';
-import { initialiseCssGrid } from './utils/initialiseCssGrid';
-import EpgSearchBar from './search-bar';
-import ProgrammeItem from './programme-item';
-
-import styles from './index.module.css';
-import ChannelItem from './channel-item';
 import { useEpgContext } from '../../../context/epg/hook';
-import { useEffect } from 'react';
 import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
 import { sortByAirTime } from './utils/sortByAirTime';
+import { initialiseCssGrid } from './utils/initialiseCssGrid';
+import useFetch from '../../../hooks/useFetch';
+import EpgSearchBar from './search-bar';
+import ProgrammeItem from './programme-item';
+import ChannelItem from './channel-item';
+import styles from './index.module.css';
+import { getGridSpec } from './utils/getGridSpec';
 
 const Epg = () => {
   const {
@@ -44,22 +44,6 @@ const Epg = () => {
     }
   }, [channelsData]);
 
-  const getGridItems = (channels, programmes) => {
-    const gridItems = [];
-    for (let channelNo = 1; channelNo <= channels.length; channelNo++) {
-      const channel = channels.find((channel) => channel.id === channelNo);
-      gridItems.push(<ChannelItem channel={channel} />);
-
-      const channelProgrammes = programmes.filter((programme) => programme.channelId == channelNo);
-      const orderedChannelProgrammes = sortByAirTime(channelProgrammes);
-
-      for (const programme of orderedChannelProgrammes) {
-        gridItems.push(<ProgrammeItem programme={programme} />);
-      }
-    }
-    return gridItems;
-  };
-
   return (
     <>
       {(channelsLoading || programmesLoading) && <p>{getLoadingMessage()}</p>}
@@ -69,7 +53,13 @@ const Epg = () => {
           <div className={styles.searchBarRow}>
             <EpgSearchBar programmes={programmes} />
           </div>
-          {getGridItems(channels, programmes)}
+          {getGridSpec(channels, programmes).map((spec) =>
+            spec.channel ? (
+              <ChannelItem channel={spec.channel} />
+            ) : (
+              <ProgrammeItem programme={spec.programme} />
+            )
+          )}
         </div>
       )}
     </>
