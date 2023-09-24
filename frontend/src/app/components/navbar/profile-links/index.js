@@ -1,15 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { getHomePath, getLoginPath, getProfilePath, getSignupPath } from '../../../../config/pages/selectors';
-
-import styles from './index.module.css';
 import { useAuthContext } from '../../../context/auth/hook';
 import { deleteUserCookie } from '../../../utility/user/userCookie';
 import { LOGOUT } from '../../../context/auth/provider';
 
+import styles from './index.module.css';
 
 const ProfileLinks = () => {
-  const { user, dispatch } = useAuthContext();
   const navigate = useNavigate();
+  const { user, dispatch } = useAuthContext();
 
   const handleLogout = () => {
     deleteUserCookie();

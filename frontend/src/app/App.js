@@ -12,11 +12,10 @@ import LoginPage from './pages/login';
 import SignupPage from './pages/signup';
 import ProfilePage from './pages/profile';
 import ProgrammePage from './pages/programme';
-
-import styles from './App.module.css';
+import NotFoundPage from './pages/404';
 import { AuthContextProvider } from './context/auth/provider';
 import { ProfileContextProvider } from './context/profile/provider';
-import NotFoundPage from './pages/404';
+import styles from './App.module.css';
 
 function App() {
   return (

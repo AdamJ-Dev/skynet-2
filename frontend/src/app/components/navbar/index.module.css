@@ -20,7 +20,6 @@
   cursor: pointer;
 }
 
-/* below needs media queries and responsiveness */
 .navTitle {
   display: inline;
   font-size: 2.5rem;
