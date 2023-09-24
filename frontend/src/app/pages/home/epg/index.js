@@ -11,7 +11,6 @@ import ProgrammeItem from './programme-item';
 import ChannelItem from './channel-item';
 import styles from './index.module.css';
 
-
 const Epg = () => {
   const {
     loading: channelsLoading,

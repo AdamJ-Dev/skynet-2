@@ -1,32 +1,44 @@
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { getSignupApiUrl } from '../../../config/api/selectors';
 import { getLoginPath, getProfilePath } from '../../../config/pages/selectors';
-import {
-  getConfirmPasswordErrorMessage,
-  getLoadingMessage,
-  getSignupErrorMessage,
-} from '../../../config/messages/selectors';
-import useFetch from '../../hooks/useFetch';
-import { useAuthContext } from '../../context/auth/hook';
-import { useNavigate } from 'react-router';
+import { getConfirmPasswordErrorMessage, getLoadingMessage } from '../../../config/messages/selectors';
+import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
+import { signupErrorParser } from '../../utility/error-handling/signupErrorParser';
 import { setUserCookie } from '../../utility/user/userCookie';
 import { LOGIN } from '../../context/auth/provider';
-import { Link } from 'react-router-dom';
-
+import { useAuthContext } from '../../context/auth/hook';
+import useFetch from '../../hooks/useFetch';
 import styles from '../../styles/auth.module.css';
-import { signupErrorParser } from '../../utility/error-handling/signupErrorParser';
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+  const {
+    loading: signupLoading,
+    data: userData,
+    error: signupError,
+    post: signup,
+  } = useFetch(getSignupApiUrl());
+  const { dispatch } = useAuthContext();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [shouldIndicateError, setShouldIndicateError] = useState(false);
-  const { loading: signupLoading, data: userData, error: signupError, post } = useFetch(getSignupApiUrl());
-  const { dispatch } = useAuthContext();
-  const navigate = useNavigate();
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+  const [showError, setShowError] = useState(false);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(getConfirmPasswordErrorMessage());
+      setShowError(true);
+    } else {
+      const user = { firstName, lastName, email, password };
+      await signup(user, { errorParser: signupErrorParser });
+    }
+  };
 
   useEffect(() => {
     if (userData) {
@@ -38,29 +50,19 @@ const SignupPage = () => {
 
   useEffect(() => {
     if (signupError) {
-      setShouldIndicateError(true);
+      setShowError(true);
     }
   }, [signupError]);
 
   useEffect(() => {
-    setShouldIndicateError(false);
+    setShowError(false);
     setConfirmPasswordError(null);
   }, [firstName, lastName, email, password, confirmPassword]);
-
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setConfirmPasswordError(getConfirmPasswordErrorMessage());
-      setShouldIndicateError(true);
-    } else {
-      await post({ firstName, lastName, email, password }, { errorParser: signupErrorParser });
-    }
-  };
 
   return (
     <div className={styles.authPageContainer}>
       <h1>Sign up</h1>
-      <div className={`${styles.formContainer} ${shouldIndicateError && styles.errorBorder}`}>
+      <div className={gatherClasses(styles.formContainer, optionalClass(styles.errorBorder, showError))}>
         <form onSubmit={handleSignup}>
           <div className={styles.formGroup}>
             <label htmlFor="first-name">First Name:</label>
@@ -122,7 +124,7 @@ const SignupPage = () => {
           </button>
         </form>
       </div>
-      {shouldIndicateError && <div className={styles.error}>{confirmPasswordError || signupError}</div>}
+      {showError && <div className={styles.error}>{confirmPasswordError || signupError}</div>}
       <p>
         Already registered? <Link to={getLoginPath()}>Log in</Link>
       </p>

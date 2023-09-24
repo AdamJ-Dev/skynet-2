@@ -1,23 +1,35 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getProfilePath, getSignupPath } from '../../../config/pages/selectors';
-import useFetch from '../../hooks/useFetch';
 import { getLoginApiUrl } from '../../../config/api/selectors';
-import { useEffect, useState } from 'react';
-import { getLoadingMessage, getLoginErrorMessage } from '../../../config/messages/selectors';
+import { getLoadingMessage } from '../../../config/messages/selectors';
+import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
 import { setUserCookie } from '../../utility/user/userCookie';
-import { useAuthContext } from '../../context/auth/hook';
-import { LOGIN } from '../../context/auth/provider';
-
-import styles from '../../styles/auth.module.css';
 import { loginErrorParser } from '../../utility/error-handling/loginErrorParser';
+import { LOGIN } from '../../context/auth/provider';
+import { useAuthContext } from '../../context/auth/hook';
+import useFetch from '../../hooks/useFetch';
+import styles from '../../styles/auth.module.css';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const {
+    loading: loginLoading,
+    data: userData,
+    error: loginError,
+    post: login,
+  } = useFetch(getLoginApiUrl());
+  const { dispatch } = useAuthContext();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [shouldIndicateError, setShouldIndicateError] = useState(false);
-  const { loading: loginLoading, data: userData, error: loginError, post } = useFetch(getLoginApiUrl());
-  const { dispatch } = useAuthContext();
-  const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
+
+  const handleAuthenticate = async (e) => {
+    e.preventDefault();
+    const user = { email, password };
+    await login(user, { errorParser: loginErrorParser });
+  };
 
   useEffect(() => {
     if (userData) {
@@ -29,23 +41,18 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginError) {
-      setShouldIndicateError(true);
+      setShowError(true);
     }
   }, [loginError]);
 
   useEffect(() => {
-    setShouldIndicateError(false);
+    setShowError(false);
   }, [email, password]);
-
-  const handleAuthenticate = async (e) => {
-    e.preventDefault();
-    await post({ email, password }, { errorParser: loginErrorParser } );
-  };
 
   return (
     <div className={styles.authPageContainer}>
       <h1>Log in</h1>
-      <div className={`${styles.formContainer} ${shouldIndicateError && styles.errorBorder}`}>
+      <div className={gatherClasses(styles.formContainer, optionalClass(styles.errorBorder, showError))}>
         <form onSubmit={handleAuthenticate}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email:</label>
@@ -74,7 +81,7 @@ const LoginPage = () => {
           </button>
         </form>
       </div>
-      {shouldIndicateError && <div className={styles.error}>{loginError}</div>}
+      {showError && <div className={styles.error}>{loginError}</div>}
       <p>
         Haven't registered yet? <Link to={getSignupPath()}>Sign up</Link>
       </p>
