@@ -3,8 +3,9 @@
   margin: 1rem;
 }
 
-.flightsTable thead {
+.flightsTable thead td {
   font-weight: bold;
+  text-align: center;
 }
 
 .flightsTable td {

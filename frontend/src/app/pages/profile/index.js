@@ -28,17 +28,16 @@ const ProfilePage = () => {
   const { userFlights, dispatch } = useProfileContext();
 
   useEffect(() => {
-    if (localUserInitialized && localUser) {
-      getRequestedUser({
-        url: getGetUserUrl(requestedUserId),
-        errorParser: getUserErrorParser,
-        extraHeaders: { ...getAuthHeader(localUser.token) },
-      });
-    } else {
-      getRequestedUser({
-        url: getGetUserUrl(requestedUserId),
-        errorParser: getUserErrorParser,
-      });
+    if (localUserInitialized) {
+      if (localUser) {
+        getRequestedUser({
+          url: getGetUserUrl(requestedUserId),
+          errorParser: getUserErrorParser,
+          extraHeaders: { ...getAuthHeader(localUser.token) },
+        });
+      } else {
+        navigate(getLoginPath());
+      }
     }
   }, [localUserInitialized, localUser]);
 
