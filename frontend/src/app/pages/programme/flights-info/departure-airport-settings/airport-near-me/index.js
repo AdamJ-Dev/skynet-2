@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import useLocate from '../../../../../hooks/useLocate';
-import useFetch from '../../../../../hooks/useFetch';
 import { getGetNearestAirportUrl } from '../../../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../../../config/messages/selectors';
-
-import styles from './index.module.css';
 import { getGetAiportsNearMeMessage } from '../../../../../../config/pages/selectors';
-import { formatAirportName } from '../utils/formatAirportName';
-import { useJourneyContext } from '../../../../../context/journey/hook';
-import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
 import { nearestAiportErrorParser } from '../../../../../utility/error-handling/nearestAirportErrorParser';
+import { formatAirportName } from '../utils/formatAirportName';
+import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
+import { useJourneyContext } from '../../../../../context/journey/hook';
+import useLocate from '../../../../../hooks/useLocate';
+import useFetch from '../../../../../hooks/useFetch';
+import styles from './index.module.css';
 
 const AirportNearMe = () => {
   const { location: locationData, waiting: locationWaiting, error: locationError, locate } = useLocate();
@@ -17,14 +16,27 @@ const AirportNearMe = () => {
     loading: nearestAirportLoading,
     data: nearestAirportData,
     error: nearestAirportError,
-    get,
-  } = useFetch('');
-  const [result, setResult] = useState(null);
+    get: getNearestAirport,
+  } = useFetch();
   const { dispatch } = useJourneyContext();
+
+  const [result, setResult] = useState(null);
+
+  const triggerAirportSearch = () => {
+    locate();
+  };
+
+  const handleSelectAirport = (airport) => {
+    dispatch({ type: SET_DEPARTURE_AIRPORT, payload: airport });
+    setResult(null);
+  };
 
   useEffect(() => {
     if (locationData) {
-      get({ url: getGetNearestAirportUrl(locationData.lat, locationData.lon), errorParser: nearestAiportErrorParser });
+      getNearestAirport({
+        url: getGetNearestAirportUrl(locationData.lat, locationData.lon),
+        errorParser: nearestAiportErrorParser,
+      });
     }
   }, [locationData]);
 
@@ -42,7 +54,6 @@ const AirportNearMe = () => {
 
   useEffect(() => {
     if (nearestAirportData) {
-      console.log(nearestAirportData);
       setResult(formatAirportName(nearestAirportData));
     }
   }, [nearestAirportData]);
@@ -53,15 +64,6 @@ const AirportNearMe = () => {
     }
   }, [locationWaiting, nearestAirportLoading]);
 
-  const triggerAirportSearch = () => {
-    locate();
-  };
-
-  const handleSelectAirport = (airport) => {
-    dispatch({ type: SET_DEPARTURE_AIRPORT, payload: airport });
-    setResult(null);
-  };
-
   return (
     <div className={styles.airportNearMeContainer}>
       <button onClick={() => triggerAirportSearch()}>Go</button>
@@ -69,11 +71,14 @@ const AirportNearMe = () => {
       <span className={styles.getAirportNearMeMsg}>{getGetAiportsNearMeMessage()}</span>
       {result && (
         <span className={styles.resultContainer}>
-          &nbsp;-&gt;{' '}
+          &nbsp;-&gt;&nbsp;
           {nearestAirportData && result === formatAirportName(nearestAirportData) ? (
             <span>
-              Select{' '}
-              <button className={styles.nearestAirportBtn} onClick={() => handleSelectAirport(nearestAirportData)}>
+              Select&nbsp;
+              <button
+                className={styles.nearestAirportBtn}
+                onClick={() => handleSelectAirport(nearestAirportData)}
+              >
                 {result}
               </button>
               ?
@@ -83,7 +88,6 @@ const AirportNearMe = () => {
           )}
         </span>
       )}
-      {/* <div>Result: </div> */}
     </div>
   );
 };

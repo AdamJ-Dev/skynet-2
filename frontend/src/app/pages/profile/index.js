@@ -1,42 +1,37 @@
 import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getGetUserUrl } from '../../../config/api/selectors';
-import useFetch from '../../hooks/useFetch';
-import { useAuthContext } from '../../context/auth/hook';
-import { useNavigate } from 'react-router-dom';
-import { getLoginPath, getNoFlightsMessage, getNoSavedFlightsMessage } from '../../../config/pages/selectors';
+import { getLoginPath } from '../../../config/pages/selectors';
 import { INAUTHED_ERROR, getUserErrorParser } from '../../utility/error-handling/getUserErrorParser';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import FlightsTable from '../../components/flights-table';
-import { WeatherContextProvider } from '../../context/weather/provider';
-
-import styles from './index.module.css';
-import { useProfileContext } from '../../context/profile/hook';
+import { getAuthHeader } from '../../utility/user/authRequest';
 import { SET_USER_FLIGHTS } from '../../context/profile/provider';
-import { useParams } from 'react-router-dom';
+import { useProfileContext } from '../../context/profile/hook';
+import { useAuthContext } from '../../context/auth/hook';
+import useFetch from '../../hooks/useFetch';
+import styles from './index.module.css';
+import SavedFlights from './saved-flights';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { user, initializing } = useAuthContext();
-  const { loading: userLoading, data: userData, error: userError, get: getUser } = useFetch();
+  const { id: requestedUserId } = useParams();
+  const { loading: userLoading, data: userData, error: userError, get: getRequestedUser } = useFetch();
+  const { user: localUser, initialized: localUserInitialized } = useAuthContext();
   const { userFlights, dispatch } = useProfileContext();
-  const { id } = useParams();
 
   useEffect(() => {
-    if (!initializing) {
-      if (user) {
-        getUser({
-          url: getGetUserUrl(id),
-          errorParser: getUserErrorParser,
-          extraHeaders: { Authorization: `Bearer ${user.token}` },
-        });
-      } else {
-        getUser({ url: getGetUserUrl(id), errorParser: getUserErrorParser });
-      }
+    if (localUserInitialized && localUser) {
+      getRequestedUser({
+        url: getGetUserUrl(requestedUserId),
+        errorParser: getUserErrorParser,
+        extraHeaders: { ...getAuthHeader(localUser.token) },
+      });
+    } else {
+      getRequestedUser({ url: getGetUserUrl(requestedUserId), errorParser: getUserErrorParser });
     }
-  }, [initializing, user]);
+  }, [localUserInitialized, localUser]);
 
   useEffect(() => {
-    console.log(userError)
     if (userError === INAUTHED_ERROR) {
       navigate(getLoginPath());
     }
@@ -50,27 +45,19 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className={styles.getUserMessage}>
-        {userLoading && <div>{getLoadingMessage()}</div>}
-        {userError && userError != INAUTHED_ERROR && <div>{userError}</div>}
-      </div>
+      {userLoading && <div className={styles.getUserMessage}>{getLoadingMessage()}</div>}
+      {userError && userError !== INAUTHED_ERROR && <div className={styles.getUserMessage}>{userError}</div>}
       {userData && (
         <div className={styles.profilePageContainer}>
           <p>
-            <strong>Active User:</strong> {userData.firstName} {userData.lastName}
+            <strong>Active User:</strong>&nbsp;
+            <>{userData.firstName}</>&nbsp;
+            <>{userData.lastName}</>
           </p>
           <p>
             <strong>Your saved flights:</strong>
           </p>
-          {!!userFlights.length ? (
-            <WeatherContextProvider>
-              <div className={styles.tableContainer}>
-                <FlightsTable flights={userFlights} savable={false} deletable={true} />
-              </div>
-            </WeatherContextProvider>
-          ) : (
-            getNoSavedFlightsMessage()
-          )}
+          {userFlights && <SavedFlights />}
         </div>
       )}
     </>

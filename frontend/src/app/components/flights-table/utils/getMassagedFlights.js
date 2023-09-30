@@ -1,65 +1,39 @@
-import { addIsoDurations } from "../../../../lib/date/IsoDurations";
-import { extractCalendarDate } from "../../../../lib/date/extractCalendarDate";
+import { extractCalendarDate } from '../../../../lib/date/extractCalendarDate';
+import { squashFlights } from '../../../utility/journey/parseFlights';
 
-export const getMassagedFlights = (flights, weatherForcast) => {
-  return addWeatherToFlights(squashFlights(flights), weatherForcast);
+export const getMassagedFlights = (flights, weatherMap) => {
+  return addWeatherToFlights(squashFlights(flights), weatherMap);
 };
 
-const squashFlights = (flights) => {
-  const squashedFlights = [];
-  for (const flight of flights) {
-    const squashedFlight = {
-      price: flight.price,
-      isReturn: !!flight.inboundDuration,
-      outbound: {
-        ...squashFlightLegs(flight.outboundLegs),
-        totalDuration: flight.outboundDuration,
-      },
-    };
-    if (squashedFlight.isReturn) {
-      squashedFlight.inbound = {
-        ...squashFlightLegs(flight.inboundLegs),
-        totalDuration: flight.inboundDuration,
-      };
-    }
-    squashedFlights.push(squashedFlight);
-  }
-  return squashedFlights;
-};
-
-const squashFlightLegs = (flightLegs) => {
-  const firstLeg = flightLegs[0];
-  const lastLeg = flightLegs[flightLegs.length-1];
-  return {
-    departureAirport: firstLeg.departureAirport,
-    arrivalAirport: lastLeg.arrivalAirport,
-    initialDeparture: firstLeg.departureTime,
-    finalArrival: lastLeg.arrivalTime,
-    timeSpentFlying: getFlyingDuration(flightLegs),
-    numChanges: flightLegs.length - 1,
-  };
-};
-
-const getFlyingDuration = (flightLegs) => {
-  return flightLegs.reduce((acc, flightLeg) => addIsoDurations(acc, flightLeg.duration), 'PT0D0H0M');
-};
-
-export const addWeatherToFlights = (squashedFlights, weatherForcast) => {
-  const daysWeatherMap = {};
-  for (const dayOfWeather of weatherForcast) {
-    daysWeatherMap[dayOfWeather.time] = dayOfWeather;
-  }
+export const addWeatherToFlights = (squashedFlights, weatherMap) => {
   const flightsWithWeather = [];
   for (const flight of squashedFlights) {
-    const flightWithWeather = { ... flight, outbound: addWeatherToFlightComponent(flight.outbound, daysWeatherMap) }
+    const flightWithWeather = {
+      ...flight,
+      outbound: addWeatherToFlightComponent(flight.outbound, weatherMap[flight.outbound.arrivalAirport]),
+      ...(flight.isReturn && {
+        inbound: addWeatherToFlightComponent(flight.inbound, weatherMap[flight.inbound.arrivalAirport]),
+      }),
+    };
     flightsWithWeather.push(flightWithWeather);
   }
   return flightsWithWeather;
 };
 
-const addWeatherToFlightComponent = (component, weatherMap) => {
+const addWeatherToFlightComponent = (component, forecast) => {
+  const daysOfWeather = getDaysOfWeather(forecast);
   const dayOfArrival = extractCalendarDate(component.finalArrival);
-  if (weatherMap[dayOfArrival]) {
-    return { ... component, weather: weatherMap[dayOfArrival] };
-  } else return component;
+  if (daysOfWeather[dayOfArrival]) {
+    return { ...component, weather: daysOfWeather[dayOfArrival] };
+  } else {
+    return component;
+  }
+};
+
+const getDaysOfWeather = (forecast) => {
+  const daysOfWeather = {};
+  for (const dayOfWeather of forecast) {
+    daysOfWeather[dayOfWeather.time] = dayOfWeather;
+  }
+  return daysOfWeather;
 };

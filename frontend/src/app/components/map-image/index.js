@@ -14,8 +14,8 @@ const MapImage = ({ lat, lon, locationName }) => {
   }, []);
 
   return (
-    <div>
-      {loading && getLoadingMessage()}
+    <>
+      {loading && <div>{getLoadingMessage()}</div>}
       {error && <div>{error}</div>}
       {mapData && (
         <img
@@ -24,7 +24,7 @@ const MapImage = ({ lat, lon, locationName }) => {
           alt={`Map of ${locationName}`}
         />
       )}
-    </div>
+    </>
   );
 };
 

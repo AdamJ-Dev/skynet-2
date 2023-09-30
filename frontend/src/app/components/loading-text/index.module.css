@@ -1,0 +1,30 @@
+@import '../../styles/theme.css';
+
+@keyframes vibrantColorWave {
+  0%,
+  100% {
+    color: var(--main-colour);
+  }
+  50% {
+    color: var(--backup-colour);
+  }
+}
+
+@keyframes dullColorWave {
+  0%,
+  100% {
+    color: var(--light-colour);
+  }
+  50% {
+    color: black;
+  }
+}
+
+
+.vibrantLoadingText span {
+  animation: vibrantColorWave 1s infinite;
+}
+
+.dullLoadingText span {
+  animation: dullColorWave 1s infinite;
+}

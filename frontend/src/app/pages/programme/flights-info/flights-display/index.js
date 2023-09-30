@@ -6,64 +6,35 @@ import { useEffect, useState } from 'react';
 import { getLoadingMessage } from '../../../../../config/messages/selectors';
 import { parseBreadcrumbs } from './utils/parseBreadcrumbs';
 import {
+  getGetFlightsEnticement,
   getGotFlightsMessage,
   getNoFlightsMessage,
 } from '../../../../../config/pages/selectors';
 import FlightsTable from '../../../../components/flights-table';
+import LoadingText from '../../../../components/loading-text';
 
 const FlightsDisplay = () => {
-  const [tableBreadcrumbs, setTableBreadcrumbs] = useState([]);
+  const {
+    loading: flightsLoading,
+    data: flightsData,
+    error: flightsError,
+    get: getFlights,
+    reset: resetFlights,
+  } = useFetch();
   const {
     departureAirport,
     arrivalAirport,
     departureDate,
     returnDate,
+    arrivalLoading,
+    arrivalWeather,
+    departureWeather,
+    weatherLoading,
     error: journeyContextError,
   } = useJourneyContext();
-  const { loading: flightsLoading, data: flightsData, error: flightsError, get: getFlights, reset: resetFlights } = useFetch('');
+
   const [canGetFlights, setCanGetFlights] = useState(false);
-
-
-  useEffect(() => {
-    const gotEnoughInfo = !!departureAirport && !!arrivalAirport && !!departureDate;
-    setCanGetFlights(gotEnoughInfo);
-  }, [departureAirport, arrivalAirport, departureDate]);
-
-  useEffect(() => {
-    const determineTableBreadcrumbs = () => {
-      let breadcrumbs = [
-        <button onClick={() => handleGetFlights()} disabled={!canGetFlights}>
-          GET FLIGHTS
-        </button>,
-      ];
-      if (journeyContextError) {
-        breadcrumbs.push(<span>{journeyContextError}</span>);
-        return breadcrumbs;
-      }
-
-      if (flightsLoading) {
-        breadcrumbs.push(<span>{getLoadingMessage()}</span>);
-      } else if (flightsError) {
-        breadcrumbs.push(<span>{flightsError}</span>);
-      } else if (flightsData) {
-        breadcrumbs.push(
-          <span>{!!flightsData.length ? getGotFlightsMessage() : getNoFlightsMessage()}</span>
-        );
-      }
-      return breadcrumbs;
-    };
-
-    setTableBreadcrumbs(determineTableBreadcrumbs());
-  }, [
-    departureAirport,
-    arrivalAirport,
-    departureDate,
-    returnDate,
-    flightsLoading,
-    flightsData,
-    flightsError,
-    canGetFlights,
-  ]);
+  const [message, setMessage] = useState('');
 
   const handleGetFlights = async () => {
     resetFlights();
@@ -72,11 +43,61 @@ const FlightsDisplay = () => {
     });
   };
 
+  useEffect(() => {
+    const gotEnoughInfo = !!departureAirport && !!arrivalAirport && !!departureDate;
+    setCanGetFlights(gotEnoughInfo);
+  }, [departureAirport, arrivalAirport, departureDate]);
+
+  useEffect(() => {
+    const getMessage = () => {
+      if (journeyContextError) {
+        return journeyContextError;
+      }
+      if (flightsLoading) {
+        return getLoadingMessage();
+      } else if (flightsError) {
+        return flightsError;
+      } else if (flightsData) {
+        return flightsData.length ? getGotFlightsMessage() : getNoFlightsMessage();
+      }
+      return '';
+    };
+    setMessage(getMessage());
+  }, [
+    departureAirport,
+    arrivalAirport,
+    departureDate,
+    returnDate,
+    journeyContextError,
+    flightsLoading,
+    flightsData,
+    flightsError,
+    canGetFlights,
+  ]);
+
   return (
     <div className={styles.tableContainer}>
-      <div className={styles.tableBreadcrumbs}>{parseBreadcrumbs(tableBreadcrumbs)}</div>
+      <div className={styles.tableHeading}>
+        <button onClick={() => handleGetFlights()} disabled={!canGetFlights}>
+          {arrivalLoading || flightsLoading ? (
+            <LoadingText text={getGetFlightsEnticement()} vibrant={flightsLoading} />
+          ) : (
+            getGetFlightsEnticement()
+          )}
+        </button>
+        {message && (
+          <>
+            &nbsp;-&gt;&nbsp;<span>{message}</span>
+          </>
+        )}
+      </div>
       {!!flightsData?.length && (
-        <FlightsTable flights={flightsData} savable={true} deleteable={false} />
+        <FlightsTable
+          flights={flightsData}
+          actions={{ savable: true }}
+          weatherMap={{ [arrivalAirport.airportCode]: arrivalWeather, [departureAirport.airportCode]: departureWeather }}
+          weatherLoading={weatherLoading}
+        />
       )}
     </div>
   );

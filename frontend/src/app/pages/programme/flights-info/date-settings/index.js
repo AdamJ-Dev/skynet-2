@@ -38,7 +38,13 @@ const FlightDateSettings = () => {
       <form className={styles.dateSettingsForm}>
         <div className={styles.formGroup}>
           <label htmlFor="departure-date">Departure Date:&nbsp;</label>
-          <input id="departure-date" type="date" value={departureDate} min={TODAY} onChange={handleDepartureDateChange} />
+          <input
+            id="departure-date"
+            type="date"
+            value={departureDate}
+            min={TODAY}
+            onChange={handleDepartureDateChange}
+          />
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="is-return">Return Flight?&nbsp;</label>
@@ -47,7 +53,13 @@ const FlightDateSettings = () => {
         {isReturn && (
           <div className={styles.formGroup}>
             <label htmlFor="return-date">Return Date:&nbsp;</label>
-            <input id="return-date" type="date" value={returnDate} min={departureDate || TODAY} onChange={handleReturnDateChange} />
+            <input
+              id="return-date"
+              type="date"
+              value={returnDate}
+              min={departureDate || TODAY}
+              onChange={handleReturnDateChange}
+            />
           </div>
         )}
       </form>

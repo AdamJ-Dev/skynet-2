@@ -5,11 +5,11 @@
   border: 2px solid var(--main-colour);
 }
 
-.tableBreadcrumbs {
+.tableHeading {
   width: 100%;
   padding: 0.5rem;
 }
 
-.tableBreadcrumbs button:hover {
+.tableHeading button:hover {
   cursor: pointer;
 }

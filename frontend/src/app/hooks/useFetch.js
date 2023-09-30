@@ -5,7 +5,7 @@ import { getGenericErrorMessage } from '../../config/messages/selectors';
 const defaultPostingHeaders = { 'Content-Type': 'application/json' };
 const defaultErrorParser = (e) => getGenericErrorMessage();
 
-const useFetch = (initialUrl) => {
+const useFetch = (initialUrl = '/') => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,11 +21,10 @@ const useFetch = (initialUrl) => {
     setError(null);
     try {
       const res = await fetchMethod();
-      console.log(res)
-      if (!res.ok) {
+      if (!isResponseOk(res)) {
         throw await getResponseError(res);
       }
-      const data = await res.json();
+      const data = await parseResponseData(res);
       setData(data);
     } catch (error) {
       setError(await errorParser(error));
@@ -34,9 +33,38 @@ const useFetch = (initialUrl) => {
     }
   };
 
+  const isResponseOk = useCallback((res) => {
+    if (Array.isArray(res)) {
+      for (const subRes of res) {
+        if (!subRes.ok) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return res.ok;
+  }, []);
+
+  const parseResponseData = useCallback(async (res) => {
+    if (Array.isArray(res)) {
+      return await Promise.all(res.map((subRes) => subRes.json()));
+    }
+    return await res.json();
+  }, []);
+
   const get = useCallback(
     async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
-      executeFetch(async () => await fetch(url, { headers: extraHeaders }), errorParser);
+      await executeFetch(async () => await fetch(url, { headers: extraHeaders }), errorParser);
+    },
+    [initialUrl]
+  );
+
+  const getMany = useCallback(
+    async (urls, { errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      await executeFetch(
+        async () => await Promise.all(urls.map((url) => fetch(url, { headers: extraHeaders }))),
+        errorParser
+      );
     },
     [initialUrl]
   );
@@ -78,7 +106,7 @@ const useFetch = (initialUrl) => {
     [initialUrl]
   );
 
-  return { data, error, loading, reset, get, post, put, del };
+  return { data, error, loading, reset, get, getMany, post, put, del };
 };
 
 export default useFetch;

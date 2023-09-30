@@ -37,7 +37,7 @@
         "Total Duration",
         "Number of Changes",
         "Price",
-        "Weather on Arrival"
+        "Weather Estimate on Arrival"
       ]
     },
     "content": {
@@ -45,6 +45,7 @@
       "airportsSearchPlaceholder": "Find an airport ...",
       "flightsApiDisclaimer": "This site uses a free tier of the Amadeus api. Information is available for a limited number of existing airports. We find the nearest airport to a specific location only from within that subset. In the process, we may fail to return airports that really are nearby.",
       "getAirportsNearMe": "Look for an airport near me.",
+      "getFlights": "GET FLIGHTS",
       "gotFlights": "Got flights",
       "noFlights": "No such flights were found"
     }

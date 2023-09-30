@@ -1,19 +1,17 @@
 import MapImage from '../../../components/map-image';
+import { getLocation } from '../../../utility/programmes/location';
 
 import styles from './index.module.css';
 
 const ProgrammeLocationIntro = ({ programme }) => {
-  const {
-    title,
-    description,
-    locations
-  } = programme;
+  const { title, description } = programme;
   const {
     name: locationName,
     lat: locationLat,
     lon: locationLon,
     relationship: locationRelationship,
-  } = locations[0];
+  } = getLocation(programme);
+
   return (
     <div className={styles.programmeLocationIntro}>
       <MapImage lat={locationLat} lon={locationLon} locationName={locationName} />
@@ -23,7 +21,8 @@ const ProgrammeLocationIntro = ({ programme }) => {
           <p>{description}</p>
         </div>
         <h2>
-          Highlighted Location: <em>{locationName}</em>
+          Highlighted Location:&nbsp;
+          <><em>{locationName}</em></>
         </h2>
         <div className={styles.snippetText}>
           <p>{locationRelationship}</p>

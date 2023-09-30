@@ -85,6 +85,10 @@ export const getGetAiportsNearMeMessage = () => {
   return pages.programme.content.getAirportsNearMe;
 };
 
+export const getGetFlightsEnticement = () => {
+  return pages.programme.content.getFlights;
+};
+
 export const getFlightsInfoMissingMessage = () => {
   return pages.programme.content.flightsInfoMissing;
 };

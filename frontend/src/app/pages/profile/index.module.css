@@ -6,11 +6,6 @@
   font-size: 1.25rem;
 }
 
-.tableContainer {
-  width: 100%;
-  overflow: auto;
-}
-
 .getUserMessage {
   padding: 1.5em;
 }

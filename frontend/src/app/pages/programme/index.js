@@ -1,18 +1,17 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
 import { getGetEpgProgrammeUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-
-import styles from './index.module.css';
-import { useEffect, useState } from 'react';
-import ProgrammeLocationIntro from './programme-location-intro';
-import FlightsInfo from './flights-info';
-import { JourneyContextProvider } from '../../context/journey/provider';
-import { WeatherContextProvider } from '../../context/weather/provider';
 import { NOT_FOUND, getProgrammeErrorParser } from '../../utility/error-handling/programmeErrorParser';
 import { get404DefaultPath } from '../../../config/pages/selectors';
+import { hasLocation } from '../../utility/programmes/location';
+import { JourneyContextProvider } from '../../context/journey/provider';
+import useFetch from '../../hooks/useFetch';
+import FlightsInfo from './flights-info';
+import ProgrammeLocationIntro from './programme-location-intro';
 
 const ProgrammePage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const {
     loading: programmeLoading,
@@ -20,17 +19,18 @@ const ProgrammePage = () => {
     error: programmeError,
     get: getProgramme,
   } = useFetch(getGetEpgProgrammeUrl(id));
-  const navigate = useNavigate();
 
   useEffect(() => {
     getProgramme({ errorParser: getProgrammeErrorParser });
   }, []);
 
   useEffect(() => {
-    if (programmeError === NOT_FOUND) {
+    const programmeDoesNotExist = programmeError === NOT_FOUND;
+    const programmeLacksLocation = programme && !hasLocation(programme);
+    if (programmeDoesNotExist || programmeLacksLocation) {
       navigate(get404DefaultPath());
     }
-  }, [programmeError])
+  }, [programme, programmeError]);
 
   return (
     <>
@@ -40,9 +40,7 @@ const ProgrammePage = () => {
         <>
           <ProgrammeLocationIntro programme={programme} />
           <JourneyContextProvider>
-            <WeatherContextProvider>
-              <FlightsInfo destination={programme.locations[0]} />
-            </WeatherContextProvider>
+            <FlightsInfo destination={programme.locations[0]} />
           </JourneyContextProvider>
         </>
       )}

@@ -1,11 +1,10 @@
-import { getDepartureAirportInstructions } from '../../../../../config/pages/selectors';
+import { useState } from 'react';
+import { formatAirportName } from './utils/formatAirportName';
+import { useJourneyContext } from '../../../../context/journey/hook';
 import AirportsSearchBar from './search-bar';
-import styles from './index.module.css';
 import AirportNearMe from './airport-near-me';
 import Toggler from '../../../../components/toggler';
-import { useState } from 'react';
-import { useJourneyContext } from '../../../../context/journey/hook';
-import { formatAirportName } from './utils/formatAirportName';
+import styles from './index.module.css';
 
 const airportSelectionMethods = {
   search: 'Search',
@@ -13,25 +12,20 @@ const airportSelectionMethods = {
 };
 
 const DepartureAirportSettings = () => {
-  const [airportSelectionMethod, setAirportSelectionMethod] = useState(airportSelectionMethods.search);
   const { departureAirport } = useJourneyContext();
+  const [selectionMethod, setSelectionMethod] = useState(airportSelectionMethods.search);
 
   return (
-    <div id="set-departure-airport" className={styles.setDepartureAirport}>
+    <div className={styles.setDepartureAirport}>
       <h4>Departure Airport</h4>
-      {/* <div>{getDepartureAirportInstructions()}</div> */}
       <Toggler
-        option1="Search"
-        option2="Get near me"
-        activeOption={airportSelectionMethod}
-        setActiveOption={setAirportSelectionMethod}
+        option1={airportSelectionMethods.search}
+        option2={airportSelectionMethods.nearby}
+        activeOption={selectionMethod}
+        setActiveOption={setSelectionMethod}
       />
       <div className={styles.findDepartureAirport}>
-        {airportSelectionMethod === airportSelectionMethods.search ? (
-          <AirportsSearchBar />
-        ) : (
-          <AirportNearMe />
-        )}
+        {selectionMethod === airportSelectionMethods.search ? <AirportsSearchBar /> : <AirportNearMe />}
       </div>
       <p>Departing from {departureAirport ? formatAirportName(departureAirport) : '...'}</p>
     </div>

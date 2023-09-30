@@ -1,12 +1,11 @@
 import { createContext, useEffect, useReducer } from 'react';
-import { getCookieValue } from '../../../lib/web/cookies';
 import { getUserCookieValue } from '../../utility/user/userCookie';
 
 export const AuthContext = createContext();
 
 const initialState = {
   user: null,
-  initializing: true,
+  initialized: false,
 };
 
 export const LOGIN = 'LOGIN';
@@ -20,7 +19,7 @@ export const authReducer = (state, action) => {
     case LOGOUT:
       return { ...state, user: null };
     case INITIALIZATION_COMPLETE: {
-      return { ...state, initializing: false };
+      return { ...state, initialized: true };
     }
     default:
       return state;

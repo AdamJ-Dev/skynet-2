@@ -7,31 +7,17 @@ import { useEffect } from 'react';
 import { SET_DESTINATION } from '../../../context/journey/provider';
 import FlightDateSettings from './date-settings';
 import FlightsDisplay from './flights-display';
-import { useWeatherContext } from '../../../context/weather/hook';
-import { SET_WEATHER } from '../../../context/weather/provider';
-import { getGetWeatherUrl } from '../../../../config/api/selectors';
-import useFetch from '../../../hooks/useFetch';
+import { hashtag } from '../../../../lib/web/hashtag';
+
+const DESCRIPTION_ID = 'flights-description';
+const DISCLAIMER_ID = 'flights-disclaimer';
 
 const FlightsInfo = ({ destination }) => {
   const { dispatch: dispatchJourney } = useJourneyContext();
-  const { dispatch: dispatchWeather } = useWeatherContext();
-  const { data: weatherData, get: getWeather } = useFetch(
-    getGetWeatherUrl({ lat: destination.lat, lon: destination.lon })
-  );
 
   useEffect(() => {
     dispatchJourney({ type: SET_DESTINATION, payload: destination });
   }, []);
-
-  useEffect(() => {
-    getWeather();
-  }, []);
-
-  useEffect(() => {
-    if (weatherData) {
-      dispatchWeather({ type: SET_WEATHER, payload: weatherData });
-    }
-  }, [weatherData]);
 
   return (
     <>
@@ -39,19 +25,19 @@ const FlightsInfo = ({ destination }) => {
         <div className={styles.flightsInfoHeader}>
           <h2>Flights Information</h2>
         </div>
-        <p>
+        <p id={DESCRIPTION_ID}>
           {getFlightsInfoDescription(destination.name)}
-          <HashLink smooth to="#disclaimer">
+          <HashLink smooth to={hashtag(DISCLAIMER_ID)}>
             *
           </HashLink>
         </p>
         <DepartureAirportSettings />
         <FlightDateSettings />
         <FlightsDisplay destination={destination} />
-        <div className={styles.disclaimer} id="disclaimer">
-          <HashLink to="#disclaimer">*</HashLink>
+        <div className={styles.disclaimer} id={DISCLAIMER_ID}>
+          <HashLink to={hashtag(DISCLAIMER_ID)}>*</HashLink>
           {getFlightsApiDisclaimer()}&nbsp;
-          <HashLink smooth to="#set-departure-airport">
+          <HashLink smooth to={hashtag(DESCRIPTION_ID)}>
             Back
           </HashLink>
         </div>
