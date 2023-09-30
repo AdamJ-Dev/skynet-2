@@ -10,13 +10,13 @@ import { getAuthHeader } from '../../../utility/user/authRequest';
 import styles from './index.module.css';
 
 const DeleteFlightButton = ({ flightId }) => {
-  const { user } = useAuthContext();
   const {
     loading: deleteLoading,
     data: deleteData,
     error: deleteError,
     del: deleteFlight,
-  } = useFetch('');
+  } = useFetch();
+  const { user } = useAuthContext();
   const { dispatch, userFlights } = useProfileContext();
 
   const handleDeleteFlight = () => {
@@ -39,7 +39,7 @@ const DeleteFlightButton = ({ flightId }) => {
   if (deleteError) return deleteError;
 
   return (
-    <button className={styles.deleteBtn} onClick={() => handleDeleteFlight()}>
+    <button className={styles.deleteBtn} onClick={handleDeleteFlight}>
       -
     </button>
   );

@@ -45,32 +45,24 @@ const useFetch = (initialUrl = '/') => {
     return res.ok;
   }, []);
 
-  const parseResponseData = useCallback(async (res) => {
+  const parseResponseData = useCallback((res) => {
     if (Array.isArray(res)) {
-      return await Promise.all(res.map((subRes) => subRes.json()));
+      return Promise.all(res.map((subRes) => subRes.json()));
     }
-    return await res.json();
+    return res.json();
   }, []);
 
   const get = useCallback(
-    async ({
-      url = initialUrl,
-      errorParser = defaultErrorParser,
-      extraHeaders = {},
-    } = {}) => {
-      await executeFetch(
-        async () => await fetch(url, { headers: extraHeaders }),
-        errorParser
-      );
+    ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      executeFetch(() => fetch(url, { headers: extraHeaders }), errorParser);
     },
     [initialUrl]
   );
 
   const getMany = useCallback(
-    async (urls, { errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
-      await executeFetch(
-        async () =>
-          await Promise.all(urls.map((url) => fetch(url, { headers: extraHeaders }))),
+    (urls, { errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+      executeFetch(
+        () => Promise.all(urls.map((url) => fetch(url, { headers: extraHeaders }))),
         errorParser
       );
     },
@@ -78,13 +70,13 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const post = useCallback(
-    async (
+    (
       json,
       { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
     ) => {
       executeFetch(
-        async () =>
-          await fetch(url, {
+        () =>
+          fetch(url, {
             method: 'POST',
             headers: { ...defaultPostingHeaders, ...extraHeaders },
             body: JSON.stringify(json),
@@ -96,13 +88,13 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const put = useCallback(
-    async (
+    (
       json,
       { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
     ) => {
       executeFetch(
-        async () =>
-          await fetch(url, {
+        () =>
+          fetch(url, {
             method: 'PUT',
             headers: { ...defaultPostingHeaders, ...extraHeaders },
             body: JSON.stringify(json),
@@ -114,13 +106,9 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const del = useCallback(
-    async ({
-      url = initialUrl,
-      errorParser = defaultErrorParser,
-      extraHeaders = {},
-    } = {}) => {
+    ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
       executeFetch(
-        async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }),
+        () => fetch(url, { method: 'DELETE', headers: extraHeaders }),
         errorParser
       );
     },

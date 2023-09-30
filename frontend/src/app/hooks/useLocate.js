@@ -49,7 +49,7 @@ const useLocate = (geolocationOptions = defaultGeolocationOptions) => {
         setError(getLocationTimeoutErrorMessage());
         break;
       default:
-        console.log(getGenericLocationErrorMessage());
+        setError(getGenericLocationErrorMessage());
         break;
     }
   }, []);

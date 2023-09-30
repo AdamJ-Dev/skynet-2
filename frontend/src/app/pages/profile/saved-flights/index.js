@@ -36,11 +36,6 @@ const SavedFlights = () => {
     return null;
   }, [weatherData, airports]);
 
-  console.log({
-    defaultWeatherWap,
-    populatedWeatherMap,
-  });
-
   useEffect(() => {
     if (userFlights.length) {
       const urlsMap = getWeatherUrlsMap(userFlights);

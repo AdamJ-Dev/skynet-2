@@ -7,7 +7,9 @@ const LoadingText = ({ text, vibrant }) => {
       className={choiceClass(styles.vibrantLoadingText, styles.dullLoadingText, vibrant)}
     >
       {text.split('').map((letter, index) => (
-        <span style={{ animationDelay: `${index / 10}s` }}>{letter}</span>
+        <span style={{ animationDelay: `${index / 10}s` }} key={index}>
+          {letter}
+        </span>
       ))}
     </span>
   );
