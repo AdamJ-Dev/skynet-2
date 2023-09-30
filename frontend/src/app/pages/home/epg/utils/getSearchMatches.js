@@ -1,4 +1,4 @@
-import { ensureUniqueTitles } from "./ensureUniqueTitles";
+import { ensureUniqueTitles } from './ensureUniqueTitles';
 
 export const getSearchMatches = (query, programmes, limit) => {
   const textMatchingProgrammes = programmes.filter(
@@ -7,4 +7,4 @@ export const getSearchMatches = (query, programmes, limit) => {
       programme.location?.name.toLowerCase().includes(query.toLowerCase())
   );
   return ensureUniqueTitles(textMatchingProgrammes).slice(0, limit);
-}
+};

@@ -3,32 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "planby": "^1.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "REACT_APP_API_ENV=dev react-scripts start",
-    "dev-epg-api": "json-server --watch src/assets/data/epg/db.json -p 4000 --routes src/assets/data/epg/routes.json",
-    "start-with-prod-api": "REACT_APP_API_ENV=prod react-scripts start",
+    "start:prod-api": "REACT_APP_API_ENV=prod react-scripts start",
+    "lint-check": "eslint ./src --color --cache",
+    "lint-fix": "yarn lint-check --fix",
     "build": "REACT_APP_API_ENV=prod react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write 'src/**/*.js'",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier"
-    ]
   },
   "browserslist": {
     "production": [
@@ -43,8 +32,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.0.0"
   }
 }

@@ -1,13 +1,16 @@
 import { HashLink } from 'react-router-hash-link';
-import styles from './index.module.css';
-import { getFlightsApiDisclaimer, getFlightsInfoDescription } from '../../../../config/pages/selectors';
-import { useJourneyContext } from '../../../context/journey/hook';
-import DepartureAirportSettings from './departure-airport-settings';
 import { useEffect } from 'react';
+import {
+  getFlightsApiDisclaimer,
+  getFlightsInfoDescription,
+} from '../../../../config/pages/selectors';
+import { useJourneyContext } from '../../../context/journey/hook';
 import { SET_DESTINATION } from '../../../context/journey/provider';
+import { hashtag } from '../../../../lib/web/hashtag';
+import styles from './index.module.css';
+import DepartureAirportSettings from './departure-airport-settings';
 import FlightDateSettings from './date-settings';
 import FlightsDisplay from './flights-display';
-import { hashtag } from '../../../../lib/web/hashtag';
 
 const DESCRIPTION_ID = 'flights-description';
 const DISCLAIMER_ID = 'flights-disclaimer';

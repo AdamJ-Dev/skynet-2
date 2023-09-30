@@ -1,6 +1,9 @@
-import { getGenericErrorMessage, getGetUser403ErrorMessage, getLogin401ErrorMessage } from '../../../config/messages/selectors';
+import {
+  getGenericErrorMessage,
+  getGetUser403ErrorMessage,
+} from '../../../config/messages/selectors';
 
-export const INAUTHED_ERROR = "INAUTHED_ERROR";
+export const INAUTHED_ERROR = 'INAUTHED_ERROR';
 
 export const getUserErrorParser = (error) => {
   switch (error.status) {

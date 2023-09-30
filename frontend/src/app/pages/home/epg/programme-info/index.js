@@ -31,7 +31,8 @@ const ProgrammeInfo = ({ programme, airingInfo }) => {
             const channel = channels.find((channel) => channel.id === channelId);
             return (
               <li>
-                <span style={channelColourStyle(channel)}>{channel.name}</span>: {formatAirTime(since, till)}
+                <span style={channelColourStyle(channel)}>{channel.name}</span>:{' '}
+                {formatAirTime(since, till)}
               </li>
             );
           })}

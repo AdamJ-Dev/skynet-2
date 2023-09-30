@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { getGetEpgChannelsUrl, getGetEpgProgrammesUrl } from '../../../../config/api/selectors';
+import {
+  getGetEpgChannelsUrl,
+  getGetEpgProgrammesUrl,
+} from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
-import { getGridSpec } from './utils/getGridSpec';
-import { initialiseCssGrid } from './utils/initialiseCssGrid';
 import { useEpgContext } from '../../../context/epg/hook';
 import useFetch from '../../../hooks/useFetch';
+import { getGridSpec } from './utils/getGridSpec';
+import { initialiseCssGrid } from './utils/initialiseCssGrid';
 import EpgSearchBar from './search-bar';
 import ProgrammeItem from './programme-item';
 import ChannelItem from './channel-item';

@@ -1,5 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { getHomePath, getLoginPath, getProfilePath, getSignupPath } from '../../../../config/pages/selectors';
+import {
+  getHomePath,
+  getLoginPath,
+  getProfilePath,
+  getSignupPath,
+} from '../../../../config/pages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
 import { deleteUserCookie } from '../../../utility/user/userCookie';
 import { LOGOUT } from '../../../context/auth/provider';
@@ -20,14 +25,17 @@ const ProfileLinks = () => {
     <span>
       {user ? (
         <>
-        <button onClick={() => navigate(getProfilePath(user.id))} className={styles.authButton}>
-          Profile
-        </button>
-        &nbsp;
-         <button onClick={() => handleLogout()} className={styles.authButton}>
-          Log out 
-       </button>
-       </>
+          <button
+            onClick={() => navigate(getProfilePath(user.id))}
+            className={styles.authButton}
+          >
+            Profile
+          </button>
+          &nbsp;
+          <button onClick={() => handleLogout()} className={styles.authButton}>
+            Log out
+          </button>
+        </>
       ) : (
         <>
           <button onClick={() => navigate(getSignupPath())} className={styles.authButton}>

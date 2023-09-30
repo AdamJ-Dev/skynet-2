@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getGetEpgProgrammeUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import { NOT_FOUND, getProgrammeErrorParser } from '../../utility/error-handling/programmeErrorParser';
+import {
+  NOT_FOUND,
+  getProgrammeErrorParser,
+} from '../../utility/error-handling/programmeErrorParser';
 import { get404DefaultPath } from '../../../config/pages/selectors';
 import { hasLocation } from '../../utility/programmes/location';
 import { JourneyContextProvider } from '../../context/journey/provider';

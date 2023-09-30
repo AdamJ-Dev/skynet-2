@@ -1,4 +1,10 @@
-import { deleteCookie, getCookieValue, getCookies, selectCookie, setCookie } from '../../../lib/web/cookies';
+import {
+  deleteCookie,
+  getCookieValue,
+  getCookies,
+  selectCookie,
+  setCookie,
+} from '../../../lib/web/cookies';
 
 export const getUserCookieValue = () => {
   const userCookie = selectCookie('user', getCookies());
@@ -13,4 +19,4 @@ export const setUserCookie = (userInfo) => {
 
 export const deleteUserCookie = () => {
   deleteCookie('user');
-}
+};

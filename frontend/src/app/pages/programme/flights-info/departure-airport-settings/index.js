@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { formatAirportName } from './utils/formatAirportName';
 import { useJourneyContext } from '../../../../context/journey/hook';
+import Toggler from '../../../../components/toggler';
+import { formatAirportName } from './utils/formatAirportName';
 import AirportsSearchBar from './search-bar';
 import AirportNearMe from './airport-near-me';
-import Toggler from '../../../../components/toggler';
 import styles from './index.module.css';
 
 const airportSelectionMethods = {
@@ -25,9 +25,15 @@ const DepartureAirportSettings = () => {
         setActiveOption={setSelectionMethod}
       />
       <div className={styles.findDepartureAirport}>
-        {selectionMethod === airportSelectionMethods.search ? <AirportsSearchBar /> : <AirportNearMe />}
+        {selectionMethod === airportSelectionMethods.search ? (
+          <AirportsSearchBar />
+        ) : (
+          <AirportNearMe />
+        )}
       </div>
-      <p>Departing from {departureAirport ? formatAirportName(departureAirport) : '...'}</p>
+      <p>
+        Departing from {departureAirport ? formatAirportName(departureAirport) : '...'}
+      </p>
     </div>
   );
 };

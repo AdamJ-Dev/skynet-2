@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { extractCalendarDate } from '../../../../../lib/date/extractCalendarDate';
 import { useJourneyContext } from '../../../../context/journey/hook';
-import { SET_DEPARTURE_DATE, SET_RETURN_DATE } from '../../../../context/journey/provider';
+import {
+  SET_DEPARTURE_DATE,
+  SET_RETURN_DATE,
+} from '../../../../context/journey/provider';
 import styles from './index.module.css';
 
 const FlightDateSettings = () => {
@@ -48,7 +51,12 @@ const FlightDateSettings = () => {
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="is-return">Return Flight?&nbsp;</label>
-          <input id="is-return" type="checkbox" checked={isReturn} onChange={handleCheckReturn} />
+          <input
+            id="is-return"
+            type="checkbox"
+            checked={isReturn}
+            onChange={handleCheckReturn}
+          />
         </div>
         {isReturn && (
           <div className={styles.formGroup}>

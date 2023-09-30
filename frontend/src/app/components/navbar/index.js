@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { getHomePath } from '../../../config/pages/selectors';
 import { getSiteLogoAlt, getSiteName } from '../../../config/theme/selectors';
-import ProfileLinks from './profile-links';
 import siteLogo from '../../../assets/get-your-way-logo.png';
+import ProfileLinks from './profile-links';
 import styles from './index.module.css';
-
-
 
 const NavBar = () => {
   const navigate = useNavigate();

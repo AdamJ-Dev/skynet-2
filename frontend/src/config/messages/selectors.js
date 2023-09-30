@@ -64,4 +64,4 @@ export const getNoSearchResultsMessage = () => {
 
 export const getSite404Message = () => {
   return messages.site404;
-}
+};

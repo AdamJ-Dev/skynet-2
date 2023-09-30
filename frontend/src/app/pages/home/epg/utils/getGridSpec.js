@@ -1,4 +1,4 @@
-import { sortByAirTime } from "./sortByAirTime";
+import { sortByAirTime } from './sortByAirTime';
 
 export const getGridSpec = (channels, programmes) => {
   const gridSpec = [];
@@ -6,7 +6,9 @@ export const getGridSpec = (channels, programmes) => {
     const channel = channels.find((channel) => channel.id === channelNo);
     gridSpec.push({ channel });
 
-    const channelProgrammes = programmes.filter((programme) => programme.channelId === channelNo);
+    const channelProgrammes = programmes.filter(
+      (programme) => programme.channelId === channelNo
+    );
     const orderedChannelProgrammes = sortByAirTime(channelProgrammes);
 
     for (const programme of orderedChannelProgrammes) {

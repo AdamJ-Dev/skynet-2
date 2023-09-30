@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getEpgSearchLimit, getEpgSearchPlaceholder } from '../../../../../config/pages/selectors';
+import {
+  getEpgSearchLimit,
+  getEpgSearchPlaceholder,
+} from '../../../../../config/pages/selectors';
 import { getSearchMatches } from '../utils/getSearchMatches';
 import { getAiringInfo } from '../utils/getAiringInfo';
 import DialogBox from '../../../../components/dialog-box';

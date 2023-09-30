@@ -1,4 +1,7 @@
-import { getHomeContentDescription, getHomeContentHeadline } from '../../../config/pages/selectors';
+import {
+  getHomeContentDescription,
+  getHomeContentHeadline,
+} from '../../../config/pages/selectors';
 import { EpgContextProvider } from '../../context/epg/provider';
 import Epg from './epg';
 import styles from './index.module.css';

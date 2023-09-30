@@ -53,8 +53,15 @@ const useFetch = (initialUrl = '/') => {
   }, []);
 
   const get = useCallback(
-    async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
-      await executeFetch(async () => await fetch(url, { headers: extraHeaders }), errorParser);
+    async ({
+      url = initialUrl,
+      errorParser = defaultErrorParser,
+      extraHeaders = {},
+    } = {}) => {
+      await executeFetch(
+        async () => await fetch(url, { headers: extraHeaders }),
+        errorParser
+      );
     },
     [initialUrl]
   );
@@ -62,7 +69,8 @@ const useFetch = (initialUrl = '/') => {
   const getMany = useCallback(
     async (urls, { errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
       await executeFetch(
-        async () => await Promise.all(urls.map((url) => fetch(url, { headers: extraHeaders }))),
+        async () =>
+          await Promise.all(urls.map((url) => fetch(url, { headers: extraHeaders }))),
         errorParser
       );
     },
@@ -70,7 +78,10 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const post = useCallback(
-    async (json, { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+    async (
+      json,
+      { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
+    ) => {
       executeFetch(
         async () =>
           await fetch(url, {
@@ -85,7 +96,10 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const put = useCallback(
-    async (json, { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
+    async (
+      json,
+      { url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}
+    ) => {
       executeFetch(
         async () =>
           await fetch(url, {
@@ -100,8 +114,15 @@ const useFetch = (initialUrl = '/') => {
   );
 
   const del = useCallback(
-    async ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
-      executeFetch(async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }), errorParser);
+    async ({
+      url = initialUrl,
+      errorParser = defaultErrorParser,
+      extraHeaders = {},
+    } = {}) => {
+      executeFetch(
+        async () => await fetch(url, { method: 'DELETE', headers: extraHeaders }),
+        errorParser
+      );
     },
     [initialUrl]
   );

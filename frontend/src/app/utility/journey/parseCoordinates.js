@@ -4,4 +4,3 @@ export const parseCoordinates = (airportCoordinates) => {
   const [lat, lon] = csvToArray(airportCoordinates);
   return { lat, lon };
 };
-

@@ -5,12 +5,16 @@ import { useJourneyContext } from '../../../context/journey/hook';
 import useFetch from '../../../hooks/useFetch';
 import { getAuthHeader } from '../../../utility/user/authRequest';
 
-
 import styles from './index.module.css';
 
 const SaveFlightButton = ({ flight }) => {
   const { user } = useAuthContext();
-  const { loading: saveLoading, data: saveData, error: saveError, post: saveFlight } = useFetch();
+  const {
+    loading: saveLoading,
+    data: saveData,
+    error: saveError,
+    post: saveFlight,
+  } = useFetch();
   const { departureAirport, arrivalAirport } = useJourneyContext();
 
   const handleSaveFlight = () => {

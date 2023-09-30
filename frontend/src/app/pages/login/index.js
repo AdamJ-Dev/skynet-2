@@ -52,7 +52,12 @@ const LoginPage = () => {
   return (
     <div className={styles.authPageContainer}>
       <h1>Log in</h1>
-      <div className={gatherClasses(styles.formContainer, optionalClass(styles.errorBorder, showError))}>
+      <div
+        className={gatherClasses(
+          styles.formContainer,
+          optionalClass(styles.errorBorder, showError)
+        )}
+      >
         <form onSubmit={handleAuthenticate}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email:</label>

@@ -37,5 +37,7 @@ export const AuthContextProvider = ({ children }) => {
     dispatch({ type: INITIALIZATION_COMPLETE });
   }, []);
 
-  return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>
+  );
 };

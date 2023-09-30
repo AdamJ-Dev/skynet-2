@@ -1,4 +1,7 @@
-import { getGenericErrorMessage, getLogin401ErrorMessage } from '../../../config/messages/selectors';
+import {
+  getGenericErrorMessage,
+  getLogin401ErrorMessage,
+} from '../../../config/messages/selectors';
 
 export const loginErrorParser = (error) => {
   switch (error.status) {

@@ -1,10 +1,8 @@
-import { getFlightsUrl, getGetWeatherUrl } from '../../../../../config/api/selectors';
-import useFetch from '../../../../hooks/useFetch';
-import styles from './index.module.css';
-import { useJourneyContext } from '../../../../context/journey/hook';
 import { useEffect, useState } from 'react';
+import { useJourneyContext } from '../../../../context/journey/hook';
+import useFetch from '../../../../hooks/useFetch';
+import { getFlightsUrl } from '../../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../../config/messages/selectors';
-import { parseBreadcrumbs } from './utils/parseBreadcrumbs';
 import {
   getGetFlightsEnticement,
   getGotFlightsMessage,
@@ -12,6 +10,7 @@ import {
 } from '../../../../../config/pages/selectors';
 import FlightsTable from '../../../../components/flights-table';
 import LoadingText from '../../../../components/loading-text';
+import styles from './index.module.css';
 
 const FlightsDisplay = () => {
   const {
@@ -39,7 +38,12 @@ const FlightsDisplay = () => {
   const handleGetFlights = async () => {
     resetFlights();
     await getFlights({
-      url: getFlightsUrl(departureAirport.airportCode, arrivalAirport.airportCode, departureDate, returnDate),
+      url: getFlightsUrl(
+        departureAirport.airportCode,
+        arrivalAirport.airportCode,
+        departureDate,
+        returnDate
+      ),
     });
   };
 
@@ -72,7 +76,6 @@ const FlightsDisplay = () => {
     flightsLoading,
     flightsData,
     flightsError,
-    canGetFlights,
   ]);
 
   return (
@@ -95,7 +98,10 @@ const FlightsDisplay = () => {
         <FlightsTable
           flights={flightsData}
           actions={{ savable: true }}
-          weatherMap={{ [arrivalAirport.airportCode]: arrivalWeather, [departureAirport.airportCode]: departureWeather }}
+          weatherMap={{
+            [arrivalAirport.airportCode]: arrivalWeather,
+            [departureAirport.airportCode]: departureWeather,
+          }}
           weatherLoading={weatherLoading}
         />
       )}

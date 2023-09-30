@@ -6,4 +6,4 @@ export const removeNullValues = (obj) => {
     }
   }
   return newObj;
-}
+};

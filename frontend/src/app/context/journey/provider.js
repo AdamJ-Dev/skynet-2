@@ -134,7 +134,10 @@ export const JourneyContextProvider = ({ children }) => {
   }, [arrivalAirportLoading]);
 
   useEffect(() => {
-    dispatch({ type: SET_WEATHER_LOADING, payload: arrivalAirportLoading || departureWeatherLoading });
+    dispatch({
+      type: SET_WEATHER_LOADING,
+      payload: arrivalAirportLoading || departureWeatherLoading,
+    });
   }, [arrivalWeatherLoading, departureWeatherLoading]);
 
   // be wary of errors
@@ -154,5 +157,9 @@ export const JourneyContextProvider = ({ children }) => {
     }
   }, [state.arrivalAirport, state.departureAirport]);
 
-  return <JourneyContext.Provider value={{ ...state, dispatch }}>{children}</JourneyContext.Provider>;
+  return (
+    <JourneyContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </JourneyContext.Provider>
+  );
 };

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getLocationEnticement, getProgrammePath } from '../../../../../config/pages/selectors';
+import {
+  getLocationEnticement,
+  getProgrammePath,
+} from '../../../../../config/pages/selectors';
 import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
 import { gatherClasses, optionalClass } from '../../../../../lib/web/cssClasses';
 import { getLocation, hasLocation } from '../../../../utility/programmes/location';
@@ -15,7 +18,10 @@ const ProgrammeItem = ({ programme }) => {
     setSeeMore(!seeMore);
   };
 
-  const duration = calculateDurationInMinutes(new Date(programme.since), new Date(programme.till));
+  const duration = calculateDurationInMinutes(
+    new Date(programme.since),
+    new Date(programme.till)
+  );
   const gridSlot = {
     gridColumn: spanColumns(duration),
     gridRow: getRow(programme.channelId),
@@ -37,7 +43,9 @@ const ProgrammeItem = ({ programme }) => {
             {hasLocation(programme) && (
               <p>
                 {getLocationEnticement(getLocation(programme).name)}{' '}
-                <Link to={getProgrammePath(programme.id)}>{getLocation(programme).name}</Link>
+                <Link to={getProgrammePath(programme.id)}>
+                  {getLocation(programme).name}
+                </Link>
               </p>
             )}
           </>

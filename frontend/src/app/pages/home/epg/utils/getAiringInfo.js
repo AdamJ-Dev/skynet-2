@@ -1,4 +1,4 @@
-import { sortByAirTime } from "./sortByAirTime";
+import { sortByAirTime } from './sortByAirTime';
 
 export const getAiringInfo = (title, programmes) => {
   const airingInfo = [];

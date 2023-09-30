@@ -22,7 +22,9 @@ const ProgrammeLocationIntro = ({ programme }) => {
         </div>
         <h2>
           Highlighted Location:&nbsp;
-          <><em>{locationName}</em></>
+          <>
+            <em>{locationName}</em>
+          </>
         </h2>
         <div className={styles.snippetText}>
           <p>{locationRelationship}</p>

@@ -3,8 +3,8 @@ import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
 import FlightsTable from '../../../components/flights-table';
 import { useProfileContext } from '../../../context/profile/hook';
 import useFetch from '../../../hooks/useFetch';
-import styles from './index.module.css';
 import { getWeatherUrlsMap } from '../../../utility/journey/parseFlights';
+import styles from './index.module.css';
 
 const SavedFlights = () => {
   const { userFlights } = useProfileContext();

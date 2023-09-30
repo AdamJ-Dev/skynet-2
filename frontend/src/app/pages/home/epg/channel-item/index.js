@@ -18,7 +18,11 @@ const ChannelItem = ({ channel }) => {
   return (
     <div style={gridSlot} className={styles.channelSlot} onClick={toggleSeeMore}>
       <div className={styles.channelInfo}>
-        {seeMore ? <p>{channel.description}</p> : <h4 style={channelColourStyle(channel)}>{channel.name}</h4>}
+        {seeMore ? (
+          <p>{channel.description}</p>
+        ) : (
+          <h4 style={channelColourStyle(channel)}>{channel.name}</h4>
+        )}
       </div>
     </div>
   );

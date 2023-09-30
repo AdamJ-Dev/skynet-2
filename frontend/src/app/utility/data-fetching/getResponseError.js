@@ -1,4 +1,4 @@
-export const RESPONSE_ERROR = 'ResponseError'
+export const RESPONSE_ERROR = 'ResponseError';
 
 export const getResponseError = async (response) => {
   const error = new Error();

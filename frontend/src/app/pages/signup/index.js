@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSignupApiUrl } from '../../../config/api/selectors';
 import { getLoginPath, getProfilePath } from '../../../config/pages/selectors';
-import { getConfirmPasswordErrorMessage, getLoadingMessage } from '../../../config/messages/selectors';
+import {
+  getConfirmPasswordErrorMessage,
+  getLoadingMessage,
+} from '../../../config/messages/selectors';
 import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
 import { signupErrorParser } from '../../utility/error-handling/signupErrorParser';
 import { setUserCookie } from '../../utility/user/userCookie';
@@ -62,7 +65,12 @@ const SignupPage = () => {
   return (
     <div className={styles.authPageContainer}>
       <h1>Sign up</h1>
-      <div className={gatherClasses(styles.formContainer, optionalClass(styles.errorBorder, showError))}>
+      <div
+        className={gatherClasses(
+          styles.formContainer,
+          optionalClass(styles.errorBorder, showError)
+        )}
+      >
         <form onSubmit={handleSignup}>
           <div className={styles.formGroup}>
             <label htmlFor="first-name">First Name:</label>
@@ -124,7 +132,9 @@ const SignupPage = () => {
           </button>
         </form>
       </div>
-      {showError && <div className={styles.error}>{confirmPasswordError || signupError}</div>}
+      {showError && (
+        <div className={styles.error}>{confirmPasswordError || signupError}</div>
+      )}
       <p>
         Already registered? <Link to={getLoginPath()}>Log in</Link>
       </p>

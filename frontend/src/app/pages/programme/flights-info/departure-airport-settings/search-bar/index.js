@@ -9,15 +9,20 @@ import {
   getLoadingMessage,
   getNoSearchResultsMessage,
 } from '../../../../../../config/messages/selectors';
-import { isValidQuery } from './utils/validateQuery';
 import { formatAirportName } from '../utils/formatAirportName';
 import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
 import { useJourneyContext } from '../../../../../context/journey/hook';
 import useFetch from '../../../../../hooks/useFetch';
+import { isValidQuery } from './utils/validateQuery';
 import styles from './index.module.css';
 
 const AirportsSearchBar = () => {
-  const { loading: airportsLoading, data: airports, error: airportsError, get: getAirports } = useFetch();
+  const {
+    loading: airportsLoading,
+    data: airports,
+    error: airportsError,
+    get: getAirports,
+  } = useFetch();
   const { dispatch } = useJourneyContext();
 
   const [query, setQuery] = useState('');

@@ -11,7 +11,12 @@ import useFetch from '../../../../../hooks/useFetch';
 import styles from './index.module.css';
 
 const AirportNearMe = () => {
-  const { location: locationData, waiting: locationWaiting, error: locationError, locate } = useLocate();
+  const {
+    location: locationData,
+    waiting: locationWaiting,
+    error: locationError,
+    locate,
+  } = useLocate();
   const {
     loading: nearestAirportLoading,
     data: nearestAirportData,

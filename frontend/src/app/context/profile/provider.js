@@ -20,5 +20,9 @@ export const profileReducer = (state, action) => {
 export const ProfileContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(profileReducer, initialState);
 
-  return <ProfileContext.Provider value={{ ...state, dispatch }}>{children}</ProfileContext.Provider>;
+  return (
+    <ProfileContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </ProfileContext.Provider>
+  );
 };

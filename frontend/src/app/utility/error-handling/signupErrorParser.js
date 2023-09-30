@@ -9,5 +9,3 @@ export const signupErrorParser = async (error) => {
       return getGenericErrorMessage();
   }
 };
-
-

@@ -10,9 +10,15 @@ export const addWeatherToFlights = (squashedFlights, weatherMap) => {
   for (const flight of squashedFlights) {
     const flightWithWeather = {
       ...flight,
-      outbound: addWeatherToFlightComponent(flight.outbound, weatherMap[flight.outbound.arrivalAirport]),
+      outbound: addWeatherToFlightComponent(
+        flight.outbound,
+        weatherMap[flight.outbound.arrivalAirport]
+      ),
       ...(flight.isReturn && {
-        inbound: addWeatherToFlightComponent(flight.inbound, weatherMap[flight.inbound.arrivalAirport]),
+        inbound: addWeatherToFlightComponent(
+          flight.inbound,
+          weatherMap[flight.inbound.arrivalAirport]
+        ),
       }),
     };
     flightsWithWeather.push(flightWithWeather);

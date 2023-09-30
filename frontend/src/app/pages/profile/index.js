@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getGetUserUrl } from '../../../config/api/selectors';
 import { getLoginPath } from '../../../config/pages/selectors';
-import { INAUTHED_ERROR, getUserErrorParser } from '../../utility/error-handling/getUserErrorParser';
+import {
+  INAUTHED_ERROR,
+  getUserErrorParser,
+} from '../../utility/error-handling/getUserErrorParser';
 import { getLoadingMessage } from '../../../config/messages/selectors';
 import { getAuthHeader } from '../../utility/user/authRequest';
 import { SET_USER_FLIGHTS } from '../../context/profile/provider';
@@ -15,7 +18,12 @@ import SavedFlights from './saved-flights';
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { id: requestedUserId } = useParams();
-  const { loading: userLoading, data: userData, error: userError, get: getRequestedUser } = useFetch();
+  const {
+    loading: userLoading,
+    data: userData,
+    error: userError,
+    get: getRequestedUser,
+  } = useFetch();
   const { user: localUser, initialized: localUserInitialized } = useAuthContext();
   const { userFlights, dispatch } = useProfileContext();
 
@@ -27,7 +35,10 @@ const ProfilePage = () => {
         extraHeaders: { ...getAuthHeader(localUser.token) },
       });
     } else {
-      getRequestedUser({ url: getGetUserUrl(requestedUserId), errorParser: getUserErrorParser });
+      getRequestedUser({
+        url: getGetUserUrl(requestedUserId),
+        errorParser: getUserErrorParser,
+      });
     }
   }, [localUserInitialized, localUser]);
 
@@ -46,7 +57,9 @@ const ProfilePage = () => {
   return (
     <>
       {userLoading && <div className={styles.getUserMessage}>{getLoadingMessage()}</div>}
-      {userError && userError !== INAUTHED_ERROR && <div className={styles.getUserMessage}>{userError}</div>}
+      {userError && userError !== INAUTHED_ERROR && (
+        <div className={styles.getUserMessage}>{userError}</div>
+      )}
       {userData && (
         <div className={styles.profilePageContainer}>
           <p>

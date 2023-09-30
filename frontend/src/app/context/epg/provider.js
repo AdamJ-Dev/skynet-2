@@ -24,5 +24,7 @@ export const epgReducer = (state, action) => {
 export const EpgContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(epgReducer, initialState);
 
-  return <EpgContext.Provider value={{ ...state, dispatch }}>{children}</EpgContext.Provider>;
+  return (
+    <EpgContext.Provider value={{ ...state, dispatch }}>{children}</EpgContext.Provider>
+  );
 };

@@ -1,6 +1,6 @@
-import { getGenericErrorMessage, getLogin401ErrorMessage } from '../../../config/messages/selectors';
+import { getGenericErrorMessage } from '../../../config/messages/selectors';
 
-export const NOT_FOUND = "NOT_FOUND";
+export const NOT_FOUND = 'NOT_FOUND';
 
 export const getProgrammeErrorParser = (error) => {
   switch (error.status) {
