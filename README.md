@@ -1,12 +1,12 @@
 # Background
 
-This application is an extension and refactoring of the front-end of an ancestor application, https://github.com/AdamJ-Dev/skynet, which ancestor application was completed as part of the bootcamp for the Sky UK software graduate scheme. With no notable exceptions, _AdamJ-Dev_ wrote all of the front-end code for the ancestor application, so to the extent that he has modified said code, he is developing his own work.  
+This application is an extension and refactoring of the front-end of an ancestor application, https://github.com/AdamJ-Dev/skynet, which ancestor application was completed as part of the bootcamp for the Sky UK software graduate scheme. With no notable exceptions, _AdamJ-Dev_ wrote all of the front-end code for the ancestor application, so to the extent that he has modified said code, he is developing upon his own work.  
 
-Note: 'Skynet' was the name of the team that worked on https://github.com/AdamJ-Dev/skynet.
+(Note: 'Skynet' was the name of the team that worked on https://github.com/AdamJ-Dev/skynet.)
 
 The goal of the application is to allow users to find travel information for locations associated with highlighted programmes in an epg.
 
-# Ui
+# UI
 ## Epg
 
 https://github.com/AdamJ-Dev/skynet-2/assets/70510545/a224bca5-7aff-481d-b262-45e65f3ff41a
