@@ -28,6 +28,7 @@ export const getGetWeatherUrl = (paramsMap) => {
 };
 
 // User:
+
 const getSignupApiPath = () => {
   return api.user.signup.path;
 };
@@ -69,6 +70,7 @@ export const getDeleteUserFlightUrl = (userId, flightId) => {
 };
 
 // Map:
+
 const getGetMapPath = () => {
   return api.map.get.path;
 };
@@ -108,7 +110,7 @@ export const getGetEpgChannelsUrl = () => {
   return buildApiUrl(getGetEpgChannelsPath());
 };
 
-// Flights
+// Flights:
 
 const getGetAirportsPath = () => {
   return api.flights.getAirports.path;

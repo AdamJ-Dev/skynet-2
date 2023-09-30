@@ -7,7 +7,7 @@ import {
   getProgrammeErrorParser,
 } from '../../utility/error-handling/programmeErrorParser';
 import { get404DefaultPath } from '../../../config/pages/selectors';
-import { hasLocation } from '../../utility/programmes/location';
+import { getLocation, hasLocation } from '../../utility/programmes/location';
 import { JourneyContextProvider } from '../../context/journey/provider';
 import useFetch from '../../hooks/useFetch';
 import FlightsInfo from './flights-info';
@@ -43,7 +43,7 @@ const ProgrammePage = () => {
         <>
           <ProgrammeLocationIntro programme={programme} />
           <JourneyContextProvider>
-            <FlightsInfo destination={programme.locations[0]} />
+            <FlightsInfo destination={getLocation(programme)} />
           </JourneyContextProvider>
         </>
       )}

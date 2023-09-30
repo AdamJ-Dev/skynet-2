@@ -1,9 +1,9 @@
 export const parseDuration = (isoDuration) => {
-  let match = isoDuration.match(/P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?/);
+  const matchTimes = isoDuration.match(/P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?/);
 
-  let days = parseInt(match[1]) || 0;
-  let hours = parseInt(match[2]) || 0;
-  let minutes = parseInt(match[3]) || 0;
+  const days = parseInt(matchTimes[1]) || 0;
+  const hours = parseInt(matchTimes[2]) || 0;
+  const minutes = parseInt(matchTimes[3]) || 0;
 
   return { days, hours, minutes };
 };
@@ -11,8 +11,12 @@ export const parseDuration = (isoDuration) => {
 export const formatDuration = (isoDuration) => {
   const { days, hours, minutes } = parseDuration(isoDuration);
   let result = `${minutes} mins`;
-  if (hours) result = `${hours} hours, ${result}`;
-  if (days) result = `${days} days, ${result}`;
+  if (hours) {
+    result = `${hours} hours, ${result}`;
+  }
+  if (days) {
+    result = `${days} days, ${result}`;
+  }
   return result;
 };
 

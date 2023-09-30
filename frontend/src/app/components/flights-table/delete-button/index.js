@@ -39,7 +39,7 @@ const DeleteFlightButton = ({ flightId }) => {
   if (deleteError) return deleteError;
 
   return (
-    <button className={styles.deleteBtn} onClick={handleDeleteFlight}>
+    <button className={styles.deleteBtn} onClick={() => handleDeleteFlight()}>
       -
     </button>
   );

@@ -36,7 +36,7 @@ const SaveFlightButton = ({ flight }) => {
   if (saveData) return 'Saved.';
 
   return (
-    <button className={styles.saveBtn} onClick={handleSaveFlight}>
+    <button className={styles.saveBtn} onClick={() => handleSaveFlight()}>
       +
     </button>
   );

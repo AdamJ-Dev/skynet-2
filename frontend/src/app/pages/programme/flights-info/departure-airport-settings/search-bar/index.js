@@ -32,7 +32,7 @@ const AirportsSearchBar = () => {
   const handleSearch = async () => {
     if (query) {
       if (isValidQuery(query)) {
-        await getAirports({ url: getGetAirportsUrl(query) });
+        getAirports({ url: getGetAirportsUrl(query) });
       } else {
         setMessage(getInvalidSearchQueryMessage());
       }
@@ -45,8 +45,20 @@ const AirportsSearchBar = () => {
   };
 
   useEffect(() => {
+    setMessage('');
     setResults([]);
   }, [query]);
+
+  useEffect(() => {
+    if (airports) {
+      if (airports.length) {
+        setMessage('');
+        setResults(airports.slice(0, getAirportsSearchLimit()));
+      } else {
+        setMessage(getNoSearchResultsMessage());
+      }
+    }
+  }, [airports]);
 
   useEffect(() => {
     if (airportsLoading) {
@@ -59,17 +71,6 @@ const AirportsSearchBar = () => {
       setMessage(airportsError);
     }
   }, [airportsError]);
-
-  useEffect(() => {
-    if (airports) {
-      if (airports.length > 0) {
-        setMessage('');
-        setResults(airports.slice(0, getAirportsSearchLimit()));
-      } else {
-        setMessage(getNoSearchResultsMessage());
-      }
-    }
-  }, [airports]);
 
   return (
     <div className={styles.searchBarContainer}>
@@ -90,9 +91,9 @@ const AirportsSearchBar = () => {
             !!results.length &&
             results.map((result) => (
               <div
-                key={result.airportCode}
                 className={styles.searchResult}
                 onClick={() => handleClickResult(result)}
+                key={result.airportCode}
               >
                 <p>{formatAirportName(result)}</p>
               </div>
