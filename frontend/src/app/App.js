@@ -6,6 +6,7 @@ import {
   getProgrammeBasePath,
   getSignupPath,
 } from '../config/pages/selectors';
+import { addPlaceholderPathParams } from '../lib/web/urls';
 import HomePage from './pages/home';
 import NavBar from './components/navbar';
 import LoginPage from './pages/login';
@@ -27,14 +28,17 @@ function App() {
           <Route path={getLoginPath()} element={<LoginPage />} />
           <Route path={getSignupPath()} element={<SignupPage />} />
           <Route
-            path={`${getProfileBasePath()}/:id`}
+            path={addPlaceholderPathParams(getProfileBasePath(), 'id')}
             element={
               <ProfileContextProvider>
                 <ProfilePage />
               </ProfileContextProvider>
             }
           />
-          <Route path={`${getProgrammeBasePath()}/:id`} element={<ProgrammePage />} />
+          <Route
+            path={addPlaceholderPathParams(getProgrammeBasePath(), 'id')}
+            element={<ProgrammePage />}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

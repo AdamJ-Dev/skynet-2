@@ -1,4 +1,4 @@
-import { insertQueryParams } from '../../lib/web/insertQueryParams';
+import { insertQueryParams } from '../../lib/web/urls';
 import { getDefaultNumFlightsResults } from '../pages/selectors';
 import { removeNullValues } from '../../lib/obj/removeNullValues';
 import { stringFormat } from '../../lib/string/stringFormat';
