@@ -3,8 +3,8 @@ import FlightsTable from '../../../components/flights-table';
 import useFetch from '../../../hooks/useFetch';
 import { getWeatherUrlsMap } from '../../../utility/journey/parseFlights';
 import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
-import styles from './index.module.css';
 import { hasLength } from '../../../../lib/array/length';
+import styles from './index.module.css';
 
 const SavedFlights = ({ flights }) => {
   const {

@@ -13,9 +13,9 @@ import { formatAirportName } from '../utils/formatAirportName';
 import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
 import { useJourneyContext } from '../../../../../context/journey/hook';
 import useFetch from '../../../../../hooks/useFetch';
+import { hasLength } from '../../../../../../lib/array/length';
 import { isValidQuery } from './utils/validateQuery';
 import styles from './index.module.css';
-import { hasLength } from '../../../../../../lib/array/length';
 
 const AirportsSearchBar = () => {
   const {

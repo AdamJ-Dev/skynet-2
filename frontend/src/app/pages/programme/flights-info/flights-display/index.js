@@ -10,8 +10,8 @@ import {
 } from '../../../../../config/pages/selectors';
 import FlightsTable from '../../../../components/flights-table';
 import LoadingText from '../../../../components/loading-text';
-import styles from './index.module.css';
 import { hasLength } from '../../../../../lib/array/length';
+import styles from './index.module.css';
 
 const FlightsDisplay = () => {
   const {
