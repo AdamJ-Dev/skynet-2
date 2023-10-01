@@ -13,6 +13,7 @@ import EpgSearchBar from './search-bar';
 import ProgrammeItem from './programme-item';
 import ChannelItem from './channel-item';
 import styles from './index.module.css';
+import { hasLength } from '../../../../lib/array/length';
 
 const Epg = () => {
   const {
@@ -50,7 +51,7 @@ const Epg = () => {
     <>
       {(channelsLoading || programmesLoading) && <p>{getLoadingMessage()}</p>}
       {(channelsError || programmesError) && <p>{channelsError || programmesError}</p>}
-      {!!channels.length && !!programmes.length && (
+      {hasLength(channels) && hasLength(programmes) && (
         <div className={styles.epg} style={initialiseCssGrid(channels, programmes)}>
           <div className={styles.searchBarRow}>
             <EpgSearchBar programmes={programmes} />

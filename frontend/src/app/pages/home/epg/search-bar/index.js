@@ -8,6 +8,7 @@ import { getAiringInfo } from '../utils/getAiringInfo';
 import DialogBox from '../../../../components/dialog-box';
 import ProgrammeInfo from '../programme-info';
 import styles from './index.module.css';
+import { hasLength } from '../../../../../lib/array/length';
 
 const SearchBar = ({ programmes }) => {
   const [query, setQuery] = useState('');
@@ -60,7 +61,7 @@ const SearchBar = ({ programmes }) => {
           placeholder={getEpgSearchPlaceholder()}
           autoComplete="off"
         />
-        {!!results.length && (
+        {hasLength(results) && (
           <div className={styles.searchResults}>
             {results.map((result) => (
               <div

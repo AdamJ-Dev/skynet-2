@@ -11,6 +11,7 @@ import {
 import FlightsTable from '../../../../components/flights-table';
 import LoadingText from '../../../../components/loading-text';
 import styles from './index.module.css';
+import { hasLength } from '../../../../../lib/array/length';
 
 const FlightsDisplay = () => {
   const {
@@ -69,7 +70,7 @@ const FlightsDisplay = () => {
       } else if (flightsError) {
         return flightsError;
       } else if (flightsData) {
-        return flightsData.length ? getGotFlightsMessage() : getNoFlightsMessage();
+        return hasLength(flightsData) ? getGotFlightsMessage() : getNoFlightsMessage();
       }
       return '';
     };
@@ -101,7 +102,7 @@ const FlightsDisplay = () => {
           </>
         )}
       </div>
-      {!!flightsData?.length && (
+      {flightsData && hasLength(flightsData) && (
         <FlightsTable
           flights={flightsData}
           actions={{ savable: true }}

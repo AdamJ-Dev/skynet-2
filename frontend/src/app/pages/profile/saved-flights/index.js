@@ -4,6 +4,7 @@ import useFetch from '../../../hooks/useFetch';
 import { getWeatherUrlsMap } from '../../../utility/journey/parseFlights';
 import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
 import styles from './index.module.css';
+import { hasLength } from '../../../../lib/array/length';
 
 const SavedFlights = ({ flights }) => {
   const {
@@ -32,7 +33,7 @@ const SavedFlights = ({ flights }) => {
   }, [airports, weatherData]);
 
   useEffect(() => {
-    if (weatherUrls.length) {
+    if (hasLength(weatherUrls)) {
       getManyWeather(weatherUrls);
     }
   }, [weatherUrls, getManyWeather]);
@@ -42,7 +43,7 @@ const SavedFlights = ({ flights }) => {
       <p>
         <strong>Your saved flights:</strong>
       </p>
-      {flights.length ? (
+      {hasLength(flights) ? (
         <div className={styles.tableContainer}>
           <FlightsTable
             flights={flights}

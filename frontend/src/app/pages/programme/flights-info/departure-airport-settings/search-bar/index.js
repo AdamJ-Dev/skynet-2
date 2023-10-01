@@ -15,6 +15,7 @@ import { useJourneyContext } from '../../../../../context/journey/hook';
 import useFetch from '../../../../../hooks/useFetch';
 import { isValidQuery } from './utils/validateQuery';
 import styles from './index.module.css';
+import { hasLength } from '../../../../../../lib/array/length';
 
 const AirportsSearchBar = () => {
   const {
@@ -56,7 +57,7 @@ const AirportsSearchBar = () => {
 
   useEffect(() => {
     if (airports) {
-      if (airports.length) {
+      if (hasLength(airports)) {
         setMessage('');
         setResults(airports.slice(0, getAirportsSearchLimit()));
       } else {
@@ -93,7 +94,7 @@ const AirportsSearchBar = () => {
           {message ? (
             <div className={styles.messageResult}>{message}</div>
           ) : (
-            !!results.length &&
+            hasLength(results) &&
             results.map((result) => (
               <div
                 className={styles.searchResult}

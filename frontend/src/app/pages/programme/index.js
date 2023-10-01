@@ -39,7 +39,7 @@ const ProgrammePage = () => {
     <>
       {programmeLoading && <p>{getLoadingMessage()}</p>}
       {programmeError && programmeError !== NOT_FOUND && <p>{programmeError}</p>}
-      {!!programme?.locations.length && (
+      {programme && hasLocation(programme) && (
         <>
           <ProgrammeLocationIntro programme={programme} />
           <JourneyContextProvider>
