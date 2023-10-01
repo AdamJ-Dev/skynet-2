@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useJourneyContext } from '../../../../context/journey/hook';
 import useFetch from '../../../../hooks/useFetch';
 import { getFlightsUrl } from '../../../../../config/api/selectors';
@@ -35,9 +35,9 @@ const FlightsDisplay = () => {
   const [canGetFlights, setCanGetFlights] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleGetFlights = async () => {
+  const handleGetFlights = useCallback(async () => {
     resetFlights();
-    await getFlights({
+    getFlights({
       url: getFlightsUrl(
         departureAirport.airportCode,
         arrivalAirport.airportCode,
@@ -45,7 +45,14 @@ const FlightsDisplay = () => {
         returnDate
       ),
     });
-  };
+  }, [
+    resetFlights,
+    getFlights,
+    departureAirport,
+    arrivalAirport,
+    departureDate,
+    returnDate,
+  ]);
 
   useEffect(() => {
     const gotEnoughInfo = !!departureAirport && !!arrivalAirport && !!departureDate;
@@ -81,9 +88,9 @@ const FlightsDisplay = () => {
   return (
     <div className={styles.tableContainer}>
       <div className={styles.tableHeading}>
-        <button onClick={() => handleGetFlights()} disabled={!canGetFlights}>
+        <button onClick={handleGetFlights} disabled={!canGetFlights}>
           {arrivalLoading || flightsLoading ? (
-            <LoadingText text={getGetFlightsEnticement()} vibrant={flightsLoading} />
+            <LoadingText text={getGetFlightsEnticement()} isVibrant={flightsLoading} />
           ) : (
             getGetFlightsEnticement()
           )}

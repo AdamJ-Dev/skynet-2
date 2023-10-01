@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   getEpgSearchLimit,
   getEpgSearchPlaceholder,
@@ -15,32 +15,35 @@ const SearchBar = ({ programmes }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProgramme, setSelectedProgramme] = useState(null);
 
-  const handleSearch = (e) => {
-    const newQuery = e.target.value;
-    setQuery(newQuery);
-    if (newQuery) {
-      setResults(getSearchMatches(newQuery, programmes, getEpgSearchLimit()));
-    } else {
-      setResults([]);
-    }
-  };
+  const handleSearch = useCallback(
+    (e) => {
+      const newQuery = e.target.value;
+      setQuery(newQuery);
+      if (newQuery) {
+        setResults(getSearchMatches(newQuery, programmes, getEpgSearchLimit()));
+      } else {
+        setResults([]);
+      }
+    },
+    [programmes]
+  );
 
-  const handleSelectProgramme = (result) => {
+  const handleSelectProgramme = useCallback((result) => {
     setSelectedProgramme(result);
     setDialogOpen(true);
-  };
+  }, []);
 
-  const resetSearch = () => {
+  const resetSearch = useCallback(() => {
     setQuery('');
     setResults([]);
     setSelectedProgramme(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (!dialogOpen) {
       resetSearch();
     }
-  }, [dialogOpen]);
+  }, [dialogOpen, resetSearch]);
 
   return (
     <div className={styles.searchBar}>

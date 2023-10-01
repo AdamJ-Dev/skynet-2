@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { getFlightsTableHeaders } from '../../../config/pages/selectors';
 import { formatDuration } from '../../../lib/date/IsoDurations';
 import { formatDate } from '../../../lib/date/formatDate';
@@ -15,7 +15,7 @@ const FlightsTable = ({ flights, actions, weatherMap, weatherLoading }) => {
 
   const { user } = useAuthContext();
 
-  const getRowSpanGrowth = (isReturn) => (isReturn ? 2 : 1);
+  const getRowSpanGrowth = useCallback((isReturn) => (isReturn ? 2 : 1), []);
 
   const massagedFlights = useMemo(
     () => getMassagedFlights(flights, weatherMap),

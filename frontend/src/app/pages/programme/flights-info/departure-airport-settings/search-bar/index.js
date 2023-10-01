@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getGetAirportsUrl } from '../../../../../../config/api/selectors';
 import {
   getAirportsSearchLimit,
@@ -29,7 +29,9 @@ const AirportsSearchBar = () => {
   const [message, setMessage] = useState('');
   const [results, setResults] = useState([]);
 
-  const handleSearch = async () => {
+  const handleQueryChange = useCallback((e) => setQuery(e.target.value), []);
+
+  const handleSearch = useCallback(async () => {
     if (query) {
       if (isValidQuery(query)) {
         getAirports({ url: getGetAirportsUrl(query) });
@@ -37,12 +39,15 @@ const AirportsSearchBar = () => {
         setMessage(getInvalidSearchQueryMessage());
       }
     }
-  };
+  }, [query, getAirports]);
 
-  const handleClickResult = (result) => {
-    dispatch({ type: SET_DEPARTURE_AIRPORT, payload: result });
-    setQuery('');
-  };
+  const handleClickResult = useCallback(
+    (result) => {
+      dispatch({ type: SET_DEPARTURE_AIRPORT, payload: result });
+      setQuery('');
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     setMessage('');
@@ -74,13 +79,13 @@ const AirportsSearchBar = () => {
 
   return (
     <div className={styles.searchBarContainer}>
-      <button onClick={() => handleSearch()}>Go</button>
+      <button onClick={handleSearch}>Go</button>
       <div className={styles.searchContainer}>
         <input
           type="text"
           className={styles.searchInput}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleQueryChange}
           placeholder={getAirportsSearchPlaceholder()}
           autoComplete="off"
         />

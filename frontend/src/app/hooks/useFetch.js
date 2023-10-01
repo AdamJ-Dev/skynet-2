@@ -10,28 +10,11 @@ const useFetch = (initialUrl = '/') => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setData(null);
     setError(null);
     setLoading(false);
-  };
-
-  const executeFetch = async (fetchMethod, errorParser) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetchMethod();
-      if (!isResponseOk(res)) {
-        throw await getResponseError(res);
-      }
-      const data = await parseResponseData(res);
-      setData(data);
-    } catch (error) {
-      setError(await errorParser(error));
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, []);
 
   const isResponseOk = useCallback((res) => {
     if (Array.isArray(res)) {
@@ -52,11 +35,31 @@ const useFetch = (initialUrl = '/') => {
     return res.json();
   }, []);
 
+  const executeFetch = useCallback(
+    async (fetchMethod, errorParser) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetchMethod();
+        if (!isResponseOk(res)) {
+          throw await getResponseError(res);
+        }
+        const data = await parseResponseData(res);
+        setData(data);
+      } catch (error) {
+        setError(await errorParser(error));
+      } finally {
+        setLoading(false);
+      }
+    },
+    [isResponseOk, parseResponseData]
+  );
+
   const get = useCallback(
     ({ url = initialUrl, errorParser = defaultErrorParser, extraHeaders = {} } = {}) => {
       executeFetch(() => fetch(url, { headers: extraHeaders }), errorParser);
     },
-    [initialUrl]
+    [initialUrl, executeFetch]
   );
 
   const getMany = useCallback(
@@ -66,7 +69,7 @@ const useFetch = (initialUrl = '/') => {
         errorParser
       );
     },
-    [initialUrl]
+    [executeFetch]
   );
 
   const post = useCallback(
@@ -84,7 +87,7 @@ const useFetch = (initialUrl = '/') => {
         errorParser
       );
     },
-    [initialUrl]
+    [initialUrl, executeFetch]
   );
 
   const put = useCallback(
@@ -102,7 +105,7 @@ const useFetch = (initialUrl = '/') => {
         errorParser
       );
     },
-    [initialUrl]
+    [initialUrl, executeFetch]
   );
 
   const del = useCallback(
@@ -112,7 +115,7 @@ const useFetch = (initialUrl = '/') => {
         errorParser
       );
     },
-    [initialUrl]
+    [initialUrl, executeFetch]
   );
 
   return { data, error, loading, reset, get, getMany, post, put, del };

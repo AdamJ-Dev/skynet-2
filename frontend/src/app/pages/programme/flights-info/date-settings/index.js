@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { extractCalendarDate } from '../../../../../lib/date/extractCalendarDate';
 import { useJourneyContext } from '../../../../context/journey/hook';
 import {
@@ -15,26 +15,35 @@ const FlightDateSettings = () => {
 
   const TODAY = extractCalendarDate(new Date());
 
-  const handleDepartureDateChange = (e) => {
-    const date = e.target.value;
-    setDepartureDate(date);
-    dispatch({ type: SET_DEPARTURE_DATE, payload: date || null });
-  };
+  const handleDepartureDateChange = useCallback(
+    (e) => {
+      const date = e.target.value;
+      setDepartureDate(date);
+      dispatch({ type: SET_DEPARTURE_DATE, payload: date || null });
+    },
+    [dispatch]
+  );
 
-  const handleReturnDateChange = (e) => {
-    const date = e.target.value;
-    setReturnDate(date);
-    dispatch({ type: SET_RETURN_DATE, payload: date || null });
-  };
+  const handleReturnDateChange = useCallback(
+    (e) => {
+      const date = e.target.value;
+      setReturnDate(date);
+      dispatch({ type: SET_RETURN_DATE, payload: date || null });
+    },
+    [dispatch]
+  );
 
-  const handleCheckReturn = (e) => {
-    const checked = e.target.checked;
-    setIsReturn(checked);
-    if (!checked) {
-      setReturnDate('');
-      dispatch({ type: SET_RETURN_DATE, payload: null });
-    }
-  };
+  const handleCheckReturn = useCallback(
+    (e) => {
+      const checked = e.target.checked;
+      setIsReturn(checked);
+      if (!checked) {
+        setReturnDate('');
+        dispatch({ type: SET_RETURN_DATE, payload: null });
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <div className={styles.dateSettingsContainer}>

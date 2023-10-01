@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getGetNearestAirportUrl } from '../../../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../../../config/messages/selectors';
 import { getGetAiportsNearMeMessage } from '../../../../../../config/pages/selectors';
@@ -27,14 +27,17 @@ const AirportNearMe = () => {
 
   const [result, setResult] = useState(null);
 
-  const triggerAirportSearch = () => {
+  const triggerAirportSearch = useCallback(() => {
     locate();
-  };
+  }, [locate]);
 
-  const handleSelectAirport = (airport) => {
-    dispatch({ type: SET_DEPARTURE_AIRPORT, payload: airport });
-    setResult(null);
-  };
+  const handleSelectAirport = useCallback(
+    (airport) => {
+      dispatch({ type: SET_DEPARTURE_AIRPORT, payload: airport });
+      setResult(null);
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (locationData) {
@@ -43,7 +46,7 @@ const AirportNearMe = () => {
         errorParser: nearestAiportErrorParser,
       });
     }
-  }, [locationData]);
+  }, [locationData, getNearestAirport]);
 
   useEffect(() => {
     if (locationError) {
@@ -71,7 +74,7 @@ const AirportNearMe = () => {
 
   return (
     <div className={styles.airportNearMeContainer}>
-      <button onClick={() => triggerAirportSearch()}>Go</button>
+      <button onClick={triggerAirportSearch}>Go</button>
       &nbsp;
       <span className={styles.getAirportNearMeMsg}>{getGetAiportsNearMeMessage()}</span>
       {result && (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSignupApiUrl } from '../../../config/api/selectors';
 import { getLoginPath, getProfilePath } from '../../../config/pages/selectors';
@@ -32,16 +32,28 @@ const SignupPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(null);
   const [showError, setShowError] = useState(false);
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setConfirmPasswordError(getConfirmPasswordErrorMessage());
-      setShowError(true);
-    } else {
-      const user = { firstName, lastName, email, password };
-      await signup(user, { errorParser: signupErrorParser });
-    }
-  };
+  const handleFirstNameChange = useCallback((e) => setFirstName(e.target.value), []);
+  const handleLastNameChange = useCallback((e) => setLastName(e.target.value), []);
+  const handleEmailChange = useCallback((e) => setEmail(e.target.value), []);
+  const handlePasswordChange = useCallback((e) => setPassword(e.target.value), []);
+  const handleConfirmPasswordChange = useCallback(
+    (e) => setConfirmPassword(e.target.value),
+    []
+  );
+
+  const handleSignup = useCallback(
+    async (e) => {
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        setConfirmPasswordError(getConfirmPasswordErrorMessage());
+        setShowError(true);
+      } else {
+        const user = { firstName, lastName, email, password };
+        await signup(user, { errorParser: signupErrorParser });
+      }
+    },
+    [firstName, lastName, email, password, confirmPassword, signup]
+  );
 
   useEffect(() => {
     if (userData) {
@@ -49,7 +61,7 @@ const SignupPage = () => {
       dispatch({ type: LOGIN, payload: userData });
       navigate(getProfilePath(userData.id));
     }
-  }, [userData]);
+  }, [userData, dispatch, navigate]);
 
   useEffect(() => {
     if (signupError) {
@@ -79,7 +91,7 @@ const SignupPage = () => {
               type="text"
               id="first-name"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={handleFirstNameChange}
               required
             />
           </div>
@@ -90,7 +102,7 @@ const SignupPage = () => {
               type="text"
               id="last-name"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={handleLastNameChange}
               required
             />
           </div>
@@ -101,7 +113,7 @@ const SignupPage = () => {
               type="text"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               required
             />
           </div>
@@ -112,7 +124,7 @@ const SignupPage = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
           </div>
@@ -123,7 +135,7 @@ const SignupPage = () => {
               type="password"
               id="confirm-password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={handleConfirmPasswordChange}
               required
             />
           </div>

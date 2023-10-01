@@ -39,19 +39,19 @@ const ProfilePage = () => {
         navigate(getLoginPath());
       }
     }
-  }, [localUserInitialized, localUser]);
+  }, [localUserInitialized, localUser, getRequestedUser, requestedUserId, navigate]);
 
   useEffect(() => {
     if (userError === INAUTHED_ERROR) {
       navigate(getLoginPath());
     }
-  }, [userError]);
+  }, [userError, navigate]);
 
   useEffect(() => {
     if (userData) {
       dispatch({ type: SET_USER_FLIGHTS, payload: userData.flights });
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   return (
     <>

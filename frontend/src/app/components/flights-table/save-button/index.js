@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { getPostUserFlightUrl } from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
@@ -17,7 +18,7 @@ const SaveFlightButton = ({ flight }) => {
   } = useFetch();
   const { departureAirport, arrivalAirport } = useJourneyContext();
 
-  const handleSaveFlight = () => {
+  const handleSaveFlight = useCallback(() => {
     const departureCoordinates = departureAirport.coordinates;
     const arrivalCoordinates = arrivalAirport.coordinates;
     const flightEntity = {
@@ -29,14 +30,14 @@ const SaveFlightButton = ({ flight }) => {
       url: getPostUserFlightUrl(user.id),
       extraHeaders: { ...getAuthHeader(user.token) },
     });
-  };
+  }, [user, departureAirport, arrivalAirport, flight, saveFlight]);
 
   if (saveLoading) return getLoadingMessage();
   if (saveError) return saveError;
   if (saveData) return 'Saved.';
 
   return (
-    <button className={styles.saveBtn} onClick={() => handleSaveFlight()}>
+    <button className={styles.saveBtn} onClick={handleSaveFlight}>
       +
     </button>
   );

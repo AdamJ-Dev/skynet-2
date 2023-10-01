@@ -10,11 +10,11 @@ export const JourneyContext = createContext();
 const initialState = {
   destination: null,
   departureAirport: null,
-  departureWeather: [],
   arrivalAirport: null,
-  arrivalWeather: [],
   departureDate: null,
   returnDate: null,
+  departureWeather: [],
+  arrivalWeather: [],
   arrivalLoading: false,
   weatherLoading: false,
   error: null,
@@ -91,7 +91,7 @@ export const JourneyContextProvider = ({ children }) => {
         errorParser: nearestAiportErrorParser,
       });
     }
-  }, [state.destination]);
+  }, [state.destination, getNearestAirportToDestination]);
 
   // once got the arrival aiport, set the arrival airport
   useEffect(() => {
@@ -106,14 +106,14 @@ export const JourneyContextProvider = ({ children }) => {
       const { lat, lon } = parseCoordinates(state.arrivalAirport.coordinates);
       getArrivalWeather({ url: getGetWeatherUrl({ lat, lon }) });
     }
-  }, [state.arrivalAirport]);
+  }, [state.arrivalAirport, getArrivalWeather]);
 
   useEffect(() => {
     if (state.departureAirport) {
       const { lat, lon } = parseCoordinates(state.departureAirport.coordinates);
       getDepartureWeather({ url: getGetWeatherUrl({ lat, lon }) });
     }
-  }, [state.departureAirport]);
+  }, [state.departureAirport, getDepartureWeather]);
 
   // once got the weather, set the weather
   useEffect(() => {
@@ -136,7 +136,7 @@ export const JourneyContextProvider = ({ children }) => {
   useEffect(() => {
     dispatch({
       type: SET_WEATHER_LOADING,
-      payload: arrivalAirportLoading || departureWeatherLoading,
+      payload: arrivalWeatherLoading || departureWeatherLoading,
     });
   }, [arrivalWeatherLoading, departureWeatherLoading]);
 
@@ -150,7 +150,7 @@ export const JourneyContextProvider = ({ children }) => {
 
   // be wary of edge case
   useEffect(() => {
-    const departure = state.departureAiport;
+    const departure = state.departureAirport;
     const arrival = state.arrivalAirport;
     if (departure && arrival && departure.airportCode === arrival.airportCode) {
       dispatch({ type: SET_ERROR, payload: getDepartureArrivalMatchMessage() });

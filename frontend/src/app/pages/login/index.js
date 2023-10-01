@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getProfilePath, getSignupPath } from '../../../config/pages/selectors';
 import { getLoginApiUrl } from '../../../config/api/selectors';
@@ -25,11 +25,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
 
-  const handleAuthenticate = async (e) => {
-    e.preventDefault();
-    const user = { email, password };
-    await login(user, { errorParser: loginErrorParser });
-  };
+  const handleEmailChange = useCallback((e) => setEmail(e.target.value), []);
+  const handlePasswordChange = useCallback((e) => setPassword(e.target.value), []);
+
+  const handleAuthenticate = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const user = { email, password };
+      login(user, { errorParser: loginErrorParser });
+    },
+    [email, password, login]
+  );
 
   useEffect(() => {
     if (userData) {
@@ -37,7 +43,7 @@ const LoginPage = () => {
       dispatch({ type: LOGIN, payload: userData });
       navigate(getProfilePath(userData.id));
     }
-  }, [userData]);
+  }, [userData, dispatch, navigate]);
 
   useEffect(() => {
     if (loginError) {
@@ -66,7 +72,7 @@ const LoginPage = () => {
               type="text"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               required
             />
           </div>
@@ -77,7 +83,7 @@ const LoginPage = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
           </div>

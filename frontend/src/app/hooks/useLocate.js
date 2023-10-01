@@ -17,19 +17,6 @@ const useLocate = (geolocationOptions = defaultGeolocationOptions) => {
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(null);
 
-  const locate = useCallback(() => {
-    if (navigator.geolocation) {
-      setWaiting(true);
-      navigator.geolocation.getCurrentPosition(
-        geolocationSuccessCallback,
-        geolocationErrorCallback,
-        geolocationOptions
-      );
-    } else {
-      setError(getGenericLocationErrorMessage());
-    }
-  }, [geolocationOptions]);
-
   const geolocationSuccessCallback = useCallback((position) => {
     const { latitude, longitude } = position.coords;
     setWaiting(false);
@@ -53,6 +40,19 @@ const useLocate = (geolocationOptions = defaultGeolocationOptions) => {
         break;
     }
   }, []);
+
+  const locate = useCallback(() => {
+    if (navigator.geolocation) {
+      setWaiting(true);
+      navigator.geolocation.getCurrentPosition(
+        geolocationSuccessCallback,
+        geolocationErrorCallback,
+        geolocationOptions
+      );
+    } else {
+      setError(getGenericLocationErrorMessage());
+    }
+  }, [geolocationOptions, geolocationSuccessCallback, geolocationErrorCallback]);
 
   return { location, waiting, error, locate };
 };

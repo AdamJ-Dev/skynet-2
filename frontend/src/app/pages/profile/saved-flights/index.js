@@ -35,7 +35,7 @@ const SavedFlights = ({ flights }) => {
     if (weatherUrls.length) {
       getManyWeather(weatherUrls);
     }
-  }, [weatherUrls]);
+  }, [weatherUrls, getManyWeather]);
 
   return (
     <>

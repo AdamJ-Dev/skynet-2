@@ -16,7 +16,7 @@ const MapImage = ({ lat, lon, locationName }) => {
 
   useEffect(() => {
     getMapImageData();
-  }, []);
+  }, [getMapImageData]);
 
   return (
     <>

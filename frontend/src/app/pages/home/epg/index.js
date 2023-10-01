@@ -32,19 +32,19 @@ const Epg = () => {
   useEffect(() => {
     getProgrammes();
     getChannels();
-  }, []);
+  }, [getProgrammes, getChannels]);
 
   useEffect(() => {
     if (programmesData) {
       dispatch({ type: SET_PROGRAMMES, payload: programmesData });
     }
-  }, [programmesData]);
+  }, [programmesData, dispatch]);
 
   useEffect(() => {
     if (channelsData) {
       dispatch({ type: SET_CHANNELS, payload: channelsData });
     }
-  }, [channelsData]);
+  }, [channelsData, dispatch]);
 
   return (
     <>

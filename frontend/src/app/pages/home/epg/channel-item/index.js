@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { channelsColumnTrack, getRow, spanColumns } from '../utils/getGridInfo';
 import { channelColourStyle } from '../utils/channelColour';
 import styles from './index.module.css';
@@ -6,14 +6,17 @@ import styles from './index.module.css';
 const ChannelItem = ({ channel }) => {
   const [seeMore, setSeeMore] = useState(false);
 
-  const toggleSeeMore = () => {
+  const toggleSeeMore = useCallback(() => {
     setSeeMore(!seeMore);
-  };
+  }, [seeMore]);
 
-  const gridSlot = {
-    gridColumn: spanColumns(channelsColumnTrack),
-    gridRow: getRow(channel.id),
-  };
+  const gridSlot = useMemo(
+    () => ({
+      gridColumn: spanColumns(channelsColumnTrack),
+      gridRow: getRow(channel.id),
+    }),
+    [channel]
+  );
 
   return (
     <div style={gridSlot} className={styles.channelSlot} onClick={toggleSeeMore}>

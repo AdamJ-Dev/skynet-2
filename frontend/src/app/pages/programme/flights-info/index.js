@@ -20,7 +20,7 @@ const FlightsInfo = ({ destination }) => {
 
   useEffect(() => {
     dispatchJourney({ type: SET_DESTINATION, payload: destination });
-  }, []);
+  }, [dispatchJourney, destination]);
 
   return (
     <>

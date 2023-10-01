@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { getDeleteUserFlightUrl } from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
@@ -19,12 +19,12 @@ const DeleteFlightButton = ({ flightId }) => {
   const { user } = useAuthContext();
   const { dispatch, userFlights } = useProfileContext();
 
-  const handleDeleteFlight = () => {
+  const handleDeleteFlight = useCallback(() => {
     deleteFlight({
       url: getDeleteUserFlightUrl(user.id, flightId),
       extraHeaders: { ...getAuthHeader(user.token) },
     });
-  };
+  }, [user, flightId, deleteFlight]);
 
   useEffect(() => {
     if (deleteData) {
@@ -33,13 +33,13 @@ const DeleteFlightButton = ({ flightId }) => {
         payload: userFlights.filter((flight) => flight.flightId !== flightId),
       });
     }
-  }, [deleteData]);
+  }, [deleteData, userFlights, flightId, dispatch]);
 
   if (deleteLoading) return getLoadingMessage();
   if (deleteError) return deleteError;
 
   return (
-    <button className={styles.deleteBtn} onClick={() => handleDeleteFlight()}>
+    <button className={styles.deleteBtn} onClick={handleDeleteFlight}>
       -
     </button>
   );

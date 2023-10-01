@@ -25,7 +25,7 @@ const ProgrammePage = () => {
 
   useEffect(() => {
     getProgramme({ errorParser: getProgrammeErrorParser });
-  }, []);
+  }, [getProgramme]);
 
   useEffect(() => {
     const programmeDoesNotExist = programmeError === NOT_FOUND;
@@ -33,7 +33,7 @@ const ProgrammePage = () => {
     if (programmeDoesNotExist || programmeLacksLocation) {
       navigate(get404DefaultPath());
     }
-  }, [programme, programmeError]);
+  }, [programme, programmeError, navigate]);
 
   return (
     <>

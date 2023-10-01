@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   getLocationEnticement,
@@ -14,18 +14,21 @@ import styles from './index.module.css';
 const ProgrammeItem = ({ programme }) => {
   const [seeMore, setSeeMore] = useState(false);
 
-  const toggleSeeMore = () => {
+  const toggleSeeMore = useCallback(() => {
     setSeeMore(!seeMore);
-  };
+  }, [seeMore]);
 
-  const duration = calculateDurationInMinutes(
-    new Date(programme.since),
-    new Date(programme.till)
+  const duration = useMemo(
+    () => calculateDurationInMinutes(new Date(programme.since), new Date(programme.till)),
+    [programme]
   );
-  const gridSlot = {
-    gridColumn: spanColumns(duration),
-    gridRow: getRow(programme.channelId),
-  };
+  const gridSlot = useMemo(
+    () => ({
+      gridColumn: spanColumns(duration),
+      gridRow: getRow(programme.channelId),
+    }),
+    [programme, duration]
+  );
 
   return (
     <div
