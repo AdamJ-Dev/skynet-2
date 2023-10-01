@@ -1,66 +1,60 @@
-import { useEffect, useMemo, useState } from 'react';
-import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
+import { useEffect, useMemo } from 'react';
 import FlightsTable from '../../../components/flights-table';
-import { useProfileContext } from '../../../context/profile/hook';
 import useFetch from '../../../hooks/useFetch';
 import { getWeatherUrlsMap } from '../../../utility/journey/parseFlights';
+import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
 import styles from './index.module.css';
 
-const SavedFlights = () => {
-  const { userFlights } = useProfileContext();
+const SavedFlights = ({ flights }) => {
   const {
     loading: weatherLoading,
     data: weatherData,
     getMany: getManyWeather,
   } = useFetch();
 
-  const [airports, setAirports] = useState([]);
+  const { airports, weatherUrls } = useMemo(() => {
+    const weatherUrlsMap = getWeatherUrlsMap(flights);
+    const airports = Object.keys(weatherUrlsMap);
+    const weatherUrls = Object.values(weatherUrlsMap);
+    return { airports, weatherUrls };
+  }, [flights]);
 
-  const defaultWeatherWap = useMemo(() => {
+  const weatherMap = useMemo(() => {
+    const defaultWeatherList = Array(airports.length).fill([]);
+    const weatherList = weatherData || defaultWeatherList;
     return airports.reduce(
-      (weatherMap, airport) => ({ ...weatherMap, [airport]: [] }),
+      (weatherMap, airport, position) => ({
+        ...weatherMap,
+        [airport]: weatherList[position],
+      }),
       {}
     );
-  }, [airports]);
-
-  const populatedWeatherMap = useMemo(() => {
-    if (weatherData) {
-      return airports.reduce(
-        (weatherMap, airport, position) => ({
-          ...weatherMap,
-          [airport]: weatherData[position],
-        }),
-        {}
-      );
-    }
-    return null;
-  }, [weatherData, airports]);
+  }, [airports, weatherData]);
 
   useEffect(() => {
-    if (userFlights.length) {
-      const urlsMap = getWeatherUrlsMap(userFlights);
-      const airports = Object.keys(urlsMap);
-      const urls = Object.values(urlsMap);
-      setAirports(airports);
-      getManyWeather(urls);
+    if (weatherUrls.length) {
+      getManyWeather(weatherUrls);
     }
-  }, [userFlights]);
+  }, [weatherUrls]);
 
-  return userFlights.length ? (
+  return (
     <>
-      {!!airports.length && (
+      <p>
+        <strong>Your saved flights:</strong>
+      </p>
+      {flights.length ? (
         <div className={styles.tableContainer}>
           <FlightsTable
-            flights={userFlights}
+            flights={flights}
             actions={{ deletable: true }}
-            weatherMap={populatedWeatherMap || defaultWeatherWap}
+            weatherMap={weatherMap}
             weatherLoading={weatherLoading}
           />
         </div>
+      ) : (
+        getNoSavedFlightsMessage()
       )}
     </>
-  ) : (
-    getNoSavedFlightsMessage()
   );
 };
 

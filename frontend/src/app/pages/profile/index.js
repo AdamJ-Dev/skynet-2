@@ -66,10 +66,7 @@ const ProfilePage = () => {
             <>{userData.firstName}</>&nbsp;
             <>{userData.lastName}</>
           </p>
-          <p>
-            <strong>Your saved flights:</strong>
-          </p>
-          {userFlights && <SavedFlights />}
+          {userFlights && <SavedFlights flights={userFlights} />}
         </div>
       )}
     </>
