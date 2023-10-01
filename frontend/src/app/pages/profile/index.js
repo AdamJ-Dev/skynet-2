@@ -5,13 +5,13 @@ import { getLoginPath } from '../../../config/pages/selectors';
 import {
   INAUTHED_ERROR,
   getUserErrorParser,
-} from '../../utility/error-handling/getUserErrorParser';
+} from '../../utility/error-handling/get-user-error-parser';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import { getAuthHeader } from '../../utility/user/authRequest';
+import { getAuthHeader } from '../../utility/user/auth-request';
 import { SET_USER_FLIGHTS } from '../../context/profile/provider';
 import { useProfileContext } from '../../context/profile/hook';
 import { useAuthContext } from '../../context/auth/hook';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/use-fetch';
 import styles from './index.module.css';
 import SavedFlights from './saved-flights';
 

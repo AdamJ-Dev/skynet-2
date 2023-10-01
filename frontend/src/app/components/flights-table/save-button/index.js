@@ -3,8 +3,8 @@ import { getPostUserFlightUrl } from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
 import { useJourneyContext } from '../../../context/journey/hook';
-import useFetch from '../../../hooks/useFetch';
-import { getAuthHeader } from '../../../utility/user/authRequest';
+import useFetch from '../../../hooks/use-fetch';
+import { getAuthHeader } from '../../../utility/user/auth-request';
 
 import styles from './index.module.css';
 

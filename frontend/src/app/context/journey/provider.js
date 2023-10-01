@@ -1,9 +1,9 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { getGetNearestAirportUrl, getGetWeatherUrl } from '../../../config/api/selectors';
-import useFetch from '../../hooks/useFetch';
-import { nearestAiportErrorParser } from '../../utility/error-handling/nearestAirportErrorParser';
+import useFetch from '../../hooks/use-fetch';
+import { nearestAiportErrorParser } from '../../utility/error-handling/nearest-airport-error-parser';
 import { getDepartureArrivalMatchMessage } from '../../../config/messages/selectors';
-import { parseCoordinates } from '../../utility/journey/parseCoordinates';
+import { parseCoordinates } from '../../utility/journey/parse-coordinates';
 
 export const JourneyContext = createContext();
 

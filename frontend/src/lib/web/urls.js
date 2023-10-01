@@ -1,4 +1,4 @@
-import { erasableString } from '../string/emptyString';
+import { erasableString } from '../string/empty-string';
 
 export const insertQueryParams = (baseUrl, paramsMap) => {
   const paramsBuilder = new URLSearchParams();

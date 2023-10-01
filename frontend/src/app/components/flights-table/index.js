@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { getFlightsTableHeaders } from '../../../config/pages/selectors';
-import { formatDuration } from '../../../lib/date/IsoDurations';
-import { formatDate } from '../../../lib/date/formatDate';
+import { formatDuration } from '../../../lib/date/iso-durations';
+import { formatDate } from '../../../lib/date/format-date';
 import { useAuthContext } from '../../context/auth/hook';
 import alternatingStyles from '../../styles/alternate.module.css';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import { getMassagedFlights } from './utils/getMassagedFlights';
+import { getMassagedFlights } from './utils/get-massaged-flights';
 import DeleteFlightButton from './delete-button';
 import SaveFlightButton from './save-button';
 import styles from './index.module.css';

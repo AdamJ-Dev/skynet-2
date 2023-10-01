@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import FlightsTable from '../../../components/flights-table';
-import useFetch from '../../../hooks/useFetch';
-import { getWeatherUrlsMap } from '../../../utility/journey/parseFlights';
+import useFetch from '../../../hooks/use-fetch';
+import { getWeatherUrlsMap } from '../../../utility/journey/parse-flights';
 import { getNoSavedFlightsMessage } from '../../../../config/pages/selectors';
 import { hasLength } from '../../../../lib/array/length';
 import styles from './index.module.css';

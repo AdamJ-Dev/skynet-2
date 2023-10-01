@@ -7,7 +7,7 @@ import {
   getSignupPath,
 } from '../../../../config/pages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
-import { deleteUserCookie } from '../../../utility/user/userCookie';
+import { deleteUserCookie } from '../../../utility/user/user-cookie';
 import { LOGOUT } from '../../../context/auth/provider';
 import styles from './index.module.css';
 

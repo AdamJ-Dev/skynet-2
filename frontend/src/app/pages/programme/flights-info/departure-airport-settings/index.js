@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useJourneyContext } from '../../../../context/journey/hook';
 import Toggler from '../../../../components/toggler';
-import { formatAirportName } from './utils/formatAirportName';
+import { formatAirportName } from './utils/format-airport-name';
 import AirportsSearchBar from './search-bar';
 import AirportNearMe from './airport-near-me';
 import styles from './index.module.css';

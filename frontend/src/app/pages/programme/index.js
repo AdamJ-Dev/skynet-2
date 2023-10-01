@@ -5,11 +5,11 @@ import { getLoadingMessage } from '../../../config/messages/selectors';
 import {
   NOT_FOUND,
   getProgrammeErrorParser,
-} from '../../utility/error-handling/programmeErrorParser';
+} from '../../utility/error-handling/programme-error-parser';
 import { get404DefaultPath } from '../../../config/pages/selectors';
 import { getLocation, hasLocation } from '../../utility/programmes/location';
 import { JourneyContextProvider } from '../../context/journey/provider';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/use-fetch';
 import FlightsInfo from './flights-info';
 import ProgrammeLocationIntro from './programme-location-intro';
 

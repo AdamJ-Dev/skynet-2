@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { getProgrammePath } from '../../../../../config/pages/selectors';
-import { formatAirTime } from '../utils/formatAirTime';
+import { formatAirTime } from '../utils/format-air-time';
 import { useEpgContext } from '../../../../context/epg/hook';
 import { getLocation, hasLocation } from '../../../../utility/programmes/location';
-import { channelColourStyle } from '../utils/channelColour';
+import { channelColourStyle } from '../utils/channel-colour';
 
 const ProgrammeInfo = ({ programme, airingInfo }) => {
   const { channels } = useEpgContext();

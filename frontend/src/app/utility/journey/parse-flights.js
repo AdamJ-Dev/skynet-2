@@ -1,6 +1,6 @@
 import { getGetWeatherUrl } from '../../../config/api/selectors';
-import { addIsoDurations } from '../../../lib/date/IsoDurations';
-import { parseCoordinates } from './parseCoordinates';
+import { addIsoDurations } from '../../../lib/date/iso-durations';
+import { parseCoordinates } from './parse-coordinates';
 
 export const squashFlights = (flights) => {
   const squashedFlights = [];

@@ -4,11 +4,11 @@ import {
   getLocationEnticement,
   getProgrammePath,
 } from '../../../../../config/pages/selectors';
-import { calculateDurationInMinutes } from '../../../../../lib/date/calculateDurationInMinutes';
-import { gatherClasses, optionalClass } from '../../../../../lib/web/cssClasses';
+import { calculateDurationInMinutes } from '../../../../../lib/date/calculate-duration-in-minutes';
+import { gatherClasses, optionalClass } from '../../../../../lib/web/css-classes';
 import { getLocation, hasLocation } from '../../../../utility/programmes/location';
-import { getRow, spanColumns } from '../utils/getGridInfo';
-import { formatAirTime } from '../utils/formatAirTime';
+import { getRow, spanColumns } from '../utils/get-grid-info';
+import { formatAirTime } from '../utils/format-air-time';
 import styles from './index.module.css';
 
 const ProgrammeItem = ({ programme }) => {

@@ -6,10 +6,10 @@ import {
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { SET_CHANNELS, SET_PROGRAMMES } from '../../../context/epg/provider';
 import { useEpgContext } from '../../../context/epg/hook';
-import useFetch from '../../../hooks/useFetch';
+import useFetch from '../../../hooks/use-fetch';
 import { hasLength } from '../../../../lib/array/length';
-import { getGridSpec } from './utils/getGridSpec';
-import { initialiseCssGrid } from './utils/initialiseCssGrid';
+import { getGridSpec } from './utils/get-grid-spec';
+import { initialiseCssGrid } from './utils/initialise-css-grid';
 import EpgSearchBar from './search-bar';
 import ProgrammeItem from './programme-item';
 import ChannelItem from './channel-item';

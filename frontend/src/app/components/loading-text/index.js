@@ -1,4 +1,4 @@
-import { choiceClass } from '../../../lib/web/cssClasses';
+import { choiceClass } from '../../../lib/web/css-classes';
 import styles from './index.module.css';
 
 const LoadingText = ({ text, isVibrant }) => {

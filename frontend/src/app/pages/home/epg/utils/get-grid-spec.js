@@ -1,4 +1,4 @@
-import { sortByAirTime } from './sortByAirTime';
+import { sortByAirTime } from './sort-by-air-time';
 
 export const getGridSpec = (channels, programmes) => {
   const gridSpec = [];

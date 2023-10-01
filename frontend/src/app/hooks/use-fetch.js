@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { getResponseError } from '../utility/data-fetching/getResponseError';
+import { getResponseError } from '../utility/data-fetching/get-response-error';
 import { getGenericErrorMessage } from '../../config/messages/selectors';
 
 const defaultPostingHeaders = { 'Content-Type': 'application/json' };

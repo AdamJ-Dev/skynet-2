@@ -1,5 +1,5 @@
-import { extractCalendarDate } from '../../../../lib/date/extractCalendarDate';
-import { squashFlights } from '../../../utility/journey/parseFlights';
+import { extractCalendarDate } from '../../../../lib/date/extract-calendar-date';
+import { squashFlights } from '../../../utility/journey/parse-flights';
 
 export const getMassagedFlights = (flights, weatherMap) => {
   return addWeatherToFlights(squashFlights(flights), weatherMap);

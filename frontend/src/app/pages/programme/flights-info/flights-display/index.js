@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useJourneyContext } from '../../../../context/journey/hook';
-import useFetch from '../../../../hooks/useFetch';
+import useFetch from '../../../../hooks/use-fetch';
 import { getFlightsUrl } from '../../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../../config/messages/selectors';
 import {

@@ -1,7 +1,7 @@
 import { insertQueryParams } from '../../lib/web/urls';
 import { getDefaultNumFlightsResults } from '../pages/selectors';
-import { removeNullValues } from '../../lib/obj/removeNullValues';
-import { stringFormat } from '../../lib/string/stringFormat';
+import { removeNullValues } from '../../lib/obj/remove-null-values';
+import { stringFormat } from '../../lib/string/string-format';
 import api from './api.json';
 
 const getApiBaseUrl = () => {

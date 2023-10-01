@@ -6,12 +6,12 @@ import {
   getConfirmPasswordErrorMessage,
   getLoadingMessage,
 } from '../../../config/messages/selectors';
-import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
-import { signupErrorParser } from '../../utility/error-handling/signupErrorParser';
-import { setUserCookie } from '../../utility/user/userCookie';
+import { gatherClasses, optionalClass } from '../../../lib/web/css-classes';
+import { signupErrorParser } from '../../utility/error-handling/signup-error-parser';
+import { setUserCookie } from '../../utility/user/user-cookie';
 import { LOGIN } from '../../context/auth/provider';
 import { useAuthContext } from '../../context/auth/hook';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/use-fetch';
 import styles from '../../styles/auth.module.css';
 
 const SignupPage = () => {

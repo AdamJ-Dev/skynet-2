@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/use-fetch';
 import { getGetMapUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import { getImageSrc } from './utils/getImageSrc';
+import { getImageSrc } from './utils/get-image-src';
 
 import styles from './index.module.css';
 

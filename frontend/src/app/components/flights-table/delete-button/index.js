@@ -3,10 +3,10 @@ import { getDeleteUserFlightUrl } from '../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../config/messages/selectors';
 import { useAuthContext } from '../../../context/auth/hook';
 import { useProfileContext } from '../../../context/profile/hook';
-import useFetch from '../../../hooks/useFetch';
+import useFetch from '../../../hooks/use-fetch';
 import { SET_USER_FLIGHTS } from '../../../context/profile/provider';
 
-import { getAuthHeader } from '../../../utility/user/authRequest';
+import { getAuthHeader } from '../../../utility/user/auth-request';
 import styles from './index.module.css';
 
 const DeleteFlightButton = ({ flightId }) => {

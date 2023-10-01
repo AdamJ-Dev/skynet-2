@@ -1,4 +1,4 @@
-import { getGridInfo, minColumnWidth } from './getGridInfo';
+import { getGridInfo, minColumnWidth } from './get-grid-info';
 
 export const initialiseCssGrid = (channels, programmes) => {
   const gridInfo = getGridInfo(channels, programmes);

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
+import { gatherClasses, optionalClass } from '../../../lib/web/css-classes';
 import styles from './index.module.css';
 
 const Toggler = ({ option1, option2, activeOption, setActiveOption }) => {

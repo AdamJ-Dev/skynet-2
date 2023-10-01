@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getProfilePath, getSignupPath } from '../../../config/pages/selectors';
 import { getLoginApiUrl } from '../../../config/api/selectors';
 import { getLoadingMessage } from '../../../config/messages/selectors';
-import { gatherClasses, optionalClass } from '../../../lib/web/cssClasses';
-import { setUserCookie } from '../../utility/user/userCookie';
-import { loginErrorParser } from '../../utility/error-handling/loginErrorParser';
+import { gatherClasses, optionalClass } from '../../../lib/web/css-classes';
+import { setUserCookie } from '../../utility/user/user-cookie';
+import { loginErrorParser } from '../../utility/error-handling/login-error-parser';
 import { LOGIN } from '../../context/auth/provider';
 import { useAuthContext } from '../../context/auth/hook';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/use-fetch';
 import styles from '../../styles/auth.module.css';
 
 const LoginPage = () => {

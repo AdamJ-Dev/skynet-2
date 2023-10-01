@@ -9,10 +9,10 @@ import {
   getLoadingMessage,
   getNoSearchResultsMessage,
 } from '../../../../../../config/messages/selectors';
-import { formatAirportName } from '../utils/formatAirportName';
+import { formatAirportName } from '../utils/format-airport-name';
 import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
 import { useJourneyContext } from '../../../../../context/journey/hook';
-import useFetch from '../../../../../hooks/useFetch';
+import useFetch from '../../../../../hooks/use-fetch';
 import { hasLength } from '../../../../../../lib/array/length';
 import { isValidQuery } from './utils/validateQuery';
 import styles from './index.module.css';

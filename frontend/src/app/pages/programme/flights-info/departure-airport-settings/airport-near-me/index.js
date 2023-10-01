@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { getGetNearestAirportUrl } from '../../../../../../config/api/selectors';
 import { getLoadingMessage } from '../../../../../../config/messages/selectors';
 import { getGetAiportsNearMeMessage } from '../../../../../../config/pages/selectors';
-import { nearestAiportErrorParser } from '../../../../../utility/error-handling/nearestAirportErrorParser';
-import { formatAirportName } from '../utils/formatAirportName';
+import { nearestAiportErrorParser } from '../../../../../utility/error-handling/nearest-airport-error-parser';
+import { formatAirportName } from '../utils/format-airport-name';
 import { SET_DEPARTURE_AIRPORT } from '../../../../../context/journey/provider';
 import { useJourneyContext } from '../../../../../context/journey/hook';
-import useLocate from '../../../../../hooks/useLocate';
-import useFetch from '../../../../../hooks/useFetch';
+import useLocate from '../../../../../hooks/use-locate';
+import useFetch from '../../../../../hooks/use-fetch';
 import styles from './index.module.css';
 
 const AirportNearMe = () => {

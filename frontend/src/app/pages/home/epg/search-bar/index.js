@@ -3,8 +3,8 @@ import {
   getEpgSearchLimit,
   getEpgSearchPlaceholder,
 } from '../../../../../config/pages/selectors';
-import { getSearchMatches } from '../utils/getSearchMatches';
-import { getAiringInfo } from '../utils/getAiringInfo';
+import { getSearchMatches } from '../utils/get-search-matches';
+import { getAiringInfo } from '../utils/get-airing-info';
 import DialogBox from '../../../../components/dialog-box';
 import ProgrammeInfo from '../programme-info';
 import { hasLength } from '../../../../../lib/array/length';

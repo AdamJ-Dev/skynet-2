@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { getProviderError } from '../getProviderError.js';
+import { getProviderError } from '../get-provider-error.js';
 import { JourneyContext } from './provider.js';
 
 export const useJourneyContext = () => {

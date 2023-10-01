@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
-import { channelsColumnTrack, getRow, spanColumns } from '../utils/getGridInfo';
-import { channelColourStyle } from '../utils/channelColour';
+import { channelsColumnTrack, getRow, spanColumns } from '../utils/get-grid-info';
+import { channelColourStyle } from '../utils/channel-colour';
 import styles from './index.module.css';
 
 const ChannelItem = ({ channel }) => {
