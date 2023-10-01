@@ -11,12 +11,8 @@ export const parseDuration = (isoDuration) => {
 export const formatDuration = (isoDuration) => {
   const { days, hours, minutes } = parseDuration(isoDuration);
   let result = `${minutes} mins`;
-  if (hours) {
-    result = `${hours} hours, ${result}`;
-  }
-  if (days) {
-    result = `${days} days, ${result}`;
-  }
+  if (hours) result = `${hours} hours, ${result}`;
+  if (days) result = `${days} days, ${result}`;
   return result;
 };
 
